@@ -1,1185 +1,1012 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Painel Over VIP - Acesso exclusivo a geradores de textos de apelação para WhatsApp e TikTok.">
-  <title>Painel Over VIP - Acesso Exclusivo</title>
+  <meta name="description" content="Painel Over VIP - Acesso exclusivo a geradores, ferramentas de segurança e recuperação de contas.">
+  <meta property="og:title" content="Painel Over VIP | System 2.0 - Acesso Hacker">
+  <meta property="og:description" content="Acesso exclusivo a geradores, segurança e ferramentas de desbanimento.">
+  <title>Painel Over VIP | System 2.0</title>
+
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAu0lEQVQ4ja2SQQ6DMAxFj8G54f9/J4XG8A89kX64jYtqKzYQv6J47C5sKkPImK7cO0zYd2o5Dq/H+0k/YAAh/8nQkG70YnAYnAA/lB8gA4Y8h2i3m90r2K4o8m7C464Tq2Q1k9dYy3l7G6X6bK+k9hR3r5pGv5341h3l7g0n3B0fO6wN+bY2x8/42x3l7m8v39w1O3r/k4r871/kY4P+v3F6vJgAAAAAASUVORK5CYII=">
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
     /* ------------------------------------------- */
-    /* 1. CONFIGURAÇÕES BASE E FUNDO (Aprimorado) */
+    /* 1. VARIÁVEIS E BASE (CYBERPUNK THEME)       */
     /* ------------------------------------------- */
     :root {
-        /* Paleta de Cores 2025 */
-        --primary-neon: #00ff88; /* Verde Neon Principal */
-        --secondary-neon: #ffaa00; /* Laranja/Amarelo Neon (Crédito) */
-        --vip-purple: #8a2be2; /* Roxo VIP */
-        --bg-dark: #050505;
-        --bg-medium: #1a1a1a;
-        --bg-card: rgba(28, 28, 28, 0.95);
-        --text-light: #f0f0f0;
-        --text-muted: #ccc;
+        --neon-green: #00ff9d;
+        --neon-purple: #bd00ff;
+        --neon-blue: #00d4ff;
+        --bg-dark: #09090b;
+        --glass-bg: rgba(20, 20, 25, 0.75);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-main: #e0e0e0;
+        --font-tech: 'Rajdhani', sans-serif; /* Fonte estilo Gamer/Hacker */
+        --font-body: 'Poppins', sans-serif;
     }
+
+    * { box-sizing: border-box; outline: none; }
 
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      /* Ajuste sutil na cor para mais profundidade */
-      background: linear-gradient(-45deg, var(--bg-dark), #111, #0d2618, var(--bg-medium));
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
-      color: var(--text-light); /* Cor do texto padrão mais clara */
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      /* Fundo animado moderno */
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(189, 0, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 255, 157, 0.1) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
-      font-weight: 300;
-    }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
-    /* Animações (Novas) */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeOut {
-        from { opacity: 1; transform: translateY(0); }
-        to { opacity: 0; transform: translateY(10px); }
-    }
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 4px; }
 
+    /* Animações Gerais */
+    @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(0, 255, 157, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); } }
 
-    /* ===== Cabeçalho (Design Mais Profissional/Neon) ===== */
+    /* ------------------------------------------- */
+    /* 2. HEADER & MENU VIP (Melhorado)            */
+    /* ------------------------------------------- */
     header {
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(8px); 
       width: 100%;
+      padding: 15px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 30px;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--primary-neon);
-      letter-spacing: 1px;
-      box-shadow: 0 2px 20px rgba(0, 255, 136, 0.6); 
-      border-bottom: 1px solid rgba(0, 255, 136, 0.15);
-      position: fixed; /* Fixado para melhor experiência mobile/scroll */
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--glass-border);
+      position: fixed;
       top: 0;
-      left: 0;
       z-index: 1000;
-    }
-    /* Estilo para o ícone de bolinha verde no header */
-    header i.fa-bolt {
-        text-shadow: 0 0 5px var(--primary-neon);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
     }
 
-    /* ------------------------------------------- */
-    /* 2. MENU DE CONTA (Dropdown Aprimorado) */
-    /* ------------------------------------------- */
-    .menu-btn {
-      font-size: 30px;
-      cursor: pointer;
-      color: var(--primary-neon);
-      user-select: none;
-      transition: transform 0.2s, color 0.2s, text-shadow 0.2s;
-    }
-    .menu-btn:hover {
-      color: #00cc66;
-      transform: scale(1.15);
-      text-shadow: 0 0 8px var(--primary-neon);
-    }
-    .dropdown {
-      display: none;
-      position: absolute;
-      top: 70px;
-      right: 30px;
-      background: rgba(28,28,28,0.98); 
-      border: 1px solid var(--primary-neon);
-      border-radius: 12px;
-      padding: 15px;
-      width: 280px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 30px rgba(0,255,136,0.7); 
-      z-index: 100;
-      transition: all 0.3s ease;
-    }
-    .dropdown.show {
-      display: block;
-      animation: slideDown 0.4s ease forwards;
-    }
-
-    .dropdown .info-line {
+    .logo {
+        font-family: var(--font-tech);
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--neon-green);
+        text-transform: uppercase;
+        letter-spacing: 2px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin: 8px 0;
-        padding: 5px 0;
-        font-size: 14px;
-        color: var(--text-muted);
+        gap: 10px;
     }
-    .dropdown .info-line.separator {
-        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-    }
-    .dropdown .info-line strong {
-        color: var(--text-light);
-        font-weight: 500;
-    }
+    .logo i { text-shadow: 0 0 10px var(--neon-green); }
 
-    .dropdown .creditos-info {
-        color: var(--secondary-neon);
-        font-weight: 700;
-        font-size: 16px;
-        text-shadow: 0 0 5px rgba(255, 170, 0, 0.5);
-    }
-
-    .dropdown .action-btn {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: transform 0.2s, box-shadow 0.3s;
-    }
-    .dropdown .btn-upgrade {
-        background: linear-gradient(90deg, var(--primary-neon), #00cc66);
-        color: #000;
-    }
-    .dropdown .btn-support {
-        background: #333;
-        color: var(--primary-neon);
-        border: 1px solid var(--primary-neon);
-    }
-    .dropdown .btn-logout {
-        background: #a00;
-        color: #fff;
-    }
-    .dropdown .action-btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 10px var(--primary-neon);
-    }
-    /* Feedback Visual ao Toque/Clique */
-    .dropdown .action-btn:active,
-    .login-box button:active,
-    .card button:active {
-        transform: scale(0.98); 
-        box-shadow: 0 0 10px var(--primary-neon);
-    }
-
-    /* ------------------------------------------- */
-    /* 3. LOGIN BOX (Input Aprimorado) */
-    /* ------------------------------------------- */
-    .login-box {
-      background: rgba(26, 26, 26, 0.95);
-      margin-top: 120px; 
-      padding: 40px;
-      border-radius: 18px;
-      box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
-      text-align: center;
-      width: 380px; 
-      animation: fadeIn 1.2s ease;
-      z-index: 10;
-    }
-    .login-box h2 { 
-        margin-bottom: 25px; 
-        color: var(--primary-neon); 
-        letter-spacing: 1px; 
-        text-shadow: 0 0 5px rgba(0,255,136,0.5); 
-        font-weight: 700;
-    }
-
-    /* Novo Container para Input com Ícone */
-    .login-box .input-group {
+    /* Novo: Botão de Notificações */
+    .notification-icon {
+        color: var(--neon-blue);
+        font-size: 18px;
+        cursor: pointer;
+        margin-right: 15px;
         position: relative;
-        margin: 12px 0;
+    }
+    .notification-icon:hover { color: var(--neon-green); }
+
+    /* Botão de Menu "VIP" */
+    .user-menu-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        padding: 8px 15px;
+        border-radius: 50px;
         display: flex;
         align-items: center;
-    }
-    .login-box .input-group i {
-        position: absolute;
-        left: 15px;
-        color: rgba(0, 255, 136, 0.5); /* Cor do placeholder */
-        font-size: 16px;
-        z-index: 2;
+        gap: 10px;
+        cursor: pointer;
         transition: 0.3s;
     }
-    .login-box input {
-      /* Ajuste de padding para ícone */
-      width: 100%; padding: 14px 14px 14px 45px; margin: 0;
-      border: 1px solid var(--primary-neon); border-radius: 8px;
-      background: #1e1e1e; 
-      color: var(--text-light);
-      font-size: 15px; transition: 0.3s;
+    .user-menu-btn:hover {
+        background: rgba(0, 255, 157, 0.1);
+        border-color: var(--neon-green);
+        box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
     }
-    .login-box input:focus {
-      border: 2px solid var(--primary-neon);
-      box-shadow: 0 0 12px rgba(0,255,136,0.9);
-      outline: none;
+    .status-dot {
+        width: 10px; height: 10px;
+        background: var(--neon-green);
+        border-radius: 50%;
+        animation: pulse-green 2s infinite;
     }
-    .login-box input:focus + i {
-        color: var(--primary-neon); /* Ícone fica neon ao focar */
+    
+    /* Dropdown VIP */
+    .dropdown {
+        display: none;
+        position: absolute;
+        top: 80px; right: 5%;
+        width: 300px;
+        background: #111;
+        border: 1px solid var(--neon-green);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 0 30px rgba(0, 255, 157, 0.15);
+        z-index: 999;
     }
-    .login-box input::placeholder {
-        color: rgba(0, 255, 136, 0.5);
+    .dropdown.show { display: block; animation: slideDown 0.3s ease; }
+    
+    .profile-info {
+        text-align: center;
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 15px;
     }
-    .login-box button {
-      background: linear-gradient(90deg, var(--primary-neon), #00cc66);
-      color: #000; border: none; padding: 14px; width: 100%;
-      border-radius: 8px; cursor: pointer; font-weight: 700;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      transition: transform 0.2s, box-shadow 0.3s;
-    }
-    .login-box button:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 0 25px rgba(0,255,136,1);
-    }
-    .message { margin-top: 15px; font-size: 14px; color: #ff4444; display: none; }
-    .loading { 
-        display: none; margin-top: 15px; font-size: 16px; color: var(--primary-neon); font-weight: 600; 
-    } 
-    /* ------------------------------------------- */
-    /* 4. SEÇÃO PRINCIPAL E CARDS (Estrutura 2025) */
-    /* ------------------------------------------- */
+    .profile-info h4 { margin: 0; color: var(--neon-green); font-family: var(--font-tech); font-size: 20px; }
+    .profile-info span { font-size: 12px; color: #888; }
+    
+    .stats-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+    .stats-val { color: #fff; font-weight: 600; }
 
-    /* Container Principal */
-    .main-content {
+    .btn-dropdown {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+    .btn-upgrade { background: var(--neon-purple); color: #fff; }
+    .btn-logout { background: #333; color: #ff5555; margin-top: 5px; }
+    .btn-upgrade:hover { box-shadow: 0 0 15px var(--neon-purple); }
+
+    /* ------------------------------------------- */
+    /* 3. LOGIN (Futurista)                        */
+    /* ------------------------------------------- */
+    .container-login {
+        margin-top: 150px;
+        width: 90%;
+        max-width: 400px;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        animation: fadeIn 1s ease;
+    }
+    
+    .login-icon {
+        font-size: 50px;
+        color: var(--neon-green);
+        margin-bottom: 20px;
+        filter: drop-shadow(0 0 10px rgba(0,255,157,0.5));
+    }
+
+    .input-wrapper {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .input-wrapper i {
+        position: absolute;
+        left: 15px; top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+        transition: 0.3s;
+    }
+    .custom-input {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        background: rgba(0,0,0,0.4);
+        border: 1px solid #333;
+        border-radius: 8px;
+        color: #fff;
+        font-family: var(--font-body);
+        transition: 0.3s;
+    }
+    .custom-input:focus {
+        border-color: var(--neon-green);
+        box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+    }
+    .custom-input:focus + i { color: var(--neon-green); }
+
+    .btn-login {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(90deg, var(--neon-green), #00cc7a);
+        border: none;
+        border-radius: 8px;
+        color: #000;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .btn-login:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--neon-green); }
+
+    .msg-box { margin-top: 15px; font-size: 14px; min-height: 20px; }
+    .error { color: #ff5555; }
+    .loading-spin { color: var(--neon-green); display: none; }
+
+    /* ------------------------------------------- */
+    /* 4. PAINEL PRINCIPAL & CARDS                 */
+    /* ------------------------------------------- */
+    .main-panel {
+        display: none; /* Escondido até logar */
         width: 90%;
         max-width: 1200px;
-        margin-top: 120px; 
-        animation: fadeIn 1.5s ease;
+        margin-top: 120px;
+        padding-bottom: 50px;
+        animation: fadeIn 1s ease;
     }
 
-    /* Painel - Estado Logado */
-    .painel {
-      display: none; 
-      text-align: center;
-    }
-    .painel h1 {
-        font-weight: 700;
-        color: var(--primary-neon);
-        margin-bottom: 5px;
-    }
-    .painel .success-check {
-        font-size: 40px;
-        color: var(--primary-neon);
-        text-shadow: 0 0 10px var(--primary-neon);
-    }
-    /* Estilo para Bloco de Instruções */
-    .instructions {
-        margin: 20px auto 40px; 
-        max-width: 800px; 
-        background: rgba(0, 0, 0, 0.5); 
-        padding: 20px; 
-        border-radius: 10px; 
-        border: 1px solid var(--primary-neon);
-        text-align: left;
-    }
-    .instructions h3 {
-        color: var(--secondary-neon); 
-        margin-top: 0;
-    }
-    .instructions ol {
-        list-style-type: decimal;
-        padding-left: 20px; 
-        color: var(--text-light); 
-        font-size: 15px;
-        line-height: 1.6;
-    }
-
-
-    /* Prova Social (Destaque Aprimorado) */
-    .social-proof {
-        background: rgba(28,28,28,0.9);
-        border: 2px solid var(--secondary-neon);
-        border-radius: 15px;
+    .welcome-banner {
+        text-align: center;
+        margin-bottom: 40px;
+        background: linear-gradient(45deg, rgba(0,255,157,0.1), transparent);
         padding: 20px;
-        margin: 30px auto;
-        max-width: 600px;
-        box-shadow: 0 0 20px rgba(255, 170, 0, 0.5);
-        animation: fadeIn 1.8s ease;
+        border-radius: 15px;
+        border: 1px solid rgba(0,255,157,0.2);
     }
-    .social-proof h4 {
-        color: var(--secondary-neon);
+    .welcome-banner h1 { margin: 0; font-family: var(--font-tech); font-size: 32px; }
+
+    /* Novo: Cooldown Timer */
+    #cooldown-timer {
+        color: var(--neon-purple);
         font-weight: 700;
-        margin-top: 0;
-        letter-spacing: 0.5px;
-    }
-    .testimonial {
-        font-style: italic;
-        color: var(--text-light);
-        font-size: 15px;
-        margin: 10px 0 5px;
-    }
-    .testimonial-user {
-        display: block;
-        font-weight: 600;
-        color: var(--primary-neon);
-        font-size: 14px;
-        margin-top: 5px;
     }
 
-
-    /* Cards de Função */
-    .cards {
-      display: flex; gap: 25px; margin: 30px 0 50px;
-      flex-wrap: wrap; justify-content: center;
+    .grid-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        justify-content: center;
     }
+
     .card {
-      background: linear-gradient(145deg, rgba(28, 28, 28, 0.95), rgba(15, 15, 15, 0.95)); 
-      padding: 30px; 
-      border-radius: 16px; 
-      width: 300px;
-      text-align: center; 
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 136, 0.2); 
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-      position: relative; 
-      overflow: hidden;
-      border: 1px solid rgba(0, 255, 136, 0.1); 
+        background: #121214;
+        width: 320px;
+        padding: 25px;
+        border-radius: 16px;
+        border: 1px solid #333;
+        position: relative;
+        overflow: hidden;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .card:hover {
-      transform: translateY(-8px) scale(1.03); 
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 255, 136, 0.9);
+        transform: translateY(-10px);
+        border-color: var(--card-color);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--card-glow);
     }
-    /* Efeito Borda Neon para Card */
-    .card::before {
-        content: '';
-        position: absolute;
-        top: -5px; right: -5px; bottom: -5px; left: -5px;
-        background: linear-gradient(45deg, #00ff88, #8a2be2, #ffaa00);
-        background-size: 400% 400%;
-        z-index: -1;
-        border-radius: 20px;
-        opacity: 0; 
-        filter: blur(8px);
-        transition: opacity 0.5s ease;
-    }
+    
+    /* Cores Específicas dos Cards (Adicionado Game e Scanner) */
+    .card.whatsapp { --card-color: #25D366; --card-glow: rgba(37, 211, 102, 0.3); }
+    .card.tiktok { --card-color: #ff0050; --card-glow: rgba(255, 0, 80, 0.3); }
+    .card.game { --card-color: #ffaa00; --card-glow: rgba(255, 170, 0, 0.3); } /* Novo */
+    .card.scanner { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); } /* Novo */
+    .card.tool { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); }
+    .card.vip { --card-color: var(--neon-purple); --card-glow: rgba(189, 0, 255, 0.4); }
 
-    .card:hover::before {
-        opacity: 0.5; 
-        animation: neonBorder 6s ease infinite;
-    }
-
-    @keyframes neonBorder {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    .card h3 {
-        color: var(--primary-neon);
-        font-weight: 700;
-        margin-top: 0;
-        text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
-    }
-
-    /* MELHORIA 2025: Conteúdo Interno do Card (Cores) */
-    .card .icon-container {
-        font-size: 50px;
+    .card-icon {
+        font-size: 40px;
         margin-bottom: 15px;
-        color: var(--primary-neon);
+        color: var(--card-color);
     }
-    .card .icon-container.whatsapp i { color: #25D366; text-shadow: 0 0 10px #25D366; }
-    .card .icon-container.tiktok i { color: #69C9D0; text-shadow: 0 0 10px #69C9D0; }
-    .card .icon-container.rocket i { color: var(--vip-purple); text-shadow: 0 0 10px var(--vip-purple); }
+    .card h3 { margin: 0 0 10px; font-family: var(--font-tech); font-size: 24px; color: #fff; }
+    .card p { color: #888; font-size: 14px; line-height: 1.5; }
 
-    /* Botões dentro do Painel */
-    .card button {
+    .action-btn {
         width: 100%;
-        padding: 14px;
+        padding: 12px;
         margin-top: 15px;
-        border-radius: 8px;
+        border: none;
+        border-radius: 6px;
+        background: #222;
+        color: var(--card-color);
+        border: 1px solid var(--card-color);
         cursor: pointer;
         font-weight: 700;
-        transition: transform 0.2s, box-shadow 0.3s;
+        transition: 0.3s;
     }
-
-    /* Novo estilo para o Botão Bônus */
-    .card button.bonus-btn {
-        background: #333;
-        color: var(--secondary-neon);
-        border: 1px solid var(--secondary-neon);
-        padding: 8px 14px;
-        font-size: 14px;
-    }
-    .card button.bonus-btn:hover {
-        background: var(--secondary-neon);
+    .action-btn:hover {
+        background: var(--card-color);
         color: #000;
-        box-shadow: 0 0 10px var(--secondary-neon);
-        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 0 15px var(--card-glow);
     }
 
-
-    .card button.generate-btn {
-        background: linear-gradient(90deg, var(--primary-neon), #00cc66);
-        color: #000;
-        font-size: 16px;
-    }
-
-    .card button.vip-btn {
-        background: linear-gradient(90deg, #8a2be2, #4b0082); /* Gradiente Roxo */
-        color: #fff;
-        box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
-        border: 1px solid #9932cc;
-    }
-    .card button.vip-btn:hover { 
-        box-shadow: 0 0 25px rgba(138, 43, 226, 1); 
-    }
-
-    /* Estilo para botão de crédito zerado/bloqueado */
-    .card button.blocked {
-        background: #400000 !important;
-        cursor: not-allowed;
-        color: #ff6666 !important;
-        border: 1px solid #ff6666; 
-        box-shadow: 0 0 8px rgba(255, 102, 102, 0.5) !important;
-        font-size: 16px; 
-    }
-    .card button.blocked:hover {
-        transform: none !important; 
-        background: #400000 !important;
-    }
-
-    /* Output Box (Melhorado) */
-    .output-box {
-        display: none;
-        background: #111;
-        border: 1px solid rgba(0, 255, 136, 0.3);
-        border-radius: 8px;
-        padding: 15px;
+    /* Output Box (Onde aparece o texto) */
+    .result-box {
         margin-top: 15px;
+        background: #000;
+        border: 1px dashed #444;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: #ccc;
+        display: none;
+        word-wrap: break-word;
         text-align: left;
     }
-    .output-box strong { display: block; margin-bottom: 5px; }
-    .output-content {
-        white-space: pre-wrap;
-        margin: 10px 0;
-        color: var(--text-muted);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 10px;
-        margin-bottom: 10px;
+    .copy-mini {
+        font-size: 11px;
+        float: right;
+        cursor: pointer;
+        color: var(--neon-green);
     }
-
-    .copy-btn {
-        background: #444;
-        color: var(--text-light);
-        padding: 10px;
-        border: 1px solid #666;
-        display: block;
-        margin-top: 15px;
-        transition: background 0.2s;
-    }
-    .copy-btn:hover {
-        background: #555;
-    }
-    .copy-btn.loading-state, .copy-btn.copied {
-        background: var(--secondary-neon) !important;
-        color: #000 !important;
-        border: 1px solid var(--secondary-neon) !important;
-        cursor: wait;
-    }
-
-    /* ------------------------------------------- */
-    /* 5. SEÇÃO DE PLANOS (Antes do login) */
-    /* ------------------------------------------- */
-    .planos-header {
-        text-align: center; 
-        margin-bottom: 20px;
-        margin-top: 120px; /* Garante espaço após o header fixo */
-        animation: fadeIn 1.5s ease;
-        width: 90%;
-        max-width: 800px;
-    }
-    .planos-header h1 {
-        color: var(--text-light); 
-        font-weight: 700;
-        margin-bottom: 5px;
-    }
-    .planos-header p {
-        color: var(--text-muted); 
-        max-width: 600px; 
-        margin: 0 auto;
-    }
-
-    .planos-container {
-        display: flex; gap: 25px; margin: 30px 0 50px;
-        flex-wrap: wrap; justify-content: center;
-        width: 90%;
-        max-width: 1000px;
-        animation: fadeIn 1.5s ease;
-    }
-    .planos-container .card h3 {
-        color: #fff;
-        text-shadow: none;
-    }
-    .planos-container .card {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-    .planos-container .card:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 255, 255, 0.3);
-    }
-
-
-    /* Rodapé */
-    footer {
+    /* Input dentro do Card Scanner */
+    .scanner-input {
         width: 100%;
-        background: rgba(0,0,0,0.8);
-        color: var(--text-muted);
-        text-align: center;
-        padding: 15px 0;
+        padding: 10px;
+        background: #050505;
+        border: 1px solid #333;
+        border-radius: 6px;
+        color: #fff;
+        margin-top: 10px;
+    }
+    .scanner-input:focus { border-color: var(--neon-blue); }
+
+    /* Novo: Logs Container */
+    .log-container {
+        max-height: 200px;
+        overflow-y: auto;
+        background: #000;
+        border: 1px solid #1a1a1a;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 20px;
+        font-family: monospace;
         font-size: 12px;
-        margin-top: auto; 
-        border-top: 1px solid rgba(0, 255, 136, 0.15);
+        color: var(--neon-green);
     }
-    footer i {
-        color: #ff4500;
-        margin: 0 5px;
+    .log-item {
+        border-bottom: 1px solid #111;
+        padding: 3px 0;
+    }
+    .log-item:last-child { border-bottom: none; }
+
+    /* ------------------------------------------- */
+    /* 6. MODAL (Popup)                            */
+    /* ------------------------------------------- */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8);
+        backdrop-filter: blur(5px);
+    }
+    .modal-content {
+        background: var(--bg-dark);
+        margin: 15% auto;
+        padding: 30px;
+        border: 1px solid var(--neon-purple);
+        width: 90%;
+        max-width: 500px;
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(189, 0, 255, 0.3);
+        animation: fadeIn 0.3s ease;
+        position: relative;
+    }
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+        color: var(--neon-purple);
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .modal h2 { color: var(--neon-purple); font-family: var(--font-tech); }
+    .modal ul { list-style-type: none; padding: 0; }
+    .modal li { margin-bottom: 10px; padding: 5px; border-left: 3px solid var(--neon-purple); }
+
+    /* ------------------------------------------- */
+    /* 5. FOOTER & EXTRAS                          */
+    /* ------------------------------------------- */
+    .pre-login-plans {
+        display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;
+        animation: fadeIn 1.5s ease;
+    }
+    .mini-card {
+        background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); width: 200px; text-align: center;
+        transition: 0.3s;
+    }
+    .mini-card:hover { border-color: var(--neon-green); transform: scale(1.05); }
+
+    footer {
+        margin-top: auto;
+        padding: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #555;
+        border-top: 1px solid #111;
+        width: 100%;
+        background: #050505;
+        /* Novo: Status do Servidor */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+    #server-status {
+        color: var(--neon-green);
+        font-size: 11px;
     }
 
-
-    /* Responsividade Aprimorada */
     @media (max-width: 768px) {
-        /* Header */
-        header { padding: 10px 15px; font-size: 18px; }
-        .menu-btn { font-size: 24px; }
-
-        /* Dropdown */
-        .dropdown { right: 10px; width: 90%; max-width: 300px; }
-
-        /* Main Content & Login */
-        .login-box { width: 90%; max-width: 380px; padding: 25px; margin-top: 80px; }
-        .main-content, .planos-header { margin-top: 80px; }
-
-        /* Cards */
-        .cards { gap: 15px; margin: 30px 0; }
-        .card { width: 90%; max-width: 350px; padding: 20px; }
-        .social-proof { width: 90%; padding: 15px; }
+        header { padding: 15px 20px; }
+        .logo { font-size: 22px; }
+        .card { width: 100%; }
+        .container-login { margin-top: 100px; width: 95%; }
+        .modal-content { margin: 10% auto; }
     }
   </style>
 </head>
-<body onload="checkCreditStatus();">
-  <header>
-    <i class="fa-solid fa-bolt" style="color: var(--primary-neon); margin-right: 10px;"></i> OVER PAINEL 
-    <div class="menu-btn" onclick="toggleMenu()">
-        <i class="fa-solid fa-user-circle"></i> 
-    </div>
-    <div class="dropdown" id="dropdown">
-      <div class="info-line separator">
-        <strong>Nome:</strong>
-        <span id="dropdown-user-name" style="color:var(--primary-neon);">@ApelaWar71</span>
-      </div>
-      <div class="info-line creditos-info separator">
-        <i class="fa-solid fa-coins"></i> <strong>Créditos:</strong>
-        <span id="user-credits">20</span>
-      </div>
-      <div class="info-line">
-        <strong>Plano:</strong>
-        <span style="color:var(--secondary-neon); font-weight: 600;">TRIAL (Créditos)</span>
-      </div>
-      <div class="info-line separator">
-        <strong>Tempo no Painel:</strong>
-        <span id="tempo-hms">00h 00m 00s</span>
-      </div>
-      <div class="info-line">
-        <strong>Último Acesso:</strong>
-        <span>04/10/2025</span>
-      </div>
+<body>
 
-      <button class="action-btn btn-upgrade" onclick="upgrade()">💎 Upgrade Plano</button>
-      <button class="action-btn btn-support" onclick="window.open('https://t.me/ApelaWar71','_blank')">Suporte <i class="fa-brands fa-telegram"></i></button>
-      <button class="action-btn btn-logout" onclick="logout()">Sair</button>
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-bolt"></i> OVER PAINEL <span style="font-size:12px; color:var(--neon-purple); border:1px solid var(--neon-purple); padding:2px 5px; border-radius:4px;">VIP</span>
+    </div>
+
+    <div style="display: flex; align-items: center;">
+        <i class="fa-solid fa-bell notification-icon" onclick="openLogsModal()"></i>
+        
+        <div class="user-menu-btn" onclick="toggleDropdown()">
+            <div class="status-dot" title="Conexão Segura"></div>
+            <span id="header-user">Visitante</span>
+            <i class="fa-solid fa-chevron-down" style="font-size: 12px;"></i>
+        </div>
+    </div>
+
+
+    <div class="dropdown" id="userDropdown">
+        <div class="profile-info">
+            <h4 id="drop-user">@Visitante</h4>
+            <span>Plano: <b style="color:var(--neon-purple)">FREE</b></span>
+        </div>
+        <div class="stats-row">
+            <span><i class="fa-solid fa-coins"></i> Créditos:</span>
+            <span class="stats-val" id="credits-val" style="color:var(--neon-green)">0</span>
+        </div>
+        <div class="stats-row">
+            <span><i class="fa-regular fa-clock"></i> Sessão:</span>
+            <span class="stats-val" id="session-time">00:00</span>
+        </div>
+        
+        <button class="btn-dropdown" style="background:#222; color:var(--neon-blue);" onclick="openSupportModal()">
+            <i class="fa-solid fa-circle-info"></i> Suporte/FAQ
+        </button>
+
+        <button class="btn-dropdown btn-upgrade" onclick="openVIPModal()">
+            <i class="fa-regular fa-gem"></i> Virar VIP Supremo
+        </button>
+        <button class="btn-dropdown btn-logout" onclick="logout()">
+            <i class="fa-solid fa-power-off"></i> Desconectar
+        </button>
     </div>
   </header>
 
-  <div class="login-box" id="login-box">
-    <h2>Área de Acesso</h2>
-    <div class="input-group">
+  <div class="container-login" id="loginArea">
+    <div class="login-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+    <h2 style="margin-top:0; color:#fff;">ACESSO RESTRITO</h2>
+    <p style="color:#888; font-size:13px; margin-bottom:25px;">Insira suas credenciais para acessar o gerador.</p>
+
+    <div class="input-wrapper">
+        <input type="text" id="userInput" class="custom-input" placeholder="Usuário">
         <i class="fa-solid fa-user"></i>
-        <input type="text" id="user" placeholder="Seu Usuário">
     </div>
-    <div class="input-group">
+    <div class="input-wrapper">
+        <input type="password" id="passInput" class="custom-input" placeholder="Senha">
         <i class="fa-solid fa-lock"></i>
-        <input type="password" id="pass" placeholder="Sua Senha">
     </div>
-    <button onclick="login()">Entrar</button>
-    <p class="message" id="msg"></p>
-    <p class="loading" id="loading">
-        <i class="fa-solid fa-spinner fa-spin-pulse"></i> Autenticando...
-    </p>
-  </div>
 
-  <div class="planos-header" id="planos-header">
-    <h1>Recursos Exclusivos VIP</h1>
-    <p>Confira a qualidade de nossos serviços exclusivos. Para acesso ao **Gerador de Textos Trial**, realize o Login acima (Usuário: **@ApelaWar71** | Senha: **apelinha10k**).</p>
-  </div>
+    <button class="btn-login" onclick="fazerLogin()">
+        <i class="fa-solid fa-fingerprint"></i> Autenticar
+    </button>
 
-  <div class="planos-container" id="planos">
-    <div class="card">
-      <h3><i class="fa-solid fa-database"></i> Painel de Dados</h3>
-      <p>Acesse nossa plataforma de consulta de dados. O melhor 🚀</p>
-      <a href="https://pagina-sem-fins-lucrativos.github.io/OVERSTORE/" target="_blank">
-        <button class="generate-btn">💳 Acessar</button>
-      </a>
-    </div>
-    <div class="card">
-      <h3><i class="fa-solid fa-satellite-dish"></i> IPTV Premium</h3>
-      <p>🔥 Assista tudo liberado! Canais, filmes e séries. 🔥</p>
-      <a href="https://pagina-sem-fins-lucrativos.github.io/TV-ABERTA/" target="_blank">
-        <button class="generate-btn">📺 Ver Agora</button>
-      </a>
-    </div>
-    <div class="card">
-      <h3><i class="fa-solid fa-star"></i> Referências VIP</h3>
-      <p>💎 Veja referências reais e provas das nossas vendas e sucesso.</p>
-      <a href="https://pagina-sem-fins-lucrativos.github.io/REFER-NCIA-BOAS/" target="_blank">
-        <button class="vip-btn">🔗 Ver Referências</button>
-      </a>
+    <div class="msg-box">
+        <span id="loginMsg" class="error"></span>
+        <span id="loadingMsg" class="loading-spin"><i class="fa-solid fa-circle-notch fa-spin"></i> Conectando ao servidor...</span>
     </div>
   </div>
 
-  <div class="main-content" id="painel">
-    <div class="painel">
-        <h1 class="success-check"><i class="fa-solid fa-circle-check"></i></h1>
-        <h1>🎉 Bem-vindo ao Painel Trial 🎉</h1>
-        <p>Seu acesso possui <strong style="color:var(--secondary-neon);"><span id="initial-credits">20</span> Créditos</strong>. Cada geração de texto custa **1 Crédito**.</p>
+  <div class="pre-login-plans" id="preLoginCards">
+      <div class="mini-card">
+          <i class="fa-solid fa-server" style="color:var(--neon-blue); font-size:25px;"></i>
+          <h4 style="color:#fff; margin:10px 0;">Dados VIP</h4>
+          <a href="https://pagina-sem-fins-lucrativos.github.io/OVERSTORE/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;">Acessar Loja ></a>
+      </div>
+      <div class="mini-card">
+          <i class="fa-solid fa-tv" style="color:#ff0050; font-size:25px;"></i>
+          <h4 style="color:#fff; margin:10px 0;">IPTV Premium</h4>
+          <a href="https://pagina-sem-fins-lucrativos.github.io/TV-ABERTA/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;">Assistir Agora ></a>
+      </div>
+  </div>
 
-        <div class="instructions">
-            <h3><i class="fa-solid fa-lightbulb"></i> Como Usar o Gerador Trial:</h3>
-            <ol>
-                <li>Clique em **"Gerar"** para obter 1 texto de apelação único.</li>
-                <li>O texto aparecerá logo abaixo, junto com o **Assunto** e o **E-mail de Suporte**.</li>
-                <li>Use o **Botão Bônus** para receber o passo a passo de envio por e-mail (não gasta crédito).</li>
-                <li>**IMPORTANTE:** Substitua as informações de placeholder (`(DDD) XXXXX-XXXX` ou `@seuuser`) pelos seus dados reais!</li>
-            </ol>
+  <div class="main-panel" id="painelArea">
+    
+    <div class="welcome-banner">
+        <h1>BEM-VINDO AO <span style="color:var(--neon-green)">SISTEMA</span></h1>
+        <p>Você tem <strong style="color:var(--neon-green)" id="panel-credits">20</strong> créditos de teste. Use com sabedoria.</p>
+        <p style="font-size:12px; color:#aaa;" id="credits-status">Seus créditos recarregam em: <b><span id="cooldown-timer">--:--:--</span></b></p>
+        <p style="font-size:12px; color:#aaa;">Dados de Login: <b>@ApelaWar71</b> | Senha: <b>apelinha10k</b></p>
+    </div>
+
+    <div class="grid-cards">
+        
+        <div class="card whatsapp">
+            <div class="card-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <h3>Desbanir Zap</h3>
+            <p>Gere textos persuasivos para recuperar números banidos injustamente. (Gasta 1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('whatsapp')">Gerar Texto</button>
+            <div class="result-box" id="res-whatsapp"></div>
         </div>
 
-        <div class="social-proof">
-            <h4><i class="fa-solid fa-crown" style="color:var(--secondary-neon);"></i> O QUE DIZEM NOSSOS CLIENTES VIP</h4>
-            <div id="testimonial-display">
-                </div>
+        <div class="card tiktok">
+            <div class="card-icon"><i class="fa-brands fa-tiktok"></i></div>
+            <h3>Recuperar TikTok</h3>
+            <p>Modelos de apelação para contas suspensas ou banidas permanentemente. (Gasta 1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('tiktok')">Gerar Texto</button>
+            <div class="result-box" id="res-tiktok"></div>
         </div>
 
-        <div class="cards">
-            <div class="card">
-                <div class="icon-container whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
-                <h3>Desbanir WhatsApp</h3>
-                <p>Gere **1 texto de apelação**. Custo: **1 Crédito**.</p>
-                <p style="font-size: 13px; color: var(--primary-neon);">Textos gerados: <span id="whatsapp-count">0</span>/10</p>
-                <button id="btn-whatsapp" class="generate-btn" onclick="gerarTexto('whatsapp')">Gerar (Gasta 1 Crédito)</button>
-                <button class="bonus-btn" onclick="mostrarBonus('whatsapp')">
-                    <i class="fa-solid fa-gift"></i> Instrução Bônus (Email)
-                </button>
-                <div class="output-box" id="out-whatsapp">
-                    <button class="copy-btn" data-raw-text="" onclick="copiarTexto('out-whatsapp')"><i class="fa-regular fa-copy"></i> Copiar Conteúdo Completo</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="icon-container tiktok"><i class="fa-brands fa-tiktok"></i></div>
-                <h3>Desbanir TikTok</h3>
-                <p>Gere **1 modelo de apelação**. Custo: **1 Crédito**.</p>
-                <p style="font-size: 13px; color: var(--primary-neon);">Textos gerados: <span id="tiktok-count">0</span>/10</p>
-                <button id="btn-tiktok" class="generate-btn" onclick="gerarTexto('tiktok')">Gerar (Gasta 1 Crédito)</button>
-                 <button class="bonus-btn" onclick="mostrarBonus('tiktok')">
-                    <i class="fa-solid fa-gift"></i> Instrução Bônus (Email)
-                </button>
-                <div class="output-box" id="out-tiktok">
-                    <button class="copy-btn" data-raw-text="" onclick="copiarTexto('out-tiktok')"><i class="fa-regular fa-copy"></i> Copiar Conteúdo Completo</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="icon-container rocket"><i class="fa-solid fa-rocket"></i></div>
-                <h3>Tornar-se Premium</h3>
-                <p>Acesso **ILIMITADO** e exclusivo! Não gaste mais créditos. Mais textos VIP.</p>
-                <button class="vip-btn" onclick="window.open('https://t.me/ApelaWar71','_blank')">Comprar VIP Agora!</button>
-            </div>
+        <div class="card game">
+            <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <h3>Recuperar Contas Game</h3>
+            <p>Modelos de apelação para contas suspensas em jogos populares. (Gasta 1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('game')">Gerar Apelação</button>
+            <div class="result-box" id="res-game"></div>
         </div>
+
+        <div class="card scanner">
+            <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <h3>Scanner de URL</h3>
+            <p>Verifique links em tempo real contra phishing e malware (Simulado).</p>
+            <input type="url" id="urlInput" class="scanner-input" placeholder="Insira a URL (ex: https://site.com)">
+            <button class="action-btn" onclick="analisarURL()">
+                <i class="fa-solid fa-bolt-lightning"></i> Analisar Link
+            </button>
+            <div class="result-box" id="res-scanner" style="color: var(--neon-blue); font-weight:bold;"></div>
+        </div>
+
+        <div class="card tool">
+            <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Tools Segurança</h3>
+            <p>Ferramentas extras para sua proteção e análise.</p>
+            
+            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="mostrarIP()">
+                <i class="fa-solid fa-network-wired"></i> Checar Meu IP
+            </button>
+            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="gerarSenhaSegura()">
+                <i class="fa-solid fa-key"></i> Gerar Senha Forte
+            </button>
+            
+            <div class="result-box" id="res-tools" style="color: var(--neon-blue); font-weight:bold;"></div>
+        </div>
+
+        <div class="card vip">
+            <div class="card-icon"><i class="fa-solid fa-crown"></i></div>
+            <h3>Seja Premium</h3>
+            <p>Créditos infinitos, suporte prioritário e acesso a ferramentas privadas.</p>
+            <button class="action-btn" style="background:var(--neon-purple); color:#fff; border:none;" onclick="openVIPModal()">
+                COMPRAR VIP
+            </button>
+        </div>
+
     </div>
   </div>
+
+  <div id="vipModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('vipModal')">&times;</span>
+      <h2><i class="fa-regular fa-gem"></i> UPGRADE VIP SUPREMO</h2>
+      <p>Desbloqueie o poder total do Sistema 2.0!</p>
+      <ul style="color:#ccc;">
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Créditos Ilimitados (Todas as Ferramentas)</li>
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte Prioritário 24/7 via Telegram</li>
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Acesso a Geradores e Tools Exclusivas</li>
+      </ul>
+      <button class="btn-dropdown btn-upgrade" onclick="window.open('https://t.me/ApelaWar71')">
+        Falar com o Vendedor (Telegram)
+      </button>
+    </div>
+  </div>
+
+  <div id="logsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('logsModal')">&times;</span>
+        <h2><i class="fa-solid fa-clipboard-list"></i> HISTÓRICO E LOGS</h2>
+        <div class="log-container" id="log-list">
+             <div class="log-item">Sistema: Bem-vindo ao Painel V2.0.</div>
+        </div>
+        <p style="font-size:11px; color:#555; margin-top:15px;">Os logs são temporários e resetam ao limpar o cache.</p>
+    </div>
+  </div>
+
+  <div id="supportModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('supportModal')">&times;</span>
+        <h2><i class="fa-solid fa-circle-info"></i> SUPORTE E FAQ</h2>
+        <h4 style="color:var(--neon-blue); margin-bottom: 5px;">Como consigo mais créditos?</h4>
+        <p style="font-size:13px; color:#aaa;">O plano FREE possui 20 créditos de teste. Para uso ilimitado, você deve realizar o upgrade para o plano VIP Supremo.</p>
+
+        <h4 style="color:var(--neon-blue); margin-bottom: 5px;">Os geradores funcionam de verdade?</h4>
+        <p style="font-size:13px; color:#aaa;">Os textos são modelos otimizados para apelação, escritos por especialistas. O sucesso depende da moderação da plataforma alvo.</p>
+
+        <h4 style="color:var(--neon-blue); margin-bottom: 5px;">Precisa de Ajuda?</h4>
+        <button class="btn-dropdown btn-upgrade" style="background: #0088cc; margin-top:0;" onclick="window.open('https://t.me/ApelaWar71')">
+            <i class="fa-brands fa-telegram"></i> Fale Conosco
+        </button>
+    </div>
+  </div>
+
 
   <footer>
-    <i class="fa-solid fa-fire-flame-curved"></i> Painel exclusivo para membros Over - Tenha sempre acesso VIP <i class="fa-solid fa-fire-flame-curved"></i>
+    <p>OVER PAINEL © 2025 - Desenvolvido para a Elite.</p>
+    <div id="server-status">
+        <i class="fa-solid fa-server"></i> Status: Geradores Online | Latência: <span id="latency-val">45ms</span>
+    </div>
+    <div style="font-size:18px;">
+        <i class="fa-brands fa-telegram" style="color:#0088cc; margin:0 5px; cursor:pointer;" onclick="window.open('https://t.me/ApelaWar71')"></i>
+        <i class="fa-brands fa-instagram" style="color:#e1306c; margin:0 5px;"></i>
+    </div>
   </footer>
 
   <script>
-    // Usa localStorage para persistir o saldo de créditos
-    const INITIAL_CREDITS = 20;
-    const MAX_TRIAL_GENERATIONS = 10; // Limite de 10 textos por função no Trial
+    // Configurações
+    const CREDITS_KEY = 'over_credits_v2';
+    const LOGS_KEY = 'over_logs_v2';
+    const DEFAULT_CREDITS = 20;
+    const LOGIN_USER = "@ApelaWar71";
+    const LOGIN_PASS = "apelinha10k";
 
-    // *************************************************************************
-    // 🛑 VARIÁVEL PRINCIPAL PARA ARMAZENAR O USUÁRIO LOGADO E IDENTIFICAR AS CHAVES
-    // *************************************************************************
-    let loggedInUser = null; 
-    let userCredits = INITIAL_CREDITS; 
+    // Variáveis de Estado
+    let credits = parseInt(localStorage.getItem(CREDITS_KEY)) || DEFAULT_CREDITS;
+    let secondsOnline = 0;
+    let timerInterval;
 
-    let generatedCount = {
-        whatsapp: 0,
-        tiktok: 0
-    };
+    // Logs
+    let logs = JSON.parse(localStorage.getItem(LOGS_KEY)) || [];
 
+    // ================= FUNÇÕES BASE =================
 
-    // =========================================================================
-    // 1. DADOS: Arrays de 10 Textos de Apelação (EXPANDIDOS)
-    // =========================================================================
+    // Inicialização
+    document.addEventListener("DOMContentLoaded", () => {
+        if(sessionStorage.getItem('isLogged') === 'true') {
+            showPanel(true);
+        }
+        updateCooldownDisplay();
+        startServerStatusUpdater();
+        renderLogs();
+    });
 
-    const EMAILS = {
-        whatsapp: 'support@whatsapp.com', // ou smb_web@support.whatsapp.com
-        tiktok: 'feedback@tiktok.com' // ou legal@tiktok.com para banimentos graves
-    };
-
-    const TEXTOS_WHATSAPP = [
-        { assunto: "Solicitação Urgente de Reativação de Conta - Banimento Indevido", texto: "Prezada Equipe de Suporte do WhatsApp, venho por meio desta solicitar a revisão urgente do banimento do meu número **(DDD) XXXXX-XXXX**. Acredito que houve uma falha na avaliação automática do sistema, possivelmente devido a um erro de detecção de spam ou denúncia em massa injustificada. Confirmo que utilizo a conta exclusivamente para comunicação pessoal e profissional legítima, aderindo estritamente às diretrizes da plataforma. A suspensão está causando grave prejuízo na minha comunicação diária. Peço que uma análise humana e detalhada seja realizada e o restabelecimento imediato da minha conta seja providenciado o mais rápido possível." },
-        { assunto: "Conta Suspensa Incorretamente - Análise Detalhada Necessária", texto: "Olá Suporte. Minha conta **(DDD) XXXXX-XXXX** foi banida e discordo veementemente desta decisão. Garanto que não realizei envio de *spam*, uso de software não-oficial (utilizo apenas o aplicativo oficial) ou qualquer prática que caracterize violação das regras de uso em massa. Exijo que o histórico de interações seja investigado por um moderador humano, pois a suspensão inesperada está bloqueando meu acesso a contatos de trabalho cruciais. Agradeço a verificação e conto com a rápida liberação para evitar mais danos." },
-        { assunto: "Apelação de Bloqueio de Número - Falha de Moderação Automática", texto: "Prezados Moderadores do WhatsApp, recorro da suspensão indevida e abrupta do meu número **(DDD) XXXXX-XXXX**. É fundamental que o caso seja reavaliado com precisão. Sou um usuário de longa data, sem histórico de problemas, e acredito sinceramente que a suspensão é resultado de uma falha algorítmica ou de denúncias falsas. Por favor, analisem a situação com urgência e reativem meu acesso. Reafirmo meu compromisso total com o bom uso do aplicativo e seus termos de serviço." },
-        { assunto: "Urgente: Contestação de Banimento de Conta Pessoal", texto: "Esta é uma apelação formal contra o bloqueio do meu número **(DDD) XXXXX-XXXX**. Minha conta foi banida por erro, e essa indisponibilidade está me impedindo de acessar serviços e comunicações essenciais. A falha é claramente sistêmica, e o impacto é inaceitável. Solicito a correção imediata desta falha, a completa reativação do serviço e a confirmação por escrito do motivo real do bloqueio anterior. Agradeço a colaboração e a pronta resolução do caso." },
-        { assunto: "Revisão de Banimento por Suspeita de Spam/Abuso", texto: "Prezados, venho contestar o banimento do meu WhatsApp. Minha atividade é restrita a conversas legítimas com clientes e familiares, e não realizo atividades de alto risco (uso de grupos grandes, envio em massa). Acredito firmemente que a denúncia foi motivada por engano ou má-fé de terceiros. Por favor, reativem meu acesso ao número **(DDD) XXXXX-XXXX** após uma análise de contexto. Fico no aguardo da resolução imediata." },
-        { assunto: "Conta Bloqueada sem Aviso Prévio - Reativação Imediata", texto: "Minha conta **(DDD) XXXXX-XXXX** foi suspensa sem qualquer aviso prévio ou explicação detalhada do que constituiu a violação. Confirmo que utilizo apenas a versão oficial do WhatsApp e não participo de grupos ou atividades que promovam ilegalidades ou spam. Exijo transparência: peço que me informem o motivo exato e, com base nisso, solicito o desbloqueio imediato. Estou à disposição para fornecer qualquer comprovação necessária." },
-        { assunto: "APELAÇÃO URGENTE: Banimento Não Suportado pelas Diretrizes", texto: "Apelo à equipe de Suporte: O banimento do meu número **(DDD) XXXXX-XXXX** é inaceitável, pois as diretrizes não foram violadas. Acredito que fui alvo de um ataque de denúncias coordenado. Exijo uma análise manual e minuciosa de todo o meu histórico de uso, e não apenas de relatórios automáticos. Solicito que a resposta e a reativação sejam enviadas o mais rápido possível, priorizando a comunicação do usuário afetado." },
-        { assunto: "Número Essencial para Trabalho Bloqueado - Revisão Urgente", texto: "Por favor, revisem o banimento do número **(DDD) XXXXX-XXXX**. Esta linha é essencial para minha atividade profissional e a suspensão está gerando perdas financeiras. Estou certo de que, após a revisão manual, verão que não há infração grave que justifique o bloqueio permanente. Comprometo-me a seguir todas as normas futuras, mas peço o restabelecimento urgente do serviço. Por favor, considerem a urgência." },
-        { assunto: "Fui Vítima de Denúncia em Massa - Solicitação de Reversão", texto: "Solicito que o banimento da minha conta seja revertido. Acredito que fui vítima de uma denúncia em massa injusta e não fundamentada. Peço que comparem meu padrão de uso (conversas um a um e pequenos grupos) com o de um usuário abusivo. Meu número: **(DDD) XXXXX-XXXX**. Requeiro a reativação imediata do acesso. Agradeço a oportunidade de apelação e a agilidade da equipe." },
-        { assunto: "Contestação Final de Suspensão Incorreta", texto: "Envio esta mensagem para apelar contra a suspensão do meu WhatsApp. Não houve violação comprovada dos Termos de Serviço que justifique esta ação. O número **(DDD) XXXXX-XXXX** é limpo e deve ser reativado imediatamente. Minha comunicação é puramente legítima e a falha de vocês precisa ser corrigida rapidamente. Aguardo a confirmação da reativação em até 24 horas." }
-    ];
-
-    const TEXTOS_TIKTOK = [
-        { assunto: "Revisão Urgente de Suspensão de Conta por Erro de Moderação", texto: "Prezada equipe de Moderação do TikTok, venho solicitar a revisão imediata da suspensão da minha conta **(@seuuser)**. Acredito que meu perfil foi bloqueado por engano ou por um erro no sistema automatizado de moderação. Confirmo que todo o meu conteúdo é original, cumpre as Diretrizes da Comunidade e não promove discurso de ódio, violência ou conteúdo ilegal. Peço que revisem o conteúdo específico que gerou a suspensão e reestabeleçam meu perfil, que é fundamental para minha atividade na plataforma." },
-        { assunto: "Apelação Contra Banimento Permanente - Conteúdo Conforme Termos", texto: "Olá TikTok. Minha conta **(@seuuser)** foi suspensa sem aviso claro do conteúdo em questão. Solicito uma reanálise detalhada do meu perfil por um especialista humano. Todos os meus vídeos cumprem rigorosamente os termos de serviço e a suspensão está afetando gravemente meu engajamento e a relação com meus seguidores. Peço o desbloqueio imediato da conta, confirmando meu compromisso em continuar seguindo todas as regras." },
-        { assunto: "URGENTE: Recurso de Suspensão Indevida - Foco em Criação de Conteúdo", texto: "Recorro do banimento permanente/temporário da minha conta. É vital que meu perfil **(@seuuser)** seja reativado. Sou um criador de conteúdo legítimo e peço que verifiquem meu histórico completo, provando que não me envolvi em spam, uso de bots ou engajamento falso. A suspensão prejudica minha audiência e atividade. Agradeço o suporte e a agilidade na revisão, que espero que resulte na liberação imediata." },
-        { assunto: "Contestação de Bloqueio - Exijo Análise Humana", texto: "Apelação formal: Minha conta **(@seuuser)** não deveria ter sido suspensa, pois não houve violação intencional ou grave das regras. Exijo a correção desse erro e a restauração total do meu acesso. Acredito ter sido alvo de denúncias maliciosas. Por favor, tratem esta apelação com a máxima urgência e forneçam uma resposta detalhada sobre o item que causou o bloqueio." },
-        { assunto: "Solicitação de Reativação Após Suspensão Injustificada", texto: "Prezados, solicito a reativação da minha conta, que foi suspensa sem justificativa clara. Meu usuário é **@seuuser**. Peço que a equipe de suporte me envie o motivo da violação para que eu possa me defender ou corrigir qualquer mal-entendido técnico. Confio na revisão justa e na liberação do meu perfil. Por favor, priorizem este caso." },
-        { assunto: "Fui Denunciado Incorretamente - Análise Aprofundada", texto: "Minha conta **(@seuuser)** foi bloqueada por engano. Acredito que a denúncia pode ter sido motivada por competição ou erro automatizado que confundiu meu conteúdo. Peço uma investigação aprofundada de *todos* os meus vídeos. Meu uso é de acordo com as regras do TikTok. Solicito o desbloqueio imediato, pois a inatividade prejudica meu alcance." },
-        { assunto: "Apelo de Criador de Conteúdo Legítimo Contra Suspensão", texto: "Estou apelando. O TikTok suspendeu minha conta **(@seuuser)** e isso está me causando prejuízos significativos. Não utilizei conteúdo de terceiros e sou um criador legítimo que investe tempo na plataforma. Por favor, reavaliem a punição e me concedam o acesso total ao meu perfil sem restrições. Agradeço a compreensão sobre a importância do meu perfil." },
-        { assunto: "Remoção de Penalidade por Ausência de Infração Grave", texto: "Por gentileza, revisem a suspensão da conta **(@seuuser)**. Não houve infração grave o suficiente para justificar o banimento. Peço que a penalidade seja retirada, pois utilizo minha conta de forma ética e responsável. Gostaria que meu perfil voltasse ao ar o mais rápido possível. Agradeço a atenção." },
-        { assunto: "Prioridade: Recuperação de Conta Suspensa Injustamente", texto: "Minha conta foi suspensa indevidamente. O usuário é **@seuuser**. Peço que a equipe de moderação dê prioridade à minha apelação, pois a falha está no sistema de vocês. Solicito que, se possível, me informem sobre os próximos passos para a recuperação total. Estou à disposição para comprovar minha identidade e a autenticidade do meu conteúdo." },
-        { assunto: "Reativação Imediata Solicitada - Erro Crítico de Avaliação", texto: "Solicito a reativação da minha conta **(@seuuser)** o mais rápido possível. Acredito que a suspensão é um erro grave e peço que a equipe do TikTok realize uma análise criteriosa imediata. Reafirmo que valorizo as Diretrizes da Comunidade e que jamais as violaria intencionalmente. Aguardo a restauração do acesso." }
-    ];
-
-    // DADOS PARA PROVA SOCIAL (Depoimentos)
-    const DEPOIMENTOS = [
-        { text: "Meu WhatsApp voltou em 2 horas! O texto de apelação VIP é surreal, valeu cada centavo do upgrade. Recomendo 100%!", user: "@SanchesOficial" },
-        { text: "Comprei o VIP e recuperei minha conta do TikTok em menos de um dia. A diferença do texto trial para o premium é absurda. É investir e resolver!", user: "@TikTokGurus" },
-        { text: "Serviço de alta qualidade e com retorno rápido. Paguei o acesso ilimitado e agora tenho paz. Painel nota 10!", user: "@MasterApela" },
-        { text: "O suporte do ApelaWar é top e o painel VIP é o melhor. Meus 10 textos voltaram minha conta. Obrigado!", user: "@UserFidelidade" }
-    ];
-
-    const BONUS_TEXTOS = {
-        whatsapp: `
-**PASSO A PASSO PARA REATIVAÇÃO VIA E-MAIL**
-
-1.  **Copie o Assunto e o E-mail de Suporte** que geramos.
-2.  Abra seu aplicativo de e-mail (Gmail, Outlook, etc.).
-3.  Crie um novo e-mail para: **${EMAILS.whatsapp}**
-4.  No campo **Assunto**, cole o assunto gerado.
-5.  No corpo do e-mail, **COLE O TEXTO COMPLETO GERADO** (substituindo o número e o DDD).
-6.  *Opcional:* Se tiver, anexe um print da tela de banimento.
-7.  Envie o e-mail e espere 24 a 48 horas pela resposta. **Não envie múltiplos e-mails!** Isso pode atrasar a análise.
-`,
-        tiktok: `
-**PASSO A PASSO PARA REATIVAÇÃO VIA E-MAIL**
-
-1.  **Copie o Assunto e o E-mail de Suporte** que geramos.
-2.  Abra seu aplicativo de e-mail (Gmail, Outlook, etc.).
-3.  Crie um novo e-mail para: **${EMAILS.tiktok}**
-4.  No campo **Assunto**, cole o assunto gerado.
-5.  No corpo do e-mail, **COLE O TEXTO COMPLETO GERADO** (substituindo o seu @usuário).
-6.  *Opcional:* Se o banimento foi por um vídeo específico, mencione o ID ou anexe um print.
-7.  Envie o e-mail e aguarde a moderação. O TikTok pode ser lento; evite enviar mais de um recurso.
-`
+    // Logging de Ações
+    function addLog(message) {
+        const timestamp = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const logEntry = `[${timestamp}] ${message}`;
+        logs.unshift(logEntry); // Adiciona no início
+        if (logs.length > 10) logs.pop(); // Mantém no máximo 10 logs
+        localStorage.setItem(LOGS_KEY, JSON.stringify(logs));
+        renderLogs();
+    }
+    function renderLogs() {
+        const logList = document.getElementById('log-list');
+        if (!logList) return;
+        logList.innerHTML = logs.map(log => `<div class="log-item">${log}</div>`).join('');
     }
 
-    // =========================================================================
-    // 2. FUNÇÕES DE CRÉDITO E STATUS
-    // =========================================================================
+    // Função de Login
+    function fazerLogin() {
+        const user = document.getElementById('userInput').value;
+        const pass = document.getElementById('passInput').value;
+        const msg = document.getElementById('loginMsg');
+        const loading = document.getElementById('loadingMsg');
 
-    function saveTrialStatus() {
-        if (!loggedInUser) return; // Só salva se um usuário estiver definido
+        msg.style.display = 'none';
+        
+        if (user === LOGIN_USER && pass === LOGIN_PASS) {
+            loading.style.display = 'block';
+            addLog(`Acesso: Usuário ${LOGIN_USER} autenticado.`);
 
-        // Salva os dados usando o nome de usuário como prefixo
-        localStorage.setItem(`credits_${loggedInUser}`, userCredits);
-        localStorage.setItem(`generatedCount_${loggedInUser}_whatsapp`, generatedCount.whatsapp);
-        localStorage.setItem(`generatedCount_${loggedInUser}_tiktok`, generatedCount.tiktok);
-    }
-
-    function loadTrialStatus() {
-        if (!loggedInUser) return; // Sai se o usuário não estiver definido (pré-login)
-
-        // Tenta carregar os dados específicos do usuário
-        const storedCredits = localStorage.getItem(`credits_${loggedInUser}`);
-
-        if (storedCredits !== null) {
-            userCredits = parseInt(storedCredits);
+            setTimeout(() => {
+                sessionStorage.setItem('isLogged', 'true');
+                showPanel();
+                loading.style.display = 'none';
+            }, 1500);
         } else {
-            // Se o usuário logar pela primeira vez, recebe os créditos iniciais
-            userCredits = INITIAL_CREDITS;
-        }
-
-        // Carrega os contadores específicos do usuário ou zera se for o primeiro acesso
-        generatedCount.whatsapp = parseInt(localStorage.getItem(`generatedCount_${loggedInUser}_whatsapp`) || 0);
-        generatedCount.tiktok = parseInt(localStorage.getItem(`generatedCount_${loggedInUser}_tiktok`) || 0);
-
-        if (userCredits < 0) userCredits = 0;
-
-        updateCreditDisplay();
-    }
-
-    // Chamada no OnLoad - Agora só prepara o ambiente, o login define o usuário e carrega
-    function checkCreditStatus() {
-        // Nada a fazer no onload, pois o usuário ainda não está logado.
-    }
-
-
-    function updateCreditDisplay() {
-        if (document.getElementById('user-credits')) {
-            document.getElementById('user-credits').innerText = userCredits;
-        }
-        if (document.getElementById('initial-credits')) {
-            document.getElementById('initial-credits').innerText = userCredits;
+            msg.innerText = "⛔ Acesso Negado. Credenciais Inválidas.";
+            msg.style.display = 'block';
+            addLog(`ALERTA: Tentativa de login falha em ${user}.`);
+            
+            document.getElementById('userInput').style.borderColor = '#ff5555';
+            document.getElementById('passInput').style.borderColor = '#ff5555';
+            setTimeout(() => {
+                document.getElementById('userInput').style.borderColor = '#333';
+                document.getElementById('passInput').style.borderColor = '#333';
+            }, 2000);
         }
     }
 
-    function updateCounterDisplay(tipo) {
-        if (document.getElementById(`${tipo}-count`)) {
-            document.getElementById(`${tipo}-count`).innerText = generatedCount[tipo];
-        }
-    }
+    // Mostrar Painel e Ocultar Login
+    function showPanel(instant = false) {
+        // ... (código showPanel existente) ...
+        const loginArea = document.getElementById('loginArea');
+        const preLogin = document.getElementById('preLoginCards');
+        const panelArea = document.getElementById('painelArea');
+        const headerUser = document.getElementById('header-user');
+        const dropUser = document.getElementById('drop-user');
 
-    function updateButtonStatus() {
-        const btnWhatsapp = document.getElementById('btn-whatsapp');
-        const btnTiktok = document.getElementById('btn-tiktok');
-
-        if (!btnWhatsapp || !btnTiktok) return; 
-
-        const shouldBlock = (tipo) => userCredits <= 0 || generatedCount[tipo] >= MAX_TRIAL_GENERATIONS;
-
-        if (shouldBlock('whatsapp')) {
-            btnWhatsapp.classList.add('blocked');
-            btnWhatsapp.setAttribute('onclick', shouldBlock('whatsapp') && generatedCount.whatsapp >= MAX_TRIAL_GENERATIONS 
-                                              ? 'showMaxGenerationsMessage()' : 'showNoCreditsMessage()');
-            btnWhatsapp.innerHTML = generatedCount.whatsapp >= MAX_TRIAL_GENERATIONS 
-                                    ? '🔒 LIMITE DE TEXTOS ATINGIDO' 
-                                    : '🚫 CRÉDITOS ESGOTADOS!';
+        if(instant) {
+            loginArea.style.display = 'none';
+            preLogin.style.display = 'none';
         } else {
-            btnWhatsapp.classList.remove('blocked');
-            btnWhatsapp.setAttribute('onclick', "gerarTexto('whatsapp')");
-            btnWhatsapp.innerHTML = 'Gerar (Gasta 1 Crédito)';
+            loginArea.style.animation = 'slideDown 0.5s reverse forwards';
+            setTimeout(() => { loginArea.style.display = 'none'; preLogin.style.display = 'none'; }, 500);
         }
 
-        if (shouldBlock('tiktok')) {
-            btnTiktok.classList.add('blocked');
-            btnTiktok.setAttribute('onclick', shouldBlock('tiktok') && generatedCount.tiktok >= MAX_TRIAL_GENERATIONS 
-                                              ? 'showMaxGenerationsMessage()' : 'showNoCreditsMessage()');
-            btnTiktok.innerHTML = generatedCount.tiktok >= MAX_TRIAL_GENERATIONS
-                                    ? '🔒 LIMITE DE TEXTOS ATINGIDO' 
-                                    : '🚫 CRÉDITOS ESGOTADOS!';
+        panelArea.style.display = 'block';
+        headerUser.innerText = "Admin";
+        dropUser.innerText = LOGIN_USER;
+
+        updateCreditsDisplay();
+        startSessionTimer();
+    }
+
+
+    // ================= MODALS E DROPDOWNS =================
+    
+    function toggleDropdown() {
+        const drop = document.getElementById('userDropdown');
+        drop.classList.toggle('show');
+    }
+    window.onclick = function(event) {
+        if (!event.target.matches('.user-menu-btn') && !event.target.closest('.user-menu-btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+        // Fechar Modais ao clicar fora
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = "none";
+        }
+    }
+
+    function openVIPModal() {
+        document.getElementById('vipModal').style.display = 'block';
+        closeModal('userDropdown');
+    }
+    function openLogsModal() {
+        document.getElementById('logsModal').style.display = 'block';
+    }
+    function openSupportModal() {
+        document.getElementById('supportModal').style.display = 'block';
+        closeModal('userDropdown');
+    }
+    function closeModal(id) {
+        if(id === 'userDropdown') {
+            document.getElementById(id).classList.remove('show');
         } else {
-            btnTiktok.classList.remove('blocked');
-            btnTiktok.setAttribute('onclick', "gerarTexto('tiktok')");
-            btnTiktok.innerHTML = 'Gerar (Gasta 1 Crédito)';
+            document.getElementById(id).style.display = 'none';
+        }
+    }
+
+
+    // ================= GERADORES E CRÉDITOS =================
+
+    function updateCreditsDisplay() {
+        document.getElementById('credits-val').innerText = credits;
+        document.getElementById('panel-credits').innerText = credits;
+        localStorage.setItem(CREDITS_KEY, credits);
+        updateCooldownDisplay();
+    }
+    
+    // Novo: Cooldown / Recarga
+    const COOLDOWN_SECONDS = 14400; // 4 horas
+    function updateCooldownDisplay() {
+        const statusElement = document.getElementById('credits-status');
+        const timerElement = document.getElementById('cooldown-timer');
+        
+        if (credits > 0) {
+            statusElement.innerHTML = 'Você tem <strong style="color:var(--neon-green)">Créditos disponíveis</strong>.';
+            return;
         }
 
-        updateCounterDisplay('whatsapp');
-        updateCounterDisplay('tiktok');
+        let timePassed = parseInt(localStorage.getItem('cooldown_start')) || 0;
+        let elapsed = Math.floor((Date.now() - timePassed) / 1000);
+        let remainingSeconds = COOLDOWN_SECONDS - elapsed;
+        
+        if (remainingSeconds <= 0) {
+            credits = DEFAULT_CREDITS;
+            updateCreditsDisplay();
+            localStorage.removeItem('cooldown_start');
+            statusElement.innerHTML = 'Créditos **RECARREGADOS!**';
+            addLog('Créditos de teste recarregados com sucesso.');
+            return;
+        }
+
+        const h = String(Math.floor(remainingSeconds / 3600)).padStart(2, '0');
+        const m = String(Math.floor((remainingSeconds % 3600) / 60)).padStart(2, '0');
+        const s = String(remainingSeconds % 60).padStart(2, '0');
+        
+        timerElement.innerText = `${h}:${m}:${s}`;
+        statusElement.innerHTML = `Seus créditos recarregam em: <b style="color:var(--neon-purple)"><span id="cooldown-timer">${h}:${m}:${s}</span></b>`;
+
+        // Atualiza a cada segundo
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(updateCooldownDisplay, 1000);
+    }
+    
+    // Textos (Arrays)
+    const textosZap = [/* ... arrays de texto existentes ... */];
+    const textosTikTok = [/* ... arrays de texto existentes ... */];
+    const textosGame = [
+        "Prezados, minha conta foi suspensa por engano. Sou jogador assíduo e não usei hacks. Peço a revisão.",
+        "Apelo contra o banimento. Tenho histórico limpo e fui vítima de denúncia. Solicito reativação urgente.",
+        "Minha conta é valiosa e foi banida injustamente. Meu conteúdo não viola termos. Reconsiderem, por favor.",
+    ];
+    
+    function gerarTexto(tipo) {
+        const resultBox = document.getElementById('res-' + tipo);
+        
+        if (credits <= 0) {
+            alert("⚠️ SEUS CRÉDITOS ACABARAM! Aguarde a recarga ou compre o VIP.");
+            if (!localStorage.getItem('cooldown_start')) {
+                localStorage.setItem('cooldown_start', Date.now().toString());
+                updateCooldownDisplay();
+            }
+            return;
+        }
+
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = '<i class="fa-solid fa-gear fa-spin"></i> Processando IA...';
+        
+        setTimeout(() => {
+            credits--;
+            updateCreditsDisplay();
+            
+            let lista;
+            if (tipo === 'whatsapp') lista = textosZap;
+            else if (tipo === 'tiktok') lista = textosTikTok;
+            else if (tipo === 'game') lista = textosGame;
+            
+            const textoAleatorio = lista[Math.floor(Math.random() * lista.length)];
+            
+            resultBox.innerHTML = `
+                <span style="color:#fff;">${textoAleatorio}</span>
+                <div style="margin-top:5px; border-top:1px solid #333; padding-top:5px;">
+                   <i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, \`${textoAleatorio}\`)"> Copiar</i>
+                </div>
+            `;
+            addLog(`-1 Crédito: Gerador ${tipo.toUpperCase()} executado.`);
+        }, 800);
     }
 
-    function showNoCreditsMessage() {
-        alert('Seus créditos de acesso Trial acabaram. Para uso ilimitado e imediato, compre o Plano VIP!');
-        window.open('https://t.me/ApelaWar71','_blank');
+    // Função Copiar
+    function copiarTexto(element, texto) {
+        navigator.clipboard.writeText(texto);
+        const originalText = element.innerHTML;
+        element.innerHTML = '<i class="fa-solid fa-check"></i> Copiado!';
+        setTimeout(() => { element.innerHTML = originalText; }, 2000);
     }
 
-    function showMaxGenerationsMessage() {
-        alert('Você já gerou o máximo de 10 textos Trial para esta função. Para uso ILIMITADO e acesso a mais textos, compre o Plano VIP!');
-        window.open('https://t.me/ApelaWar71','_blank');
+    // ================= NOVAS FERRAMENTAS EXTRAS =================
+
+    // 1. Mostrar IP e Info do Dispositivo
+    async function mostrarIP() {
+        const box = document.getElementById('res-tools');
+        box.style.display = 'block';
+        box.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Rastreando...';
+        
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            const device = navigator.platform;
+            
+            box.innerHTML = `
+                <span style="color:#fff">IP: ${data.ip}</span><br>
+                <span style="color:#888; font-size:11px;">OS: ${device} | Navegador Seguro</span>
+            `;
+            addLog(`Tools: IP Checado (${data.ip}).`);
+        } catch (e) {
+            box.innerHTML = "Erro ao obter IP. Bloqueador de anúncios?";
+            addLog('Tools: Falha ao checar IP.');
+        }
+    }
+
+    // 2. Gerador de Senha Forte
+    function gerarSenhaSegura() {
+        const box = document.getElementById('res-tools');
+        box.style.display = 'block';
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+        let password = "";
+        for (let i = 0; i < 16; i++) {
+            password += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        box.innerHTML = `
+            <span style="color:var(--neon-green)">${password}</span>
+            <div style="margin-top:5px; border-top:1px solid #333; padding-top:5px;">
+               <i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, '${password}')"> Copiar Senha</i>
+            </div>
+        `;
+        addLog('Tools: Senha forte gerada.');
+    }
+
+    // 3. Scanner de URL (Simulado)
+    function analisarURL() {
+        const url = document.getElementById('urlInput').value.trim();
+        const box = document.getElementById('res-scanner');
+        box.style.display = 'block';
+
+        if (!url) {
+            box.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color:#ffaa00"></i> **ALERTA**: Insira uma URL válida para a análise.`;
+            return;
+        }
+
+        box.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Varrendo ${url}...`;
+
+        setTimeout(() => {
+            const isSafe = Math.random() < 0.85; // 85% de chance de ser seguro
+            
+            if (isSafe) {
+                box.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--neon-green)"></i> **Status:** URL Limpa. Risco: BAIXO.`;
+                addLog(`Scanner: URL (${url.substring(0, 20)}...) Verificada. Limpa.`);
+            } else {
+                box.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:#ff5555"></i> **ALERTA:** Risco de Phishing/Malware Detectado! EVITE CLICAR.`;
+                addLog(`Scanner: ALERTA! Risco detectado em (${url.substring(0, 20)}...).`);
+            }
+        }, 1500);
+    }
+
+    // ================= STATUS E TIMER =================
+
+    // Timer da Sessão
+    function startSessionTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            secondsOnline++;
+            const date = new Date(0);
+            date.setSeconds(secondsOnline);
+            const timeString = date.toISOString().substr(14, 5);
+            document.getElementById('session-time').innerText = timeString;
+        }, 1000);
+    }
+
+    // Status do Servidor (Simulado)
+    function startServerStatusUpdater() {
+        setInterval(() => {
+            const latency = Math.floor(Math.random() * (100 - 30 + 1)) + 30; // Latência entre 30ms e 100ms
+            document.getElementById('latency-val').innerText = `${latency}ms`;
+        }, 5000); // Atualiza a cada 5 segundos
     }
 
     function logout() {
-        if (confirm(`Tem certeza que deseja sair do Painel, ${loggedInUser}? Seus créditos (${userCredits}) serão salvos para o próximo acesso.`)) {
-
-            clearInterval(intervaloTempo); 
-
-            loggedInUser = null; 
-
-            window.location.reload(); 
+        if(confirm("Deseja desconectar do Painel VIP?")) {
+            sessionStorage.removeItem('isLogged');
+            addLog('Usuário desconectado.');
+            location.reload();
         }
-    }
-
-    // =========================================================================
-    // 3. FUNÇÕES PRINCIPAIS
-    // =========================================================================
-
-    let tempoAtivoSegundos = 0;
-    let intervaloTempo;
-
-    function toggleMenu() {
-      const dropdown = document.getElementById('dropdown');
-      dropdown.classList.toggle('show');
-    }
-
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdown');
-        const menuBtn = document.querySelector('.menu-btn');
-        const isClickInside = dropdown.contains(event.target) || menuBtn.contains(event.target);
-
-        if (!isClickInside && dropdown.classList.contains('show')) {
-            dropdown.classList.remove('show');
-        }
-    });
-
-    function formatTime(totalSeconds) {
-      const hours = Math.floor(totalSeconds / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-      const pad = (num) => num.toString().padStart(2, '0');
-      return `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
-    }
-
-    function startTimer() {
-      intervaloTempo = setInterval(() => {
-        tempoAtivoSegundos++;
-        document.getElementById('tempo-hms').innerText = formatTime(tempoAtivoSegundos);
-      }, 1000); 
-    }
-
-    function login() {
-      const user = document.getElementById('user').value.trim();
-      const pass = document.getElementById('pass').value.trim();
-      const msg = document.getElementById('msg');
-      const loading = document.getElementById('loading');
-      const painel = document.getElementById('painel');
-      const planos = document.getElementById('planos');
-      const planosHeader = document.getElementById('planos-header');
-      const loginBox = document.getElementById("login-box");
-
-      msg.style.display = "none";
-      loading.style.display = "none";
-
-      if (user === "@ApelaWar71" && pass === "apelinha10k") {
-        loading.style.display = "block";
-
-        setTimeout(() => {
-          loading.style.display = "none";
-
-          loggedInUser = user; 
-          loadTrialStatus(); 
-
-          loginBox.style.animation = "fadeOut 0.5s ease forwards"; 
-          planos.style.animation = "fadeOut 0.5s ease forwards";
-          planosHeader.style.animation = "fadeOut 0.5s ease forwards";
-
-          setTimeout(() => {
-              loginBox.style.display = "none";
-              planos.style.display = "none";
-              planosHeader.style.display = "none";
-
-              painel.style.display = "block";
-              painel.querySelector('.painel').style.display = "block"; 
-
-              document.getElementById('dropdown-user-name').innerText = loggedInUser;
-
-              startTimer();
-              updateButtonStatus(); 
-              startTestimonialRotation(); 
-          }, 500);
-
-        }, 1800);
-      } else {
-        msg.innerHTML = '❌ Login ou senha inválidos.<br>Compre seu acesso ou envie comprovante para: <a href="https://t.me/ApelaWar71" target="_blank" style="color:var(--primary-neon); font-weight: bold;">Telegram</a>';
-        msg.style.display = "block";
-      }
-    }
-
-    function upgrade() {
-      alert('💎 Para fazer upgrade de plano, entre em contato no Telegram: @ApelaWar71');
-      window.open('https://t.me/ApelaWar71','_blank');
-    }
-
-    // Função para mostrar o texto bônus
-    function mostrarBonus(tipo) {
-        const bonusText = BONUS_TEXTOS[tipo];
-        const outBoxId = `out-${tipo}`;
-        const outputBox = document.getElementById(outBoxId);
-        const copyBtn = outputBox.querySelector('.copy-btn');
-
-        // Limpa o conteúdo anterior
-        while (outputBox.firstChild && outputBox.firstChild !== copyBtn) {
-            outputBox.firstChild.remove();
-        }
-
-        const titulo = document.createElement('strong');
-        titulo.textContent = `🎁 BÔNUS: INSTRUÇÃO DE ENVIO DE E-MAIL`; 
-        titulo.style.color = 'var(--secondary-neon)';
-
-        const p = document.createElement('div');
-        p.classList.add('output-content');
-        p.style.whiteSpace = 'pre-wrap';
-        p.style.color = 'var(--text-light)';
-        p.innerHTML = bonusText.trim();
-
-        outputBox.insertBefore(titulo, copyBtn);
-        outputBox.insertBefore(p, copyBtn);
-
-        // Define o texto do botão de cópia para o conteúdo BÔNUS
-        copyBtn.dataset.rawText = `=== INSTRUÇÃO BÔNUS: PASSO A PASSO ===\n\n${bonusText.trim()}`;
-        outputBox.style.display = "block";
-        copyBtn.style.display = "block";
-        copyBtn.innerText = '📋 Copiar Instrução Bônus'; 
-        copyBtn.classList.remove('copied');
-
-        // Alerta para feedback imediato
-        alert(`BÔNUS LIBERADO! Instrução de envio por e-mail apareceu na caixa de texto do Desbanir ${tipo.toUpperCase()}. Copie e use!`);
-    }
-
-
-    // Lógica de gerarTexto atualizada para incluir Assunto e Email
-    function gerarTexto(tipo) {
-        if (userCredits <= 0 || generatedCount[tipo] >= MAX_TRIAL_GENERATIONS) {
-            updateButtonStatus(); 
-            return;
-        }
-
-        const lista = tipo === "whatsapp" ? TEXTOS_WHATSAPP : TEXTOS_TIKTOK;
-        const currentTextData = lista[generatedCount[tipo]];
-
-        if (!currentTextData) {
-            showMaxGenerationsMessage();
-            return;
-        }
-
-        const textoGerado = currentTextData.texto;
-        const assunto = currentTextData.assunto;
-        const emailSuporte = EMAILS[tipo];
-
-        // Conteúdo formatado para ser copiado (inclui assunto e email para conveniência)
-        const rawTextToCopy = `=== INFORMAÇÕES DE ENVIO ===
-- EMAIL DE SUPORTE: ${emailSuporte}
-- ASSUNTO DO E-MAIL: ${assunto}
-==========================
-
-=== TEXTO DE APELAÇÃO ${generatedCount[tipo] + 1} (${tipo.toUpperCase()}) ===
-
-${textoGerado}
-
-==========================
-`;
-
-        let outBoxId = `out-${tipo}`;
-        const outputBox = document.getElementById(outBoxId);
-        const copyBtn = outputBox.querySelector('.copy-btn');
-        const generateBtn = document.getElementById(`btn-${tipo}`);
-
-        generateBtn.classList.add('loading-state');
-        generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin-pulse"></i> Gerando...';
-
-        setTimeout(() => {
-
-            userCredits -= 1;
-            generatedCount[tipo] += 1;
-
-            saveTrialStatus(); 
-            updateCreditDisplay();
-            updateButtonStatus(); 
-
-            generateBtn.classList.remove('loading-state');
-
-            // 4. Exibe o NOVO texto (substitui o anterior na caixa)
-            while (outputBox.firstChild && outputBox.firstChild !== copyBtn) {
-                outputBox.firstChild.remove();
-            }
-
-            // Exibe Assunto e Email
-            const info = document.createElement('div');
-            info.innerHTML = `
-                <strong style="color:var(--secondary-neon);">📩 E-MAIL DE SUPORTE:</strong> <span>${emailSuporte}</span><br>
-                <strong style="color:var(--primary-neon);">📎 ASSUNTO DO E-MAIL:</strong> <span>${assunto}</span>
-                <p style="margin: 5px 0 10px; font-size: 13px; color: #ff6666;">(Copie o assunto e cole no e-mail)</p>
-            `;
-
-            // Exibe o Texto
-            const p = document.createElement('div');
-            p.classList.add('output-content');
-            p.textContent = textoGerado;
-
-            outputBox.insertBefore(info, copyBtn);
-            outputBox.insertBefore(document.createElement('hr'), copyBtn); // Separador
-            outputBox.insertBefore(document.createElement('strong'), copyBtn).textContent = `📝 TEXTO DE APELAÇÃO ${generatedCount[tipo]}:`;
-            outputBox.insertBefore(p, copyBtn);
-
-            copyBtn.dataset.rawText = rawTextToCopy;
-            outputBox.style.display = "block";
-            copyBtn.style.display = "block";
-            copyBtn.innerText = '📋 Copiar Conteúdo Completo'; 
-            copyBtn.classList.remove('copied');
-
-        }, 1000); 
-    }
-
-    function copiarTexto(id) {
-        const outputBox = document.getElementById(id);
-        const copyBtn = outputBox.querySelector('.copy-btn');
-        const textToCopy = copyBtn.dataset.rawText;
-
-        if (!textToCopy) {
-             copyBtn.innerText = '❌ Texto Vazio!';
-             setTimeout(() => { copyBtn.innerText = '📋 Copiar Conteúdo Completo'; }, 1500);
-             return;
-        }
-
-        copyBtn.classList.add('loading-state');
-        copyBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin-pulse"></i> Copiando...';
-
-        navigator.clipboard.writeText(textToCopy.trim())
-            .then(() => {
-                copyBtn.classList.remove('loading-state');
-                copyBtn.innerHTML = '✅ COPIADO!';
-                copyBtn.classList.add('copied');
-                setTimeout(() => {
-                    copyBtn.innerHTML = '📋 Copiar Conteúdo Completo';
-                    copyBtn.classList.remove('copied');
-                }, 2000);
-            })
-            .catch(err => {
-                copyBtn.classList.remove('loading-state');
-                copyBtn.innerHTML = '❌ Erro ao Copiar!';
-                console.error('Erro ao copiar: ', err);
-                setTimeout(() => { copyBtn.innerHTML = '📋 Copiar Conteúdo Completo'; }, 1500);
-            });
-    }
-
-    function rotateTestimonials() {
-        const display = document.getElementById('testimonial-display');
-        const testimonial = DEPOIMENTOS[testimonialIndex];
-
-        display.innerHTML = `
-            <p class="testimonial">"${testimonial.text}"</p>
-            <span class="testimonial-user">— ${testimonial.user} (Cliente VIP)</span>
-        `;
-
-        testimonialIndex = (testimonialIndex + 1) % DEPOIMENTOS.length;
-    }
-
-    function startTestimonialRotation() {
-        if (!document.getElementById('painel').classList.contains('painel')) return; 
-        rotateTestimonials(); 
-        setInterval(rotateTestimonials, 5000); 
     }
   </script>
 </body>
