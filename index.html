@@ -10,7 +10,6 @@
 
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAu0lEQVQ4ja2SQQ6DMAxFj8G54f9/J4XG8A89kX64jYtqKzYQv6J47C5sKkPImK7cO0zYd2o5Dq/H+0k/YAAh/8nQkG70YnAYnAA/lB8gA4Y8h2i3m90r2K4o8m7C464Tq2Q1k9dYy3l7G6X6bK+k9hR3r5pGv5341h3l7g0n3B0fO6wN+bY2x8/42x3l7m8v39w1O3r/k4r871/kY4P+v3F6vJgAAAAAASUVORK5CYII=">
 
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -29,7 +28,7 @@
         --glass-bg: rgba(20, 20, 25, 0.75);
         --glass-border: rgba(255, 255, 255, 0.1);
         --text-main: #e0e0e0;
-        --font-tech: 'Rajdhani', sans-serif; /* Fonte estilo Gamer/Hacker */
+        --font-tech: 'Rajdhani', sans-serif;
         --font-body: 'Poppins', sans-serif;
     }
 
@@ -39,7 +38,6 @@
       margin: 0;
       font-family: var(--font-body);
       background-color: var(--bg-dark);
-      /* Fundo animado moderno */
       background-image: 
         radial-gradient(circle at 10% 20%, rgba(189, 0, 255, 0.15) 0%, transparent 40%),
         radial-gradient(circle at 90% 80%, rgba(0, 255, 157, 0.1) 0%, transparent 40%);
@@ -63,7 +61,7 @@
     @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(0, 255, 157, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); } }
 
     /* ------------------------------------------- */
-    /* 2. HEADER & MENU VIP (Melhorado)            */
+    /* 2. HEADER & MENU VIP                        */
     /* ------------------------------------------- */
     header {
       width: 100%;
@@ -93,7 +91,6 @@
     }
     .logo i { text-shadow: 0 0 10px var(--neon-green); }
 
-    /* Novo: Botão de Notificações */
     .notification-icon {
         color: var(--neon-blue);
         font-size: 18px;
@@ -103,7 +100,6 @@
     }
     .notification-icon:hover { color: var(--neon-green); }
 
-    /* Botão de Menu "VIP" */
     .user-menu-btn {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid var(--glass-border);
@@ -126,8 +122,7 @@
         border-radius: 50%;
         animation: pulse-green 2s infinite;
     }
-    
-    /* Dropdown VIP */
+
     .dropdown {
         display: none;
         position: absolute;
@@ -141,7 +136,7 @@
         z-index: 999;
     }
     .dropdown.show { display: block; animation: slideDown 0.3s ease; }
-    
+
     .profile-info {
         text-align: center;
         margin-bottom: 15px;
@@ -150,7 +145,7 @@
     }
     .profile-info h4 { margin: 0; color: var(--neon-green); font-family: var(--font-tech); font-size: 20px; }
     .profile-info span { font-size: 12px; color: #888; }
-    
+
     .stats-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
     .stats-val { color: #fff; font-weight: 600; }
 
@@ -169,7 +164,7 @@
     .btn-upgrade:hover { box-shadow: 0 0 15px var(--neon-purple); }
 
     /* ------------------------------------------- */
-    /* 3. LOGIN (Futurista)                        */
+    /* 3. LOGIN                                    */
     /* ------------------------------------------- */
     .container-login {
         margin-top: 150px;
@@ -184,7 +179,7 @@
         box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         animation: fadeIn 1s ease;
     }
-    
+
     .login-icon {
         font-size: 50px;
         color: var(--neon-green);
@@ -261,7 +256,6 @@
     }
     .welcome-banner h1 { margin: 0; font-family: var(--font-tech); font-size: 32px; }
 
-    /* Novo: Cooldown Timer */
     #cooldown-timer {
         color: var(--neon-purple);
         font-weight: 700;
@@ -289,12 +283,11 @@
         border-color: var(--card-color);
         box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--card-glow);
     }
-    
-    /* Cores Específicas dos Cards (Adicionado Game e Scanner) */
+
     .card.whatsapp { --card-color: #25D366; --card-glow: rgba(37, 211, 102, 0.3); }
     .card.tiktok { --card-color: #ff0050; --card-glow: rgba(255, 0, 80, 0.3); }
-    .card.game { --card-color: #ffaa00; --card-glow: rgba(255, 170, 0, 0.3); } /* Novo */
-    .card.scanner { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); } /* Novo */
+    .card.game { --card-color: #ffaa00; --card-glow: rgba(255, 170, 0, 0.3); } 
+    .card.scanner { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); } 
     .card.tool { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); }
     .card.vip { --card-color: var(--neon-purple); --card-glow: rgba(189, 0, 255, 0.4); }
 
@@ -325,7 +318,6 @@
         box-shadow: 0 0 15px var(--card-glow);
     }
 
-    /* Output Box (Onde aparece o texto) */
     .result-box {
         margin-top: 15px;
         background: #000;
@@ -344,7 +336,6 @@
         cursor: pointer;
         color: var(--neon-green);
     }
-    /* Input dentro do Card Scanner */
     .scanner-input {
         width: 100%;
         padding: 10px;
@@ -356,7 +347,6 @@
     }
     .scanner-input:focus { border-color: var(--neon-blue); }
 
-    /* Novo: Logs Container */
     .log-container {
         max-height: 200px;
         overflow-y: auto;
@@ -439,7 +429,6 @@
         border-top: 1px solid #111;
         width: 100%;
         background: #050505;
-        /* Novo: Status do Servidor */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -468,7 +457,7 @@
 
     <div style="display: flex; align-items: center;">
         <i class="fa-solid fa-bell notification-icon" onclick="openLogsModal()"></i>
-        
+
         <div class="user-menu-btn" onclick="toggleDropdown()">
             <div class="status-dot" title="Conexão Segura"></div>
             <span id="header-user">Visitante</span>
@@ -490,7 +479,7 @@
             <span><i class="fa-regular fa-clock"></i> Sessão:</span>
             <span class="stats-val" id="session-time">00:00</span>
         </div>
-        
+
         <button class="btn-dropdown" style="background:#222; color:var(--neon-blue);" onclick="openSupportModal()">
             <i class="fa-solid fa-circle-info"></i> Suporte/FAQ
         </button>
@@ -542,7 +531,7 @@
   </div>
 
   <div class="main-panel" id="painelArea">
-    
+
     <div class="welcome-banner">
         <h1>BEM-VINDO AO <span style="color:var(--neon-green)">SISTEMA</span></h1>
         <p>Você tem <strong style="color:var(--neon-green)" id="panel-credits">20</strong> créditos de teste. Use com sabedoria.</p>
@@ -551,7 +540,7 @@
     </div>
 
     <div class="grid-cards">
-        
+
         <div class="card whatsapp">
             <div class="card-icon"><i class="fa-brands fa-whatsapp"></i></div>
             <h3>Desbanir Zap</h3>
@@ -591,14 +580,14 @@
             <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
             <h3>Tools Segurança</h3>
             <p>Ferramentas extras para sua proteção e análise.</p>
-            
+
             <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="mostrarIP()">
                 <i class="fa-solid fa-network-wired"></i> Checar Meu IP
             </button>
             <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="gerarSenhaSegura()">
                 <i class="fa-solid fa-key"></i> Gerar Senha Forte
             </button>
-            
+
             <div class="result-box" id="res-tools" style="color: var(--neon-blue); font-weight:bold;"></div>
         </div>
 
@@ -721,7 +710,7 @@
         const loading = document.getElementById('loadingMsg');
 
         msg.style.display = 'none';
-        
+
         if (user === LOGIN_USER && pass === LOGIN_PASS) {
             loading.style.display = 'block';
             addLog(`Acesso: Usuário ${LOGIN_USER} autenticado.`);
@@ -735,7 +724,7 @@
             msg.innerText = "⛔ Acesso Negado. Credenciais Inválidas.";
             msg.style.display = 'block';
             addLog(`ALERTA: Tentativa de login falha em ${user}.`);
-            
+
             document.getElementById('userInput').style.borderColor = '#ff5555';
             document.getElementById('passInput').style.borderColor = '#ff5555';
             setTimeout(() => {
@@ -772,7 +761,7 @@
 
 
     // ================= MODALS E DROPDOWNS =================
-    
+
     function toggleDropdown() {
         const drop = document.getElementById('userDropdown');
         drop.classList.toggle('show');
@@ -821,13 +810,13 @@
         localStorage.setItem(CREDITS_KEY, credits);
         updateCooldownDisplay();
     }
-    
+
     // Novo: Cooldown / Recarga
     const COOLDOWN_SECONDS = 14400; // 4 horas
     function updateCooldownDisplay() {
         const statusElement = document.getElementById('credits-status');
         const timerElement = document.getElementById('cooldown-timer');
-        
+
         if (credits > 0) {
             statusElement.innerHTML = 'Você tem <strong style="color:var(--neon-green)">Créditos disponíveis</strong>.';
             return;
@@ -836,7 +825,7 @@
         let timePassed = parseInt(localStorage.getItem('cooldown_start')) || 0;
         let elapsed = Math.floor((Date.now() - timePassed) / 1000);
         let remainingSeconds = COOLDOWN_SECONDS - elapsed;
-        
+
         if (remainingSeconds <= 0) {
             credits = DEFAULT_CREDITS;
             updateCreditsDisplay();
@@ -849,7 +838,7 @@
         const h = String(Math.floor(remainingSeconds / 3600)).padStart(2, '0');
         const m = String(Math.floor((remainingSeconds % 3600) / 60)).padStart(2, '0');
         const s = String(remainingSeconds % 60).padStart(2, '0');
-        
+
         timerElement.innerText = `${h}:${m}:${s}`;
         statusElement.innerHTML = `Seus créditos recarregam em: <b style="color:var(--neon-purple)"><span id="cooldown-timer">${h}:${m}:${s}</span></b>`;
 
@@ -857,19 +846,33 @@
         if (timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(updateCooldownDisplay, 1000);
     }
-    
-    // Textos (Arrays)
-    const textosZap = [/* ... arrays de texto existentes ... */];
-    const textosTikTok = [/* ... arrays de texto existentes ... */];
+
+    // Textos (Arrays) - AGORA PREENCHIDOS CORRETAMENTE
+    const textosZap = [
+        "Olá suporte do WhatsApp, meu número foi banido por um equívoco. Eu utilizo este número para fins profissionais e pessoais, e sigo rigorosamente os termos de serviço. Solicito uma revisão manual do meu caso, pois acredito ter sido alvo de denúncias injustas.",
+        "Prezada equipe, meu acesso ao WhatsApp foi suspenso indevidamente. Não faço uso de automação, disparo em massa ou qualquer prática de spam. Peço, por gentileza, que verifiquem o histórico da minha conta e restabeleçam meu acesso.",
+        "Solicito o desbloqueio do meu número. O banimento ocorreu sem aviso prévio e acredito que foi um erro do sistema de detecção automática. Uso o app para falar com família e clientes, e estou sendo prejudicado por essa suspensão injusta.",
+        "Urgente: Meu número foi banido incorretamente. Sou um usuário real e respeito as diretrizes da comunidade. Peço que analisem meu caso, pois dependo deste número para comunicação diária e trabalho. Obrigado.",
+        "Olá, acredito que minha conta foi banida por erro. Não violei nenhuma regra de uso. Por favor, revisem minha atividade recente e reativem minha conta o mais rápido possível."
+    ];
+
+    const textosTikTok = [
+        "Olá equipe do TikTok, minha conta foi suspensa permanentemente por engano. Meu conteúdo é 100% original e não viola as diretrizes da comunidade. Peço que um moderador humano revise meu perfil, pois acredito ser um erro do algoritmo.",
+        "Estou entrando em contato para apelar sobre o banimento da minha conta. Sou um criador de conteúdo dedicado e sigo todas as regras da plataforma. A suspensão foi injusta e solicito a reativação imediata.",
+        "Minha conta foi banida sem justificativa clara. Acredito que denúncias falsas ou um erro no sistema automatizado causaram isso. Por favor, verifiquem meu histórico de postagens, nunca tive intenção de violar as normas.",
+        "Solicito a revisão do banimento da minha conta TikTok. Uso a plataforma para entretenimento e criação saudável. O bloqueio foi um mal-entendido e estou disposto a corrigir qualquer problema, caso exista.",
+        "Prezados, fui banido injustamente. Meu conteúdo respeita os termos de uso. Peço encarecidamente que reanalisem minha conta e removam a suspensão, pois valorizo muito minha presença na plataforma."
+    ];
+
     const textosGame = [
         "Prezados, minha conta foi suspensa por engano. Sou jogador assíduo e não usei hacks. Peço a revisão.",
         "Apelo contra o banimento. Tenho histórico limpo e fui vítima de denúncia. Solicito reativação urgente.",
         "Minha conta é valiosa e foi banida injustamente. Meu conteúdo não viola termos. Reconsiderem, por favor.",
     ];
-    
+
     function gerarTexto(tipo) {
         const resultBox = document.getElementById('res-' + tipo);
-        
+
         if (credits <= 0) {
             alert("⚠️ SEUS CRÉDITOS ACABARAM! Aguarde a recarga ou compre o VIP.");
             if (!localStorage.getItem('cooldown_start')) {
@@ -881,18 +884,18 @@
 
         resultBox.style.display = 'block';
         resultBox.innerHTML = '<i class="fa-solid fa-gear fa-spin"></i> Processando IA...';
-        
+
         setTimeout(() => {
             credits--;
             updateCreditsDisplay();
-            
+
             let lista;
             if (tipo === 'whatsapp') lista = textosZap;
             else if (tipo === 'tiktok') lista = textosTikTok;
             else if (tipo === 'game') lista = textosGame;
-            
+
             const textoAleatorio = lista[Math.floor(Math.random() * lista.length)];
-            
+
             resultBox.innerHTML = `
                 <span style="color:#fff;">${textoAleatorio}</span>
                 <div style="margin-top:5px; border-top:1px solid #333; padding-top:5px;">
@@ -918,12 +921,12 @@
         const box = document.getElementById('res-tools');
         box.style.display = 'block';
         box.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Rastreando...';
-        
+
         try {
             const response = await fetch('https://api.ipify.org?format=json');
             const data = await response.json();
             const device = navigator.platform;
-            
+
             box.innerHTML = `
                 <span style="color:#fff">IP: ${data.ip}</span><br>
                 <span style="color:#888; font-size:11px;">OS: ${device} | Navegador Seguro</span>
@@ -968,7 +971,7 @@
 
         setTimeout(() => {
             const isSafe = Math.random() < 0.85; // 85% de chance de ser seguro
-            
+
             if (isSafe) {
                 box.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--neon-green)"></i> **Status:** URL Limpa. Risco: BAIXO.`;
                 addLog(`Scanner: URL (${url.substring(0, 20)}...) Verificada. Limpa.`);
