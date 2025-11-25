@@ -175,6 +175,33 @@
       z-index: 1000;
       box-shadow: 0 4px 30px rgba(0,0,0,0.5);
     }
+    /* NOVO ESTILO: Botão de Idioma */
+    #lang-select {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        color: var(--neon-blue);
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-right: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        -webkit-appearance: none; /* Remove default arrow in Chrome/Safari */
+        -moz-appearance: none;    /* Remove default arrow in Firefox */
+        appearance: none;         /* Remove default arrow in others */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="%2300D4FF" viewBox="0 0 10 10"><path d="M5 6.5L1.5 3H8.5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        padding-right: 30px;
+    }
+    #lang-select:hover {
+        border-color: var(--neon-blue);
+    }
+    #lang-select option {
+        background: var(--bg-dark);
+        color: var(--text-main);
+    }
+
 
     .logo {
         font-family: var(--font-tech);
@@ -402,19 +429,19 @@
 
   <div id="toast-container"></div>
   
-  <div id="noCreditsModal" class="modal">
+  <div id="noCreditsModal" class="modal" data-translate-group="noCreditsModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('noCreditsModal')">&times;</span>
-      <h2 style="color:#ff5555;"><i class="fa-solid fa-triangle-exclamation"></i> CRÉDITOS ESGOTADOS!</h2>
-      <p id="cooldown-message">Você atingiu o limite de uso diário do plano **FREE**. Recarga automática em <b id="no-credits-timer" style="color:#ffaa00">--:--:--</b></p>
+      <h2 style="color:#ff5555;" data-translate="noCreditsTitle"><i class="fa-solid fa-triangle-exclamation"></i> CRÉDITOS ESGOTADOS!</h2>
+      <p id="cooldown-message"></p>
       
-      <h4 style="color:var(--neon-purple);">Desbloqueie agora o VIP Supremo para:</h4>
+      <h4 style="color:var(--neon-purple);" data-translate="noCreditsSubtitle">Desbloqueie agora o VIP Supremo para:</h4>
       <ul style="color:#ccc;">
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> **Créditos Ilimitados** (Sem Cooldown!)</li>
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Exclusivas</li>
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte 24/7</li>
+        <li data-translate="noCreditsFeature1"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> **Créditos Ilimitados** (Sem Cooldown!)</li>
+        <li data-translate="noCreditsFeature2"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Exclusivas</li>
+        <li data-translate="noCreditsFeature3"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte 24/7</li>
       </ul>
-      <button class="btn-dropdown btn-upgrade" onclick="playSound('click'); closeModal('noCreditsModal'); openVIPModal()">
+      <button class="btn-dropdown btn-upgrade" onclick="playSound('click'); closeModal('noCreditsModal'); openVIPModal()" data-translate="noCreditsButton">
         <i class="fa-regular fa-gem"></i> QUERO UPGRADE VIP
       </button>
     </div>
@@ -425,133 +452,138 @@
     </div>
 
     <div style="display: flex; align-items: center;">
+        <select id="lang-select" onchange="changeLanguage(this)">
+            <option value="pt" selected>🇧🇷 PT</option>
+            <option value="en">🇺🇸 EN</option>
+            <option value="es">🇪🇸 ES</option>
+        </select>
         <i class="fa-solid fa-bell notification-icon" onclick="playSound('click'); openLogsModal()"></i>
 
         <div class="user-menu-btn" onclick="playSound('click'); toggleDropdown()">
-            <div class="status-dot" title="Conexão Segura"></div>
+            <div class="status-dot" data-translate-title="secureConnection"></div>
             <span id="header-user">Visitante</span>
             <i class="fa-solid fa-chevron-down" style="font-size: 12px;"></i>
         </div>
     </div>
 
-    <div class="dropdown" id="userDropdown">
+    <div class="dropdown" id="userDropdown" data-translate-group="userDropdown">
         <div class="profile-info">
             <h4 id="drop-user">@Visitante</h4>
-            <span>Plano: <b id="user-plan-status" style="color:var(--neon-purple)">FREE</b></span>
+            <span data-translate="plan">Plano:</span> <b id="user-plan-status" style="color:var(--neon-purple)">FREE</b>
         </div>
         <div class="stats-row">
-            <span><i class="fa-solid fa-coins"></i> Créditos:</span>
+            <span data-translate="credits"><i class="fa-solid fa-coins"></i> Créditos:</span>
             <span class="stats-val" id="credits-val" style="color:var(--neon-green)">0</span>
         </div>
         <div class="stats-row">
-            <span><i class="fa-regular fa-clock"></i> Sessão:</span>
+            <span data-translate="session"><i class="fa-regular fa-clock"></i> Sessão:</span>
             <span class="stats-val" id="session-time">00:00</span>
         </div>
         
-        <button id="recharge-btn-dropdown" class="btn-dropdown btn-recharge" style="display:none;" onclick="playSound('click'); resetCredits()">
+        <button id="recharge-btn-dropdown" class="btn-dropdown btn-recharge" style="display:none;" onclick="playSound('click'); resetCredits()" data-translate="rechargeCreditsButton">
             <i class="fa-solid fa-arrows-rotate"></i> RECARREGAR CRÉDITOS
         </button>
 
-        <button class="btn-dropdown" style="background:#222; color:var(--neon-blue);" onclick="playSound('click'); openSupportModal()">
+        <button class="btn-dropdown" style="background:#222; color:var(--neon-blue);" onclick="playSound('click'); openSupportModal()" data-translate="supportFAQButton">
             <i class="fa-solid fa-circle-info"></i> Suporte/FAQ
         </button>
 
-        <button class="btn-dropdown btn-upgrade" onclick="playSound('click'); openVIPModal()">
+        <button class="btn-dropdown btn-upgrade" onclick="playSound('click'); openVIPModal()" data-translate="becomeVIPButton">
             <i class="fa-regular fa-gem"></i> Virar VIP Supremo
         </button>
-        <button class="btn-dropdown btn-logout" onclick="playSound('click'); logout()">
+        <button class="btn-dropdown btn-logout" onclick="playSound('click'); logout()" data-translate="disconnectButton">
             <i class="fa-solid fa-power-off"></i> Desconectar
         </button>
     </div>
   </header>
 
-  <div class="container-login" id="loginArea">
+  <div class="container-login" id="loginArea" data-translate-group="loginArea">
     <div class="login-icon"><i class="fa-solid fa-user-astronaut"></i></div>
-    <h2 style="margin-top:0; color:#fff;">ACESSO RESTRITO</h2>
-    <p style="color:#888; font-size:13px; margin-bottom:25px;">Insira suas credenciais para acessar o sistema.</p>
+    <h2 style="margin-top:0; color:#fff;" data-translate="restrictedAccessTitle">ACESSO RESTRITO</h2>
+    <p style="color:#888; font-size:13px; margin-bottom:25px;" data-translate="restrictedAccessSubtitle">Insira suas credenciais para acessar o sistema.</p>
 
     <div class="input-wrapper">
-        <input type="text" id="userInput" class="custom-input" placeholder="Usuário">
+        <input type="text" id="userInput" class="custom-input" placeholder="Usuário" data-translate-placeholder="username">
         <i class="fa-solid fa-user"></i>
     </div>
     <div class="input-wrapper">
-        <input type="password" id="passInput" class="custom-input" placeholder="Senha">
+        <input type="password" id="passInput" class="custom-input" placeholder="Senha" data-translate-placeholder="password">
         <i class="fa-solid fa-lock"></i>
     </div>
 
-    <button class="btn-login" onclick="playSound('click'); fazerLogin()">
+    <button class="btn-login" onclick="playSound('click'); fazerLogin()" data-translate="authenticateButton">
         <i class="fa-solid fa-fingerprint"></i> Autenticar
     </button>
 
     <div class="msg-box">
         <span id="loginMsg" class="error"></span>
-        <span id="loadingMsg" class="loading-spin"><i class="fa-solid fa-circle-notch fa-spin"></i> Descriptografando acesso...</span>
+        <span id="loadingMsg" class="loading-spin" data-translate="loadingMsg"><i class="fa-solid fa-circle-notch fa-spin"></i> Descriptografando acesso...</span>
     </div>
   </div>
 
-  <div class="pre-login-plans" id="preLoginCards">
+  <div class="pre-login-plans" id="preLoginCards" data-translate-group="preLoginCards">
       <div class="mini-card">
           <i class="fa-solid fa-server" style="color:var(--neon-blue); font-size:25px;"></i>
-          <h4 style="color:#fff; margin:10px 0;">Dados VIP</h4>
-          <a href="https://pagina-sem-fins-lucrativos.github.io/OVERSTORE/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;">Acessar Loja ></a>
+          <h4 style="color:#fff; margin:10px 0;" data-translate="vipDataTitle">Dados VIP</h4>
+          <a href="https://pagina-sem-fins-lucrativos.github.io/OVERSTORE/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;" data-translate="accessStoreLink">Acessar Loja ></a>
       </div>
       <div class="mini-card">
           <i class="fa-solid fa-tv" style="color:#ff0050; font-size:25px;"></i>
-          <h4 style="color:#fff; margin:10px 0;">IPTV Premium</h4>
-          <a href="https://pagina-sem-fins-lucrativos.github.io/TV-ABERTA/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;">Assistir Agora ></a>
+          <h4 style="color:#fff; margin:10px 0;" data-translate="iptvTitle">IPTV Premium</h4>
+          <a href="https://pagina-sem-fins-lucrativos.github.io/TV-ABERTA/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;" data-translate="watchNowLink">Assistir Agora ></a>
       </div>
   </div>
 
-  <div class="main-panel" id="painelArea">
+  <div class="main-panel" id="painelArea" data-translate-group="mainPanel">
 
     <div class="welcome-banner">
-        <h1>BEM-VINDO AO <span style="color:var(--neon-green)">SYSTEM 2.0</span></h1>
+        <h1 data-translate="welcomeTitle">BEM-VINDO AO <span style="color:var(--neon-green)">SYSTEM 2.0</span></h1>
         <p id="plan-warning" style="color:#ffaa00; font-weight:700; font-size:14px; margin-top:10px; display:none;">
-            <i class="fa-solid fa-triangle-exclamation"></i> Seu plano é **FREE**! Limite: <strong style="color:var(--neon-green)" id="panel-credits">20</strong> Créditos.
+            <i class="fa-solid fa-triangle-exclamation"></i> <span data-translate="freePlanWarning">Seu plano é **FREE**! Limite:</span> <strong style="color:var(--neon-green)" id="panel-credits">20</strong> <span data-translate="credits">Créditos.</span>
         </p>
-        <p>Você tem <strong style="color:var(--neon-green)" id="panel-credits-status">20</strong> créditos disponíveis.</p>
+        <p data-translate="creditsAvailablePrefix">Você tem <strong style="color:var(--neon-green)" id="panel-credits-status">20</strong> <span data-translate="creditsAvailableSuffix">créditos disponíveis.</span></p>
         <p style="font-size:12px; color:#aaa;" id="credits-status">
-            <span id="cooldown-label">Recarga em:</span> <b><span id="cooldown-timer">--:--:--</span></b>
+            <span id="cooldown-label" data-translate="rechargeInLabel">Recarga em:</span> <b><span id="cooldown-timer">--:--:--</span></b>
         </p>
         
-        <button id="recharge-btn-panel" class="btn-dropdown btn-recharge" style="display:none; width: 50%; max-width: 300px; margin: 10px auto 0;" onclick="playSound('click'); resetCredits()">
+        <button id="recharge-btn-panel" class="btn-dropdown btn-recharge" style="display:none; width: 50%; max-width: 300px; margin: 10px auto 0;" onclick="playSound('click'); resetCredits()" data-translate="rechargeNowButton">
              <i class="fa-solid fa-arrows-rotate"></i> RECARREGAR AGORA
         </button>
         
-        <p style="font-size:12px; color:#555;">Acesso: <b>@ApelaWar71</b> | Pass: <b>******</b></p>
+        <p style="font-size:12px; color:#555;"><span data-translate="access">Acesso:</span> <b>@ApelaWar71</b> | <span data-translate="password">Pass:</span> <b>******</b></p>
     </div>
 
     <div class="grid-cards">
 
         <div class="card whatsapp">
             <div class="card-icon"><i class="fa-brands fa-whatsapp"></i></div>
-            <h3>Desbanir Zap</h3>
-            <p>Gere textos de engenharia social para recuperar números. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('whatsapp')">Executar IA</button>
+            <h3 data-translate="unbanZapTitle">Desbanir Zap</h3>
+            <p data-translate="unbanZapDesc">Gere textos de engenharia social para recuperar números. (1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('whatsapp')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-whatsapp"></div>
         </div>
 
         <div class="card tiktok">
             <div class="card-icon"><i class="fa-brands fa-tiktok"></i></div>
-            <h3>Recuperar TikTok</h3>
-            <p>Apelação otimizada para contas suspensas. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('tiktok')">Executar IA</button>
+            <h3 data-translate="recoverTikTokTitle">Recuperar TikTok</h3>
+            <p data-translate="recoverTikTokDesc">Apelação otimizada para contas suspensas. (1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('tiktok')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-tiktok"></div>
         </div>
 
         <div class="card game">
             <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
-            <h3>Unban Games</h3>
-            <p>Textos para Free Fire e outros jogos. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('game')">Executar IA</button>
+            <h3 data-translate="unbanGamesTitle">Unban Games</h3>
+            <p data-translate="unbanGamesDesc">Textos para Free Fire e outros jogos. (1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('game')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-game"></div>
         </div>
 
         <div class="card tempmail">
             <div class="card-icon"><i class="fa-solid fa-at"></i></div>
-            <h3>E-mail Temp</h3>
-            <p>Gere e-mails descartáveis para cadastros rápidos e anônimos. (2 Créditos)</p>
-            <button class="action-btn" onclick="gerarEmailTemporario()">
+            <h3 data-translate="tempEmailTitle">E-mail Temp</h3>
+            <p data-translate="tempEmailDesc">Gere e-mails descartáveis para cadastros rápidos e anônimos. (2 Créditos)</p>
+            <button class="action-btn" onclick="gerarEmailTemporario()" data-translate="generateEmailButton">
                 <i class="fa-solid fa-envelope-circle-check"></i> Gerar E-mail
             </button>
             <div class="result-box" id="res-tempmail"></div>
@@ -559,9 +591,9 @@
 
         <div class="card docgen">
             <div class="card-icon"><i class="fa-solid fa-address-card"></i></div>
-            <h3>Gerador CPF</h3>
-            <p>Gere um número de CPF válido para testes de sistemas. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarCPF()">
+            <h3 data-translate="cpfGeneratorTitle">Gerador CPF</h3>
+            <p data-translate="cpfGeneratorDesc">Gere um número de CPF válido para testes de sistemas. (1 Crédito)</p>
+            <button class="action-btn" onclick="gerarCPF()" data-translate="generateCPFButton">
                 <i class="fa-solid fa-barcode"></i> Gerar CPF Válido
             </button>
             <div class="result-box" id="res-cpf" style="color:var(--neon-blue); font-weight:bold;"></div>
@@ -569,10 +601,10 @@
 
         <div class="card geolocation">
             <div class="card-icon"><i class="fa-solid fa-satellite-dish"></i></div>
-            <h3>IP/GPS Locator</h3>
-            <p>Rastreie a localização aproximada de um IP ou Link. (3 Créditos)</p>
-            <input type="text" id="ipInput" class="scanner-input" placeholder="IP ou Link (ex: 8.8.8.8)">
-            <button class="action-btn" onclick="localizarIP()">
+            <h3 data-translate="ipLocatorTitle">IP/GPS Locator</h3>
+            <p data-translate="ipLocatorDesc">Rastreie a localização aproximada de um IP ou Link. (3 Créditos)</p>
+            <input type="text" id="ipInput" class="scanner-input" data-translate-placeholder="ipLinkPlaceholder">
+            <button class="action-btn" onclick="localizarIP()" data-translate="startTrackingButton">
                 <i class="fa-solid fa-crosshairs"></i> Iniciar Rastreio
             </button>
             <div class="result-box" id="res-ipgeo"></div>
@@ -580,10 +612,10 @@
 
         <div class="card scanner">
             <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <h3>Scanner URL</h3>
-            <p>Verifique links suspeitos (Phishing/Malware).</p>
+            <h3 data-translate="urlScannerTitle">Scanner URL</h3>
+            <p data-translate="urlScannerDesc">Verifique links suspeitos (Phishing/Malware).</p>
             <input type="url" id="urlInput" class="scanner-input" placeholder="https://site.com">
-            <button class="action-btn" onclick="analisarURL()">
+            <button class="action-btn" onclick="analisarURL()" data-translate="scanButton">
                 <i class="fa-solid fa-radar"></i> Escanear
             </button>
             <div class="result-box" id="res-scanner" style="font-weight:bold;"></div>
@@ -591,13 +623,13 @@
 
         <div class="card tool">
             <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            <h3>Security Tools</h3>
-            <p>Ferramentas de análise de ambiente.</p>
+            <h3 data-translate="securityToolsTitle">Security Tools</h3>
+            <p data-translate="securityToolsDesc">Ferramentas de análise de ambiente.</p>
 
-            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="mostrarIP()">
+            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="mostrarIP()" data-translate="checkIPButton">
                 <i class="fa-solid fa-network-wired"></i> Checar IP
             </button>
-            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="gerarSenhaSegura()">
+            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="gerarSenhaSegura()" data-translate="strongPasswordButton">
                 <i class="fa-solid fa-key"></i> Senha Forte
             </button>
 
@@ -606,9 +638,9 @@
 
         <div class="card vip" style="width: 320px;"> 
             <div class="card-icon"><i class="fa-solid fa-crown"></i></div>
-            <h3>VIP SUPREMO</h3>
-            <p>🔥 Desbloqueie **Créditos Ilimitados** e todas as ferramentas exclusivas.</p>
-            <button class="action-btn" style="background:var(--neon-purple); color:#fff; border:none; padding: 15px; font-size:16px;" onclick="openVIPModal()">
+            <h3 data-translate="vipSupremeTitle">VIP SUPREMO</h3>
+            <p data-translate="vipSupremeDesc">🔥 Desbloqueie **Créditos Ilimitados** e todas as ferramentas exclusivas.</p>
+            <button class="action-btn" style="background:var(--neon-purple); color:#fff; border:none; padding: 15px; font-size:16px;" onclick="openVIPModal()" data-translate="upgradeNowButton">
                 <i class="fa-regular fa-gem"></i> UPGRADE JÁ!
             </button>
         </div>
@@ -616,50 +648,50 @@
     </div>
   </div>
 
-  <div id="vipModal" class="modal">
+  <div id="vipModal" class="modal" data-translate-group="vipModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('vipModal')">&times;</span>
-      <h2><i class="fa-regular fa-gem"></i> UPGRADE VIP SUPREMO</h2>
-      <p>Desbloqueie o poder total do Sistema 2.0! Seu diferencial é:</p>
+      <h2 data-translate="upgradeVipTitle"><i class="fa-regular fa-gem"></i> UPGRADE VIP SUPREMO</h2>
+      <p data-translate="vipUnlockMessage">Desbloqueie o poder total do Sistema 2.0! Seu diferencial é:</p>
       <ul style="color:#ccc;">
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> **Créditos Ilimitados** (Sem Cooldown!)</li>
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Exclusivas VIP</li>
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte Prioritário 24/7</li>
+        <li data-translate="vipFeature1"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> **Créditos Ilimitados** (Sem Cooldown!)</li>
+        <li data-translate="vipFeature2"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Exclusivas VIP</li>
+        <li data-translate="vipFeature3"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte Prioritário 24/7</li>
       </ul>
-      <button class="btn-dropdown btn-upgrade" onclick="window.open('https://t.me/ApelaWar71')">
+      <button class="btn-dropdown btn-upgrade" onclick="window.open('https://t.me/ApelaWar71')" data-translate="contactSellerButton">
         Falar com Vendedor (Melhor Preço!)
       </button>
     </div>
   </div>
 
-  <div id="logsModal" class="modal">
+  <div id="logsModal" class="modal" data-translate-group="logsModal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal('logsModal')">&times;</span>
-        <h2><i class="fa-solid fa-clipboard-list"></i> LOGS DO SISTEMA</h2>
+        <h2 data-translate="systemLogsTitle"><i class="fa-solid fa-clipboard-list"></i> LOGS DO SISTEMA</h2>
         <div class="log-container" id="log-list"></div>
-        <button class="btn-dropdown" style="background:#333; color:#fff; margin-top:10px;" onclick="limparLogs()">Limpar Logs</button>
+        <button class="btn-dropdown" style="background:#333; color:#fff; margin-top:10px;" onclick="limparLogs()" data-translate="clearLogsButton">Limpar Logs</button>
     </div>
   </div>
 
-  <div id="supportModal" class="modal">
+  <div id="supportModal" class="modal" data-translate-group="supportModal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal('supportModal')">&times;</span>
-        <h2><i class="fa-solid fa-circle-info"></i> SUPORTE</h2>
-        <h4 style="color:var(--neon-blue);">Faq:</h4>
-        <p style="font-size:13px; color:#aaa;">Os textos são modelos de apelação baseados em engenharia social. O sucesso não é garantido.</p>
-        <button class="btn-dropdown btn-upgrade" style="background: #0088cc;" onclick="window.open('https://t.me/ApelaWar71')">
+        <h2 data-translate="supportTitle"><i class="fa-solid fa-circle-info"></i> SUPORTE</h2>
+        <h4 style="color:var(--neon-blue);" data-translate="faqTitle">Faq:</h4>
+        <p style="font-size:13px; color:#aaa;" data-translate="faqMessage">Os textos são modelos de apelação baseados em engenharia social. O sucesso não é garantido.</p>
+        <button class="btn-dropdown btn-upgrade" style="background: #0088cc;" onclick="window.open('https://t.me/ApelaWar71')" data-translate="officialTelegramButton">
             <i class="fa-brands fa-telegram"></i> Telegram Oficial
         </button>
     </div>
   </div>
 
-  <div id="chatbot-container">
+  <div id="chatbot-container" data-translate-group="chatbot">
       <div class="chatbot-header">
           <div class="chatbot-profile">
-              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMC4yOTkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjg1MiAxMi43OTEgMTkuMDE1IDE2LjQ2NSAxMC44NTYgNS4yNzUgMjIuNjU2IDcuMzIxIDM0LjY5IDcuODIxIDIuNDI5LjA5OSA0Ljk4NC4xOCAxLjIxOS41MjUgMy4yNDYuNDkyIDUuNDA2IDEuNjU4IDcuMTk2IDQuMzUgOC4zOCAxMi45NTQgNy43NTggMzUuMzQ3LS41MiA0Ny45NC00LjE3NCA2LjQ5My04LjkyOSAxMi43NjQtMTUuMDU1IDE4LjA2MS00Ljk2MiA0LjM1Mi0xMC4yMzYgOC4zNTctMTUuODA3IDEyLjExMi01LjI4MiAzLjU1Ny0xMS4xMTUgNi43MjUtMTYuODk1IDEwLjY1NS0xMS43NzUgNy45MTQtMjQuMDcyIDE1LjIyLTM3LjA4NyAyMS4yMzgtMjQuMjYgMTEuMjU3LTQ5LjMyOCAyMS42MTctNzUuMDg4IDI5Ljc1NS0xNS40MzMgNC45My0zMC45NzUgOS4xODI0Ny4xMjgtMTIuNDMzLTQuODU1LS44ODYtOS42NDctMS44NTctMTQuNDk3LTIuNjA1LTQuNTQ2LS42OTktOS4yMjItMS4wNi0xMy44My0uNzg0LTguNDcyLS41MDUtMTYuNTctMy4wMDktMjQuMjUtNi44OTEtMTYuNjg3LTguNDIxLTM1Ljc5OS04Ljg2LTVhLjY0Mi0xOS42My0yOS41MDctMTcuMjUyLTU4LjAzLTM2LjU5Mi03Ny4wODMtNTkuNTg4LTE2LjAzNS0xOS40NjItMjUuMDkxLTQyLjYyMy0zMS4yNi02Ni40NjMtMS44NjItNy4yODktMy4zOTgtMTQuNTkzLTQuNTI5LTIxLjk2OC0xLjM3NS04LjgyMS0yLjU2Ny0xNy42MTQtNC4xMTQtMjYuNDE1LTEuNjQ2LTkuMzM5LTMuMzUxLTE4LjY3Ni01LjExMi0yNy45NzItNS4wNjktMjYuNTYtMi4zMTYtNTMuODI3NS4wNTUtNzkuMjYzNy4xNDMtMjQuNzM4IDE4LjQ3MS00Ny4yNDcgMzIuNjM5LTY3LjQyMiAxMC43MTctMTUuMjY0IDIxLjY0Ni0zMC4wMDcgMzUuMTI3LTQzLjQ1MiAxMC4xODItMTAuMjE2IDIxLjI4Mi0xOS40NDkgMzMuMTE1LTI3Ljk5MiA5LjI0Mi02Ljc3MSAxOS4zMzEtMTIuMjk3IDI5LjMyMS0xNy4wNDYgMTMuODEzLTUuOTM2IDI4LjEwNy0xMC41MyA0Mi43MDYtMTQuMDIyIDE4LjIzNi00LjQxNCAzNi44MDItNy4zNCA1NS42MjgtOS4xNDQgMi43MTMtLjI2MiA1LjQ2OC0uMjk0IDguMTU5LS40NzIgOC42ODUtLjU4MyAxNy42NDQtLjk1NCAyNi41OTMtMS4zMTR6bTIyLjc3OSA0MDkuMTgzYy0uMDAyLS4wNzItLjAwMy0uMTQ0LS4wMDUtLjIxN0MxNzkuNzggNDA1LjA0IDE0Ni4yNCAzNDEuNTI0IDExMy41MjggMjIyLjE1Yy0zMi4xMTItMTE3LjQ0MS00NS40My0yMzUuNjIzLTE2LjY2NS0zMjkuNzUgNi4xOTctMTkuOTg0IDE1LjEwMy0zOC41MTIgMjcuMzM2LTU0LjY2NCA4LjA4Mi0xMC41NzkgMTYuODctMjAuNjkxIDI3LjQxMS0yOS42OTQgMi41My0yLjIwNSA1LjQ1LTMuODQzIDguMzM3LTUuMzY3IDI0LjUzOS0xMi44OTYgNTAuOTI0LTE4LjU0NSA3OC4yMzQtMTkuNzc4IDE1LjMzLS43MDMgMzAuNjY3LTEuMzk3IDQ2LjA0MS0xLjg0IDYuMDY5LS4xNzQgMTIuMTgyLS4xNjQgMTguMjQ0LS4xNTggMzEuNDk5LjAzMSA2My4wMDkuMjUyIDk0LjUwMS42MTEgMTYuMDgxLjE3NSAzMi4wNzcuMzIgNDguMjM3LjY1MiAxOC4xMTcuMzc2IDM1LjgyMSAxLjQ5MiA1My4zNDggNC4wNzIgMjEuNjY0IDMuMjQ2IDQyLjcyIDguMTkyIDYyLjY0NiAxNC45NTcgMTIuNjYxIDQuMzMyIDI0LjY3MyA5LjQ5NyAzNi42NzMgMTUuODQ4IDEyLjMxIDYuNjUgMjMuNjM5IDE0LjM0MSAzNC4yOTUgMjIuOTk0IDEyLjY1NiAxMC41NzYgMjQuMTA5IDIyLjUzMiAzMi43NjMgMzYuMDM1IDEzLjMyMiAyMS44NCAxNi45NjIgNDYuMDgyIDE1LjE5MyA3MC41NTItMi41MDUgMzQuMjc1LTguOTIyIDY4LjE2OS0xOS4zMzcgMTAwLjkyMi04LjgxNSAyNy45MTItMTkuMTM0IDU1LjY4MS0zMi43NzggODEuNzQ2LTMwLjIyIDU5LjI1Mi01My43MzMgMTE5LjQyLTc2LjY4MSAxNzkuMjk1LTMzLjU2NCA4Ni41ODMtNTUuNTQ1IDE3NS4wMTItNjYuMzMgMjY2LjcxNy0xLjA0IDkuMDY1LS43MzcgMTguMTE1LS4yMzQgMjcuMTEzLjE1NCAyLjg4My40MzIgNS43NTQuNzc4IDguNjA4LjQ5MSAzLjk3My44NzcgNy45NTggMS4zMjUgMTEuOTI4LjQ0MSAzLjkxLjY0NyA3LjgyNS44OTcgMTEuNzMxLjA3OSAxLjIyNS4xNzQgMi40NDcuMjMgMy42NzUuMDcgMS40NzIuMTg3IDIuOTQ3LjMxIDQuNDE1LjE4IDIuMjEzLjM1OCAzLjkwOC0xLjAyIDUuMjk4LTEuNzI1LjY0NS0zLjgwNy41NDUtNS44NjQtLjA3MS04LjUwMi0yLjU0NC0xNy4wNDUtNS4xMTktMjUuNDg4LTcuNzU1LTExLjQyMi0zLjU2My0yMi45NDMtNy4wNS0zNC41MTEtMTAuNDE0LTExLjkwNi0zLjQ0Mi0yMy45MTQtNi40MS0zNi4wMDQtOS4yNDYtMTMuNjM3LTMuMTg3LTI3LjQ0My01Ljc0Ny00MS4zMDMtOC40OTUtMTEuNzc1LTIuMzE0LTIzLjY3Ni00LjI5My0zNS42NjktNi4yNTRtLTI2LjYwMiAzMC43MjVjLTMuNDI0LS4yMzUtNi44NjYtLjQ2Ny0xMC4yOTktLjY5MS0xMi45ODktLjg1LTI2LjA3LTEuMzk4LTM5LjI3My0xLjg3My0yNS40NzctLjk0NC01MC41OTktMi42NDQtNzUuNjI3LTQuNTUtMjEuNTQ1LTEuNjMzLTQyLjQ0Mi00LjQ4MS02My41MDktOC4wNTQtMTMuMjc2LTIuMjQ4LTI2LjI1Ny00LjgwNy0zOC44MDYtOC4xNDktMTUuMDIyLTQuMDI1LTI5LjUzLTkuMDYyLTQzLjM5NC0xNS4xMjktMTEuMjgxLTQuODM0LTIxLjk2OC0xMC41ODMtMzIuNTE1LTE3LjA4NS04LjIxMS01LjE2OC0xNS41MzctMTEuMzYzLTIxLjY5MS0xOC40MTYtMTkuNDUxLTIxLjgzNi0zMS40NjgtNDguNzc4LTM5LjAzMS03Ny41NzktNy40MzYtMjcuNzM1LTguNTItNTcuNjE5LTIuMzMzLTg2LjYzIDMuMDE5LTE0LjMxMyA4LjAxOC0yNy43NDggMTQuMjktNDAuNDM4IDkuMjU0LTE4LjY3NyAxOS41MTUtMzYuOTgxIDM1LjI1MS01MC40OTMgMTMuMjY2LTExLjkzNyAyOC4yMjctMjEuNTg2IDQ0LjMxNi0yNy44NzkgMTQuMjg5LTUuNjYgMjguNzYxLTkuNjExIDQzLjMzMi0xMy41OTIgMTkuOTc3LTUuMzY5IDQwLjYyOS03LjgxNiA2MS4yNjYtOS45MDcgOS44MzEtLjk5MyAxOS43MzgtMS45MzUgMjkuNjM3LTIuODg0IDIxLjY2Ny0yLjA5MyA0My4wNzktMy42MTUgNjQuNDU1LTUuMTQxIDE0LjA3Mi0xLjAyMiAyOC4wNDQtMi4wMzIgNDIuMTktMi44MjUgMjIuMDEtMS4wMiA0My45MjQtMS43ODUgNjUuODkzLTIuOTY2IDE4LjI0My0uOTg4IDM2LjY5NS0xLjQwMSA1NS4wNzgtMS44MDcgMi43MS0uMDYgNS40NDUtLjA5NCA4LjE1OS0uMTIxIDE5LjQzOS0uMTg1IDM4Ljg4NS0uMDk2IDU4LjI5LjE3NyAyMS41NzcuMzAzIDQyLjk5LjkzNiA2NC4zNjMgMi4wMTMgMTYuMjc1LjgyNyAzMS45NSA0LjEyNyA0Ny42MDkgNy4wOTQgMTQuNDM0IDIuODA5IDI4LjU3NSA2LjQxMiA0Mi4zMiAxMC43MjYgMTIuMTkgMy43MzggMjMuMjYxIDguNTcgMzMuNDMgMTQuMjM3IDkuNTY3IDUuMzE1IDE3LjYxIDEyLjQyOCAyMy40NjYgMjEuMDQ2IDcuMzggMTEuMTQzIDEwLjg2NCAyNC41MTcgMTIuNjkgMzguMzcyIDMuMzI1IDI0Ljk5NiAyLjU0MiA1MC44NS0yLjY3MSA3Ni42NDMtNS4xNjEgMjUuNzE2LTExLjY5MiA1MC44ODQtMjEuMjQxIDc0LjQ4OS0xNC4yMTcgMzUuMTY2LTMxLjk5NCA2OC42NDItNTAuODc1IDEwMS4xODctMTguNjUxIDMzLjY5My0zOS42MDQgNjUuNjIxLTU3LjMxMiAxMDAuNDctNC4wODggNy45ODUtNy43NTkgMTYuMDMtMTEuMTc0IDI0LjEzLTIuOTM3IDcuMTAyLTYuMDE5IDE0LjM0LTguNzY3IDIxLjUxOS0yLjc0OCAxMC44Mi0yLjQxIDIyLjA3NC0uNjggMzMuMDUzIDEuNTQ0IDkuNjU4IDQuMzE1IDE4Ljk1MSA4LjIzNiAyNy44NjEgNS42MzMgMTIuMjkgMTMuMTYzIDIzLjY0MSAyMS40MDMgMzQuNjc3IDE2Ljc2MSAyMi4xNTQgMzYuNDg5IDQxLjUxMSA1OS42NDcgNTcuMzE2IDIxLjQwMiAxNC42NDEgNDQuNzk1IDI2LjEyNSA2OS40MDcgMzQuODUgMTEuMTQ0IDQuMDE0IDIyLjUxNSA2LjkwNSAzMy43NjIgOS4yNDMgMTQuNDc5IDIuOTg0IDI5LjEyOSA1LjA2IDQzLjgzOSA2LjA5NCAyMS44ODkgMS42MTEgNDQuMTMzIDEuNTYgNjYuMiAxLjQwNiA2LjQ0NC0uMDQ0IDEyLjg4My0uMTMzIDE5LjMyNS0uMTIgMTYuMDMuMDMyIDMyLjA2MS4wMTQgNDguMDc5LjEzMiAxNS44MDMuMTE3IDMxLjU5My4zMjIgNDcuMzgzLjYzNiAxNS44MzkuMzE1IDMxLjcwOC43MzkgNDcuNTY5IDEuNDEgMTkuMDIzLjgxMyAzOC4xMDkgMS45MzUgNTcuMTgyIDMuNDQ3IDkuNTUuNzU4IDE5LjA0NiAxLjY5OSAyOC41OTggMi4yMjkgOC40NS40NzEgMTYuODgyLjkwNyAyNS4zMzUgMS4yOCAxLjQ5MS4wNjMgMi45NzcuMTQ3IDQuNDU2LjIzIDIuNDQ0LjEzNyA0Ljg2OS40MTcgNy4yOTQuNjA1eiIgZmlsbD0iI2FhYWFhYSIvPjwvc3ZnPg==" alt="Bot AI">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1LjczLTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMC4yOTkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjI5MiAzNy43NTItMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMD৭১IDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMC4yOTkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjg1MiAxMi43OTEgMTkuMDE1IDE2LjQ2NSAxMC44NTYgNS4yNzUgMjIuNjU2IDcuMzIxIDM0LjY5IDcuODIxIDIuNDI5LjA5OS00Ljg5NS0xMi4wMjQtNi41NC0xOC45OTUtLjYyNy0yLjc0MS0xLjI0My01LjQ4My0xLjgyOS04LjIzOS0uNTg1LTIuNzU5LTEuMTU5LTUuNTUtMS43MzktOC4zMDgtLjA5OS0uNDczLS4xOTgtLjk0NC0uMjctMS40MTUtLjE1NC0xLjA1NC0uMzQ4LTIuMDgyLS40ODMtMy4xNDctLjI2LTIuMTM4LS41MDItNC40MjMtLjcwNy02LjU5LTEuMzMtMTQuMzY0LS43MTUtMjguOTA1IDIuODkxLTQyLjk5IDMuNDctMTQuMDgyIDguMDYyLTI3Ljg3MiAxNC4xNDQtNDEuMzM3IDQuMTMtOS4wNzcgOC44MzUtMTcuOTE0IDEzLjczMy0yNi41OTYgNi4xMjUtMTAuNjQ1IDEzLjMyMi0yMC44NTMgMjEuNTgzLTI5LjkzMSAyLjA3NC0yLjI3IDQuNzk0LTQuMzM0IDcuMjQtNi4wNzMgNC41MTgtMy4yMzggOS40MS01Ljg3NCAxNC42NTItNy45MTIgMTEuNzU1LTQuNDk2IDI0LjgxNy02LjU1MiAzNy42NjgtNS42MTcgMi42MDMuMTg2IDUuMi4zMzMgNy44MDQuNDc0IDIyLjUxOCAxLjIxMiA0NC45OTcgMi41MiA2Ny40NzggMy44MjMgMjEuMjYyIDEuMjMgNDIuNDQ4IDIuODcgNjMuNDEgNC44OCAyMC4xMyAxLjkxNiA0MC40OTcgMy4wNTUgNjAuNjU0IDQuNjI1IDguOTI0LjcwMiAxNy44NTUgMS40ODcgMjYuNzU0IDIuNDAzIDExLjU3OSAxLjE3NiAyMy41NDEgMi4wNzEgMzUuNTIgMi41ODUgMTIuNDk5LjUyOSAyNS4wMDYgMS40ODIgMzcuNTM0IDIuNjA1IDIxLjgwNyAxLjk3NyA0My45NjcgMi41NSA2NS44NzMgMy41NDYgMTkuMDcuODcxIDM4LjE0OSAxLjM4MiA1Ny40NzggMS44NTQgMy40OTEuMDg0IDYuOTY0LjIwMiAxMC40NDQuMzIgMS45MzMuMDY2IDMuODY2LjEzIDUuNzkuMTc5IDguODAzLjI0MSA5Ljc4My0xLjEyMyAxOC4yOC01LjU1MyAyLjg5MS0xLjU1NCA1LjUxNC0zLjQyIDguMzIxLTQuODcgNS4wNi0yLjYxNiAxMC41NzktMy43OTkgMTYuMDY1LTQuODQ0IDE0LjMyMy0yLjYwMSAyOC41ODItNS41MiA0My4wNS03LjIyMyAxMi4zNDYtMS42NDUgMjQuNzc1LTMuMDQ4IDM3LjItMy44NTMgMTkuNDg3LTEuMjczIDM4LjkwNi0yLjQ2NCA1OC4zMzItMy4zODggMTYuMTkzLS43NjQgMzIuNDczLTEuMjIyIDQ4LjczMi0xLjQzMiA2Ljc5Mi0uMDkgMTMuNDQ0LS4xMzkgMjAuMTIyLS4xNDIgMzEuNDg4LS4wMDIgNjMuMDA2LjIxOSA5NC41MDguNDMxIDIwLjExNS4xMzMgNDAuMDk3LjUxOSA2MC4xOTcuNzI3IDIxLjMyNS4yMiA0Mi40OTcuNDExIDYzLjY3NC42MjMgMTcuOTQ4LjE4IDM1Ljg0NS40NjQgNTMuNzY3LjcxMiAyLjcxMS4wMzcgNS40NDMuMDQ2IDguMTM3LjA4IDkuMDYzLjEwNyAxOC4zMDMuMzA3IDI3LjU1LjQxIDEzLjQ5Ny4xNTUgMjYuNjAzLjM1IDM5Ljg4LjUxNCAyLjM3NS4wMjkgNC43NzYuMDk2IDcuMTQ2LjA5NCAxMi4wMjQtLjAxIDIzLjkyMS0uNTIyIDM1LjgwNC0uOTgyIDkuNTkzLS4zNzggMTkuMjU5LS43NjQgMjguODItMS4xMTcgMjMuNzk1LS44ODMgNDcuMTI2LTEuMzUyIDcwLjQyMy0uNDMgMTYuMDEuNjIyIDMxLjg4MiAyLjQxIDQ3LjU5MSA0Ljk0NCAyMy4wNzIgMy43NjUgNDUuOTc4IDguODYgNjguNTA5IDE0LjQyIDE5LDUuNTYxIDM3LjUxOSAxMi44MTMgNTUuMTgzIDIyLjY1NiAxMC41NjkgNS43NjYgMjAuNzg3IDEyLjU4OSAyOS45NTcgMjEuMDYzIDEwLjEyMiA5LjQyMiAxNy45NTQgMjAuNjg3IDI0LjIxNyAzMi45NyA5LjU0NiAxOC41NDcgMTIuMzEzIDM5LjA0MiAxMS40MiA1OS42MzYtLjU4MiAxMy40OTUtMS43MTQgMjYuODMtMy40ODcgNDAuMTY0LTEuNzMgMTIuNTY2LTMuNjUxIDI1LjEyNS01Ljg4IDM3LjY1My0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLS45MzcgMTUuNzg5LS42MiAyMy41OC0xLjM1NyAyNS4zMS0yLjM5NiA0OC42Ny03Ljk5IDc0Ljg5OS0xNS4wMDMgMTUuNTA5LTQuMzEzIDMwLjc1OC04LjkxMyA0NS43MjQtMTQuNDY5IDguODctMy4yNjYgMTcuMzU1LTYuOTggMjUuNzE2LTEwLjg2MSAxLjcxMS0uODAzIDMuNDY1LTEuNTMyIDUuMDk3LTIuNDEgMi41OC0xLjM1NiA1LjI5My0yLjQ3IDcuNjgtNC4wMzggNS43NDYtMy44NDggMTEuMjItOC42OTQgMTUuNTE1LTE0LjE5OSA1LjkwNy03LjMyNSA5LjExNS0xNS41MzYgOS44NzktMjQuMTAzLjI4Ni0zLjE0Ny4yODgtNi4zMTctLjAwNy05LjQ1My0uNzAyLTYuOTktMy40NDUtMTMuODUzLTcuMDMyLTIwLjE4OS01LjQ1My05LjUxNS0xMi4yOTYtMTguMjM5LTIxLjMzNi0yNS42NDktMTcuOTk3LTE1LjA1Ni0zOS4wNS0yMy45NjYtNTkuNzk4LTMzLjI3OS0xOC40NzctOC40MDItMzcuNTcyLTE1LjQzMi01Ni43NjctMjIuMzQ4LTEzLjMxNC00LjcyNS0yNi41OC04LjMyNy0zOS44MTItMTEuODQ4LTIyLjM4OC01Ljk1NS00NS40NzMtOS40NTUtNjguNzE0LTExLjkwMS05LjA4Ny0uOTY2LTE3LjU3Ny0xLjE1MS0yNi40NjgtMS4zOTctMTUuODkxLS40NDQtMzEuODk2LS44MjYtNDguMDA1LTEuMTQyLTYuMDE3LS4xMjgtMTIuMDU1LS4yNTktMTguMTk4LS4zMDgtMzEuNjg0LS4yNTItNjMuMzk0LS4zMDYtOTQuOTY0LS4zNDItMjEuMDk0LS4wMjQtNDIuMTg3LjA3OS02My41MDctLjE2M3oiIGZpbGw9IiNhYWFhYWEiLz48L3N2Zz4=" alt="Bot AI">
               <div>
-                  <h4>Over AI <i class="fa-solid fa-circle-check verified-icon"></i></h4>
-                  <span style="font-size:11px; color:#888;">Online</span>
+                  <h4 data-translate="aiBotName">Over AI <i class="fa-solid fa-circle-check verified-icon"></i></h4>
+                  <span style="font-size:11px; color:#888;" data-translate="onlineStatus">Online</span>
               </div>
           </div>
           <i class="fa-solid fa-xmark close-chat" onclick="closeChatbot()"></i>
@@ -672,14 +704,14 @@
   </div>
   <footer>
     <div>
-        <p>OVER PAINEL © 2025 | <span style="color:#444;">System Safe & Encrypted</span></p>
+        <p data-translate="footerCopyright">OVER PAINEL © 2025 | <span style="color:#444;">System Safe & Encrypted</span></p>
         <div id="server-status" style="color:var(--neon-green); font-size:11px;">
             <i class="fa-solid fa-wifi"></i> <span id="latency-val">32ms</span>
         </div>
     </div>
 
     <div class="creator-section">
-        <span>Dev: <b>ApelaWar71</b></span>
+        <span data-translate="developer">Dev: <b>ApelaWar71</b></span>
         <div style="display:flex; gap:10px;">
              <a href="https://t.me/ApelaWar71" target="_blank" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
              <a href="https://www.instagram.com/apela_warofc" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -696,6 +728,7 @@
     const CREDITS_KEY = 'over_credits_v2';
     const LOGS_KEY = 'over_logs_v2';
     const COOLDOWN_KEY = 'over_cooldown_v2';
+    const LANG_KEY = 'over_lang_v2'; 
     // DEFINIÇÃO DO LIMITE DE CRÉDITOS E DURAÇÃO DO COOLDOWN
     const DEFAULT_CREDITS = 20; // 👈 CRÉDITOS INICIAIS/MÁXIMOS DO PLANO FREE
     const COOLDOWN_DURATION = 14400; // 👈 4 horas em segundos = 4 * 3600
@@ -709,24 +742,516 @@
     let secondsOnline = 0;
     let logs = JSON.parse(localStorage.getItem(LOGS_KEY)) || [];
     let cooldownEndTimestamp = parseInt(localStorage.getItem(COOLDOWN_KEY)) || 0;
-    let userPlan = 'FREE'; // Começa como FREE por padrão (Mantenha para simulação)
+    let userPlan = 'FREE'; // Começa como FREE por padrão
+    let currentLang = localStorage.getItem(LANG_KEY) || 'pt'; // Idioma atual
+    let currentTranslations = {}; // Guarda as traduções ativas
 
     // Audio Context para sons sem arquivos externos
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // =========================================================================
+    // NOVO: TRADUÇÕES (JSON)
+    // =========================================================================
+    const allTranslations = {
+        'pt': {
+            // Meta e Títulos
+            secureConnection: "Conexão Segura",
+            restrictedAccessTitle: "ACESSO RESTRITO",
+            restrictedAccessSubtitle: "Insira suas credenciais para acessar o sistema.",
+            authenticateButton: "Autenticar",
+            loadingMsg: "Descriptografando acesso...",
+            
+            // Dropdown
+            plan: "Plano:",
+            credits: "Créditos:",
+            session: "Sessão:",
+            rechargeCreditsButton: "RECARREGAR CRÉDITOS",
+            supportFAQButton: "Suporte/FAQ",
+            becomeVIPButton: "Virar VIP Supremo",
+            disconnectButton: "Desconectar",
+            
+            // Login/Pré-Login
+            username: "Usuário",
+            password: "Senha",
+            vipDataTitle: "Dados VIP",
+            accessStoreLink: "Acessar Loja >",
+            iptvTitle: "IPTV Premium",
+            watchNowLink: "Assistir Agora >",
+            
+            // Painel Principal
+            welcomeTitle: "BEM-VINDO AO SYSTEM 2.0",
+            freePlanWarning: "Seu plano é **FREE**! Limite:",
+            creditsAvailablePrefix: "Você tem",
+            creditsAvailableSuffix: "créditos disponíveis.",
+            rechargeInLabel: "Recarga em:",
+            rechargeNowButton: "RECARREGAR AGORA",
+            access: "Acesso:",
+            // Cards
+            unbanZapTitle: "Desbanir Zap",
+            unbanZapDesc: "Gere textos de engenharia social para recuperar números. (1 Crédito)",
+            recoverTikTokTitle: "Recuperar TikTok",
+            recoverTikTokDesc: "Apelação otimizada para contas suspensas. (1 Crédito)",
+            unbanGamesTitle: "Unban Games",
+            unbanGamesDesc: "Textos para Free Fire e outros jogos. (1 Crédito)",
+            tempEmailTitle: "E-mail Temp",
+            tempEmailDesc: "Gere e-mails descartáveis para cadastros rápidos e anônimos. (2 Créditos)",
+            generateEmailButton: "Gerar E-mail",
+            cpfGeneratorTitle: "Gerador CPF",
+            cpfGeneratorDesc: "Gere um número de CPF válido para testes de sistemas. (1 Crédito)",
+            generateCPFButton: "Gerar CPF Válido",
+            ipLocatorTitle: "IP/GPS Locator",
+            ipLocatorDesc: "Rastreie a localização aproximada de um IP ou Link. (3 Créditos)",
+            ipLinkPlaceholder: "IP ou Link (ex: 8.8.8.8)",
+            startTrackingButton: "Iniciar Rastreio",
+            urlScannerTitle: "Scanner URL",
+            urlScannerDesc: "Verifique links suspeitos (Phishing/Malware).",
+            scanButton: "Escanear",
+            securityToolsTitle: "Security Tools",
+            securityToolsDesc: "Ferramentas de análise de ambiente.",
+            checkIPButton: "Checar IP",
+            strongPasswordButton: "Senha Forte",
+            vipSupremeTitle: "VIP SUPREMO",
+            vipSupremeDesc: "🔥 Desbloqueie **Créditos Ilimitados** e todas as ferramentas exclusivas.",
+            upgradeNowButton: "UPGRADE JÁ!",
+            executeIAButton: "Executar IA",
+
+            // Modais
+            noCreditsTitle: "CRÉDITOS ESGOTADOS!",
+            noCreditsSubtitle: "Desbloqueie agora o VIP Supremo para:",
+            noCreditsFeature1: "**Créditos Ilimitados** (Sem Cooldown!)",
+            noCreditsFeature2: "Ferramentas Exclusivas",
+            noCreditsFeature3: "Suporte 24/7",
+            noCreditsButton: "QUERO UPGRADE VIP",
+            
+            vipUnlockMessage: "Desbloqueie o poder total do Sistema 2.0! Seu diferencial é:",
+            upgradeVipTitle: "UPGRADE VIP SUPREMO",
+            vipFeature1: "**Créditos Ilimitados** (Sem Cooldown!)",
+            vipFeature2: "Ferramentas Exclusivas VIP",
+            vipFeature3: "Suporte Prioritário 24/7",
+            contactSellerButton: "Falar com Vendedor (Melhor Preço!)",
+            
+            systemLogsTitle: "LOGS DO SISTEMA",
+            clearLogsButton: "Limpar Logs",
+            
+            supportTitle: "SUPORTE",
+            faqTitle: "Faq:",
+            faqMessage: "Os textos são modelos de apelação baseados em engenharia social. O sucesso não é garantido.",
+            officialTelegramButton: "Telegram Oficial",
+            
+            // Footer
+            footerCopyright: "OVER PAINEL © 2025 | System Safe & Encrypted",
+            developer: "Dev: ApelaWar71",
+
+            // Chatbot (Textos principais)
+            aiBotName: "Over AI",
+            onlineStatus: "Online",
+            // Estes são injetados via JS, a lógica de tradução deve ser refeita no JS
+            chatbotInitialGreetingFree: (user, credits, maxCredits) => `Olá, ${user}! Eu sou a Over AI. Seu plano é **FREE** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> créditos).<br>Foque no upgrade para ter créditos ilimitados!`,
+            chatbotInitialGreetingVIP: (user) => `Bem-vindo, **${user}**! Seu acesso **VIP Supremo** está ativo. Qual ferramenta você precisa usar hoje?`,
+            // Chatbot buttons
+            chatbotUpgradeNowButton: "🚀 Upgrade VIP Supremo AGORA",
+            chatbotWhatIsVipButton: "🤷‍♂️ O que eu ganho com o VIP?",
+            chatbotAvailableToolsButton: "🛠️ Ver Ferramentas Disponíveis",
+            chatbotUnbanMenu: "⚡ Geradores de Texto (Unban)",
+            chatbotAdvancedTools: "🛠️ Ferramentas Avançadas",
+            chatbotSupportPriority: "❓ Suporte/FAQ Prioritário",
+            chatbotBackToMainMenu: "⬅️ Voltar ao Menu Principal",
+            chatbotChooseUnbanGenerator: "Escolha o gerador de apelação que deseja usar:",
+            chatbotUnbanZapButton: "Desbanir WhatsApp (1 Crédito)",
+            chatbotRecoverTikTokButton: "Recuperar TikTok (1 Crédito)",
+            chatbotUnbanGamesButton: "Unban Games (1 Crédito)",
+            chatbotExploreTools: "Explore as ferramentas avançadas do painel:",
+            chatbotTempEmailButton: "Gerar E-mail Temp (2 Créditos)",
+            chatbotCPFGenButton: "Gerar CPF Válido (1 Crédito)",
+            chatbotIPGeoButton: "Localizador IP/GPS (3 Créditos)",
+            chatbotSecurityTools: "Scanner URL & Checar IP (Gratuito)",
+            chatbotSecurityFree: "Ferramentas de análise de rede (Grátis):",
+            chatbotCheckMyIP: "Checar meu IP",
+            chatbotGenerateStrongPass: "Gerar Senha Forte",
+            chatbotBackToTools: "⬅️ Voltar ao Menu de Ferramentas",
+            chatbotBenefits: `Claro! Com o **VIP Supremo** você garante:<br>✅ **Créditos Ilimitados** (Sem Cooldown!)<br>✅ **Todas as Ferramentas** (incluindo as futuras)<br>✅ **Suporte Prioritário 24/7**<br>É o fim das limitações para você!`,
+            chatbotBuyVip: "COMPRAR VIP",
+            chatbotToolChecked: "IP Checado! Olhe o box de ferramentas no painel principal. O que mais?",
+            chatbotPassGenerated: "Senha gerada e exibida no box de ferramentas. Use o botão 'Copiar'.",
+            chatbotEmailGenerated: "E-mail temporário gerado e exibido no card. Copie e use-o!",
+            chatbotCPFGenerated: "CPF gerado (Simulação). Lembre-se, apenas para testes de validação.",
+            chatbotIPGeoInfo: "Para rastrear, acesse o painel principal, insira o **IP/Link** no card **IP/GPS Locator** e clique em Rastrear.<br>Essa função exige um IP ou Link digitado!",
+            chatbotTextGenerated: (tool) => `Texto de apelação para **${tool}** gerado!<br>Verifique o resultado no painel principal e copie o texto.`,
+            
+            // Cooldown Messages (Injetadas em JS)
+            cooldownMessageFree: (time) => `Você atingiu o limite de uso diário do plano **FREE**. Recarga automática em <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
+            cooldownMessageReady: `Você atingiu o limite de uso diário do plano **FREE**. Clique em recarregar para continuar!`,
+
+            // Toast Messages
+            toastSuccessLogin: "Acesso Autorizado. Bem-vindo.",
+            toastErrorLogin: "Acesso Negado!",
+            toastErrorInvalidCredentials: "⛔ Credenciais Inválidas.",
+            toastSuccessLogsCleared: "Logs limpos com sucesso.",
+            toastSuccessCreditsRecharged: "Créditos recarregados com sucesso!",
+            toastWarningCreditsFull: "Créditos já estão cheios.",
+            toastWarningCreditsExhausted: "Créditos esgotados! Recarga iniciada (4h).",
+            toastErrorNoLink: "Insira um IP ou Link!",
+            toastSuccessCopied: "Texto copiado para a área de transferência!",
+            toastErrorCopy: "Erro ao copiar. Tente selecionar o texto.",
+            toastErrorNoURL: "Insira uma URL!",
+            
+        },
+        'en': {
+            // Meta e Títulos
+            secureConnection: "Secure Connection",
+            restrictedAccessTitle: "RESTRICTED ACCESS",
+            restrictedAccessSubtitle: "Insert your credentials to access the system.",
+            authenticateButton: "Authenticate",
+            loadingMsg: "Decrypting access...",
+            
+            // Dropdown
+            plan: "Plan:",
+            credits: "Credits:",
+            session: "Session:",
+            rechargeCreditsButton: "RECHARGE CREDITS",
+            supportFAQButton: "Support/FAQ",
+            becomeVIPButton: "Become Supreme VIP",
+            disconnectButton: "Disconnect",
+
+            // Login/Pré-Login
+            username: "Username",
+            password: "Password",
+            vipDataTitle: "VIP Data",
+            accessStoreLink: "Access Store >",
+            iptvTitle: "Premium IPTV",
+            watchNowLink: "Watch Now >",
+            
+            // Painel Principal
+            welcomeTitle: "WELCOME TO SYSTEM 2.0",
+            freePlanWarning: "Your plan is **FREE**! Limit:",
+            creditsAvailablePrefix: "You have",
+            creditsAvailableSuffix: "credits available.",
+            rechargeInLabel: "Recharge in:",
+            rechargeNowButton: "RECHARGE NOW",
+            access: "Access:",
+            // Cards
+            unbanZapTitle: "Unban WhatsApp",
+            unbanZapDesc: "Generate social engineering texts to recover numbers. (1 Credit)",
+            recoverTikTokTitle: "Recover TikTok",
+            recoverTikTokDesc: "Optimized appeal for suspended accounts. (1 Credit)",
+            unbanGamesTitle: "Unban Games",
+            unbanGamesDesc: "Texts for Free Fire and other games. (1 Credit)",
+            tempEmailTitle: "Temp Email",
+            tempEmailDesc: "Generate disposable emails for quick and anonymous registrations. (2 Credits)",
+            generateEmailButton: "Generate Email",
+            cpfGeneratorTitle: "CPF Generator",
+            cpfGeneratorDesc: "Generate a valid CPF number for system testing. (1 Credit)",
+            generateCPFButton: "Generate Valid CPF",
+            ipLocatorTitle: "IP/GPS Locator",
+            ipLocatorDesc: "Track the approximate location of an IP or Link. (3 Credits)",
+            ipLinkPlaceholder: "IP or Link (e.g., 8.8.8.8)",
+            startTrackingButton: "Start Tracking",
+            urlScannerTitle: "URL Scanner",
+            urlScannerDesc: "Check suspicious links (Phishing/Malware).",
+            scanButton: "Scan",
+            securityToolsTitle: "Security Tools",
+            securityToolsDesc: "Environment analysis tools.",
+            checkIPButton: "Check IP",
+            strongPasswordButton: "Strong Password",
+            vipSupremeTitle: "SUPREME VIP",
+            vipSupremeDesc: "🔥 Unlock **Unlimited Credits** and all exclusive tools.",
+            upgradeNowButton: "UPGRADE NOW!",
+            executeIAButton: "Execute AI",
+
+            // Modais
+            noCreditsTitle: "CREDITS EXHAUSTED!",
+            noCreditsSubtitle: "Unlock Supreme VIP now for:",
+            noCreditsFeature1: "**Unlimited Credits** (No Cooldown!)",
+            noCreditsFeature2: "Exclusive Tools",
+            noCreditsFeature3: "24/7 Support",
+            noCreditsButton: "I WANT VIP UPGRADE",
+
+            vipUnlockMessage: "Unlock the full power of System 2.0! Your difference is:",
+            upgradeVipTitle: "SUPREME VIP UPGRADE",
+            vipFeature1: "**Unlimited Credits** (No Cooldown!)",
+            vipFeature2: "Exclusive VIP Tools",
+            vipFeature3: "Priority 24/7 Support",
+            contactSellerButton: "Talk to Seller (Best Price!)",
+
+            systemLogsTitle: "SYSTEM LOGS",
+            clearLogsButton: "Clear Logs",
+
+            supportTitle: "SUPPORT",
+            faqTitle: "Faq:",
+            faqMessage: "The texts are appeal models based on social engineering. Success is not guaranteed.",
+            officialTelegramButton: "Official Telegram",
+
+            // Footer
+            footerCopyright: "OVER PAINEL © 2025 | System Safe & Encrypted",
+            developer: "Dev: ApelaWar71",
+
+            // Chatbot (Textos principais)
+            aiBotName: "Over AI",
+            onlineStatus: "Online",
+            chatbotInitialGreetingFree: (user, credits, maxCredits) => `Hello, ${user}! I am Over AI. Your plan is **FREE** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> credits).<br>Focus on upgrading for unlimited credits!`,
+            chatbotInitialGreetingVIP: (user) => `Welcome, **${user}**! Your **Supreme VIP** access is active. Which tool do you need to use today?`,
+            // Chatbot buttons
+            chatbotUpgradeNowButton: "🚀 UPGRADE Supreme VIP NOW",
+            chatbotWhatIsVipButton: "🤷‍♂️ What do I get with VIP?",
+            chatbotAvailableToolsButton: "🛠️ See Available Tools",
+            chatbotUnbanMenu: "⚡ Text Generators (Unban)",
+            chatbotAdvancedTools: "🛠️ Advanced Tools",
+            chatbotSupportPriority: "❓ Priority Support/FAQ",
+            chatbotBackToMainMenu: "⬅️ Back to Main Menu",
+            chatbotChooseUnbanGenerator: "Choose the appeal generator you want to use:",
+            chatbotUnbanZapButton: "Unban WhatsApp (1 Credit)",
+            chatbotRecoverTikTokButton: "Recover TikTok (1 Credit)",
+            chatbotUnbanGamesButton: "Unban Games (1 Credit)",
+            chatbotExploreTools: "Explore the panel's advanced tools:",
+            chatbotTempEmailButton: "Generate Temp Email (2 Credits)",
+            chatbotCPFGenButton: "Generate Valid CPF (1 Credit)",
+            chatbotIPGeoButton: "IP/GPS Locator (3 Credits)",
+            chatbotSecurityTools: "URL Scanner & Check IP (Free)",
+            chatbotSecurityFree: "Network analysis tools (Free):",
+            chatbotCheckMyIP: "Check my IP",
+            chatbotGenerateStrongPass: "Generate Strong Password",
+            chatbotBackToTools: "⬅️ Back to Tools Menu",
+            chatbotBenefits: `Sure! With **Supreme VIP** you get:<br>✅ **Unlimited Credits** (No Cooldown!)<br>✅ **All Tools** (including future ones)<br>✅ **Priority 24/7 Support**<br>It's the end of limitations for you!`,
+            chatbotBuyVip: "BUY VIP",
+            chatbotToolChecked: "IP Checked! Look at the tools box on the main panel. What else?",
+            chatbotPassGenerated: "Password generated and shown in the tools box. Use the 'Copy' button.",
+            chatbotEmailGenerated: "Temporary email generated and shown on the card. Copy and use it!",
+            chatbotCPFGenerated: "CPF generated (Simulation). Remember, only for validation tests.",
+            chatbotIPGeoInfo: "To track, access the main panel, enter the **IP/Link** on the **IP/GPS Locator** card and click Track.<br>This function requires a typed IP or Link!",
+            chatbotTextGenerated: (tool) => `Appeal text for **${tool}** generated!<br>Check the result on the main panel and copy the text.`,
+
+            // Cooldown Messages (Injetadas em JS)
+            cooldownMessageFree: (time) => `You have reached the daily usage limit for the **FREE** plan. Automatic recharge in <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
+            cooldownMessageReady: `You have reached the daily usage limit for the **FREE** plan. Click recharge to continue!`,
+            
+            // Toast Messages
+            toastSuccessLogin: "Access Authorized. Welcome.",
+            toastErrorLogin: "Access Denied!",
+            toastErrorInvalidCredentials: "⛔ Invalid Credentials.",
+            toastSuccessLogsCleared: "Logs successfully cleared.",
+            toastSuccessCreditsRecharged: "Credits successfully recharged!",
+            toastWarningCreditsFull: "Credits are already full.",
+            toastWarningCreditsExhausted: "Credits exhausted! Recharge started (4h).",
+            toastErrorNoLink: "Insert an IP or Link!",
+            toastSuccessCopied: "Text copied to clipboard!",
+            toastErrorCopy: "Error copying. Try selecting the text.",
+            toastErrorNoURL: "Insert a URL!",
+        },
+        'es': {
+            // Meta e Títulos
+            secureConnection: "Conexión Segura",
+            restrictedAccessTitle: "ACCESO RESTRINGIDO",
+            restrictedAccessSubtitle: "Inserte sus credenciales para acceder al sistema.",
+            authenticateButton: "Autenticar",
+            loadingMsg: "Descifrando acceso...",
+            
+            // Dropdown
+            plan: "Plan:",
+            credits: "Créditos:",
+            session: "Sesión:",
+            rechargeCreditsButton: "RECARGAR CRÉDITOS",
+            supportFAQButton: "Soporte/FAQ",
+            becomeVIPButton: "Convertirse en VIP Supremo",
+            disconnectButton: "Desconectar",
+
+            // Login/Pré-Login
+            username: "Usuario",
+            password: "Contraseña",
+            vipDataTitle: "Datos VIP",
+            accessStoreLink: "Acceder a Tienda >",
+            iptvTitle: "IPTV Premium",
+            watchNowLink: "Ver Ahora >",
+            
+            // Painel Principal
+            welcomeTitle: "BIENVENIDO AL SYSTEM 2.0",
+            freePlanWarning: "¡Su plan es **GRATIS**! Límite:",
+            creditsAvailablePrefix: "Usted tiene",
+            creditsAvailableSuffix: "créditos disponibles.",
+            rechargeInLabel: "Recarga en:",
+            rechargeNowButton: "RECARGAR AHORA",
+            access: "Acesso:",
+            // Cards
+            unbanZapTitle: "Desbloquear WhatsApp",
+            unbanZapDesc: "Genere textos de ingeniería social para recuperar números. (1 Crédito)",
+            recoverTikTokTitle: "Recuperar TikTok",
+            recoverTikTokDesc: "Apelación optimizada para cuentas suspendidas. (1 Crédito)",
+            unbanGamesTitle: "Desbloquear Juegos",
+            unbanGamesDesc: "Textos para Free Fire e outros jogos. (1 Crédito)",
+            tempEmailTitle: "Correo Temp",
+            tempEmailDesc: "Genere correos electrónicos desechables para registros rápidos y anónimos. (2 Créditos)",
+            generateEmailButton: "Generar Correo",
+            cpfGeneratorTitle: "Generador CPF",
+            cpfGeneratorDesc: "Genere un número de CPF válido para pruebas de sistemas. (1 Crédito)",
+            generateCPFButton: "Generar CPF Válido",
+            ipLocatorTitle: "Localizador IP/GPS",
+            ipLocatorDesc: "Rastree a localização aproximada de una IP o Enlace. (3 Créditos)",
+            ipLinkPlaceholder: "IP o Enlace (ej: 8.8.8.8)",
+            startTrackingButton: "Iniciar Rastreo",
+            urlScannerTitle: "Escáner URL",
+            urlScannerDesc: "Verifique enlaces sospechosos (Phishing/Malware).",
+            scanButton: "Escanear",
+            securityToolsTitle: "Herramientas de Seguridad",
+            securityToolsDesc: "Herramientas de análisis de entorno.",
+            checkIPButton: "Comprobar IP",
+            strongPasswordButton: "Contraseña Fuerte",
+            vipSupremeTitle: "VIP SUPREMO",
+            vipSupremeDesc: "🔥 Desbloquee **Créditos Ilimitados** e todas as ferramentas exclusivas.",
+            upgradeNowButton: "¡ACTUALIZAR AHORA!",
+            executeIAButton: "Ejecutar IA",
+
+            // Modais
+            noCreditsTitle: "¡CRÉDITOS AGOTADOS!",
+            noCreditsSubtitle: "Desbloquea VIP Supremo ahora para:",
+            noCreditsFeature1: "**Créditos Ilimitados** (¡Sin Cooldown!)",
+            noCreditsFeature2: "Herramientas Exclusivas",
+            noCreditsFeature3: "Soporte 24/7",
+            noCreditsButton: "QUIERO ACTUALIZAR VIP",
+
+            vipUnlockMessage: "¡Desbloquea todo el poder del Sistema 2.0! Tu diferencial es:",
+            upgradeVipTitle: "ACTUALIZACIÓN VIP SUPREMO",
+            vipFeature1: "**Créditos Ilimitados** (¡Sin Cooldown!)",
+            vipFeature2: "Herramientas VIP Exclusivas",
+            vipFeature3: "Soporte Prioritario 24/7",
+            contactSellerButton: "Hablar con el Vendedor (¡Mejor Precio!)",
+
+            systemLogsTitle: "REGISTROS DEL SISTEMA",
+            clearLogsButton: "Limpiar Registros",
+
+            supportTitle: "SOPORTE",
+            faqTitle: "Preguntas Frecuentes:",
+            faqMessage: "Los textos son modelos de apelación basados en ingeniería social. El éxito no está garantizado.",
+            officialTelegramButton: "Telegram Oficial",
+
+            // Footer
+            footerCopyright: "OVER PAINEL © 2025 | System Safe & Encrypted",
+            developer: "Desarrollador: ApelaWar71",
+            
+            // Chatbot (Textos principais)
+            aiBotName: "Over AI",
+            onlineStatus: "En Línea",
+            chatbotInitialGreetingFree: (user, credits, maxCredits) => `¡Hola, ${user}! Soy Over AI. Tu plan es **GRATIS** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> créditos).<br>¡Enfócate en actualizar para tener créditos ilimitados!`,
+            chatbotInitialGreetingVIP: (user) => `Bienvenido, **${user}**! Tu acceso **VIP Supremo** está activo. ¿Qué herramienta necesitas usar hoy?`,
+            // Chatbot buttons
+            chatbotUpgradeNowButton: "🚀 ACTUALIZAR VIP Supremo AHORA",
+            chatbotWhatIsVipButton: "🤷‍♂️ ¿Qué gano con el VIP?",
+            chatbotAvailableToolsButton: "🛠️ Ver Herramientas Disponibles",
+            chatbotUnbanMenu: "⚡ Generadores de Texto (Desbloqueo)",
+            chatbotAdvancedTools: "🛠️ Herramientas Avanzadas",
+            chatbotSupportPriority: "❓ Soporte/FAQ Prioritario",
+            chatbotBackToMainMenu: "⬅️ Volver al Menú Principal",
+            chatbotChooseUnbanGenerator: "Elija el generador de apelación que desea usar:",
+            chatbotUnbanZapButton: "Desbloquear WhatsApp (1 Crédito)",
+            chatbotRecoverTikTokButton: "Recuperar TikTok (1 Crédito)",
+            chatbotUnbanGamesButton: "Desbloquear Juegos (1 Crédito)",
+            chatbotExploreTools: "Explore las herramientas avanzadas del panel:",
+            chatbotTempEmailButton: "Generar Correo Temp (2 Créditos)",
+            chatbotCPFGenButton: "Generar CPF Válido (1 Crédito)",
+            chatbotIPGeoButton: "Localizador IP/GPS (3 Créditos)",
+            chatbotSecurityTools: "Escáner URL y Comprobar IP (Gratis)",
+            chatbotSecurityFree: "Herramientas de análisis de red (Gratis):",
+            chatbotCheckMyIP: "Comprobar mi IP",
+            chatbotGenerateStrongPass: "Generar Contraseña Fuerte",
+            chatbotBackToTools: "⬅️ Volver al Menú de Herramientas",
+            chatbotBenefits: `¡Claro! Con el **VIP Supremo** te aseguras:<br>✅ **Créditos Ilimitados** (¡Sin Cooldown!)<br>✅ **Todas las Herramientas** (incluidas las futuras)<br>✅ **Suporte Prioritário 24/7**<br>¡Es el fin de las limitaciones para ti!`,
+            chatbotBuyVip: "COMPRAR VIP",
+            chatbotToolChecked: "¡IP comprobada! Mire el cuadro de herramientas en el panel principal. ¿Algo más?",
+            chatbotPassGenerated: "Contraseña generada y mostrada en el cuadro de herramientas. Use el botón 'Copiar'.",
+            chatbotEmailGenerated: "Correo temporal generado y mostrado en la tarjeta. ¡Cópielo y úselo!",
+            chatbotCPFGenerated: "CPF generado (Simulación). Recuerde, solo para pruebas de validación.",
+            chatbotIPGeoInfo: "Para rastrear, acceda al panel principal, inserte la **IP/Enlace** en la tarjeta **Localizador IP/GPS** y haga clic en Rastreo.<br>¡Esta función requiere una IP o Enlace escrito!",
+            chatbotTextGenerated: (tool) => `¡Texto de apelación para **${tool}** generado!<br>Verifique el resultado en el panel principal y copie el texto.`,
+
+            // Cooldown Messages (Injetadas em JS)
+            cooldownMessageFree: (time) => `Ha alcanzado el límite de uso diario del plan **GRATIS**. Recarga automática en <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
+            cooldownMessageReady: `Ha alcanzado el límite de uso diario del plan **GRATIS**. ¡Haga clic en recargar para continuar!`,
+            
+            // Toast Messages
+            toastSuccessLogin: "Acceso Autorizado. Bienvenido.",
+            toastErrorLogin: "¡Acceso Denegado!",
+            toastErrorInvalidCredentials: "⛔ Credenciales Inválidas.",
+            toastSuccessLogsCleared: "Registros limpiados con éxito.",
+            toastSuccessCreditsRecharged: "¡Créditos recargados con éxito!",
+            toastWarningCreditsFull: "Los créditos ya están llenos.",
+            toastWarningCreditsExhausted: "¡Créditos agotados! Recarga iniciada (4h).",
+            toastErrorNoLink: "¡Inserte una IP o Enlace!",
+            toastSuccessCopied: "¡Texto copiado al portapapeles!",
+            toastErrorCopy: "Error al copiar. Intente seleccionar el texto.",
+            toastErrorNoURL: "¡Inserte una URL!",
+        }
+    };
+
+    
+    // =========================================================================
+    // NOVO: LÓGICA DE TRADUÇÃO
+    // =========================================================================
+    function updateContent(lang) {
+        currentTranslations = allTranslations[lang];
+        if (!currentTranslations) return;
+
+        // 1. Traduzir Elementos com data-translate
+        document.querySelectorAll('[data-translate]').forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (currentTranslations[key]) {
+                // Para textos que podem conter markdown (negrito)
+                element.innerHTML = currentTranslations[key].replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+            }
+        });
+
+        // 2. Traduzir Placeholders
+        document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+            const key = element.getAttribute('data-translate-placeholder');
+            if (currentTranslations[key]) {
+                element.placeholder = currentTranslations[key];
+            }
+        });
+        
+        // 3. Traduzir Títulos (Tooltips)
+        document.querySelectorAll('[data-translate-title]').forEach(element => {
+            const key = element.getAttribute('data-translate-title');
+            if (currentTranslations[key]) {
+                element.title = currentTranslations[key];
+            }
+        });
+        
+        // 4. Traduzir Conteúdo complexo / injetado (Como o Cooldown)
+        // Correção: Garante que só chame updateCreditsDisplay se o painel estiver teoricamente presente.
+        if (sessionStorage.getItem('isLogged') === 'true' || document.getElementById('painelArea').style.display === 'block') {
+            updateCreditsDisplay();
+        }
+        updateCooldownDisplay(); 
+        
+        // 5. Atualizar o estado do Chatbot se estiver aberto
+        if (document.getElementById('chatbot-container').style.display === 'flex') {
+            const chatBody = document.getElementById('chatbot-messages');
+            if(chatBody) chatBody.innerHTML = '';
+            showInitialMenu(); 
+        }
+    }
+    
+    function changeLanguage(selectElement) {
+        const lang = selectElement.value;
+        currentLang = lang;
+        localStorage.setItem(LANG_KEY, lang);
+        updateContent(lang);
+        showToast(allTranslations[lang].toastSuccessLogsCleared, 'success'); 
+    }
 
     // ------------------- INICIALIZAÇÃO -------------------
     document.addEventListener("DOMContentLoaded", () => {
+        // Define o idioma inicial com base no localStorage ou 'pt'
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+            langSelect.value = currentLang;
+        }
+        updateContent(currentLang);
+        
         // Garante que os créditos nunca excedam o máximo ao carregar
         if (credits > DEFAULT_CREDITS) credits = DEFAULT_CREDITS;
         
         initMatrix(); // Inicia efeito Matrix
         if(sessionStorage.getItem('isLogged') === 'true') {
-            // Simula plano após login
-            const username = atob(AUTH_USER_HASH).replace('@', '');
-            if (username === 'ApelaWar71') {
-                 // Mude para 'FREE' para simular o plano com créditos. Mantenho como VIP para demonstração total
-                userPlan = 'FREE'; 
-            }
+            // Se já logado, configura o plano e exibe o painel
+            userPlan = 'FREE'; 
             showPanel(true);
         }
         updateCooldownDisplay();
@@ -786,6 +1311,7 @@
         
         let icon = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-circle-xmark' : 'fa-triangle-exclamation');
         
+        // As mensagens do toast agora vêm da função chamadora e já devem estar traduzidas
         toast.innerHTML = `<i class="fa-solid ${icon}" style="color:${type === 'error' ? '#ff5555' : 'var(--neon-green)'}"></i> <span>${msg}</span>`;
         container.appendChild(toast);
 
@@ -836,7 +1362,7 @@
     // ------------------- LÓGICA PRINCIPAL -------------------
 
     function addLog(message) {
-        const timestamp = new Date().toLocaleTimeString('pt-BR');
+        const timestamp = new Date().toLocaleTimeString(currentLang === 'pt' ? 'pt-BR' : currentLang);
         logs.unshift(`[${timestamp}] ${message}`);
         if (logs.length > 15) logs.pop();
         localStorage.setItem(LOGS_KEY, JSON.stringify(logs));
@@ -850,7 +1376,7 @@
         logs = [];
         localStorage.setItem(LOGS_KEY, JSON.stringify([]));
         renderLogs();
-        showToast("Logs limpos com sucesso.", "success");
+        showToast(currentTranslations.toastSuccessLogsCleared, "success");
     }
 
     function fazerLogin() {
@@ -870,18 +1396,18 @@
                 sessionStorage.setItem('isLogged', 'true');
                 
                 // Define o plano
-                userPlan = 'FREE'; // Alterado para FREE para demonstração da feature de Créditos
+                userPlan = 'FREE'; 
                 
-                showToast("Acesso Autorizado. Bem-vindo.", "success");
+                showToast(currentTranslations.toastSuccessLogin, "success");
                 addLog(`Login realizado pelo usuário ${user}`);
                 showPanel();
             } else {
                 loading.style.display = 'none';
                 msg.style.display = 'block';
-                msg.innerText = "⛔ Credenciais Inválidas.";
+                msg.innerText = currentTranslations.toastErrorInvalidCredentials;
                 playSound('error');
                 addLog(`Falha de login: Tentativa com ${user}`);
-                showToast("Acesso Negado!", "error");
+                showToast(currentTranslations.toastErrorLogin, "error");
             }
         }, 1500);
     }
@@ -896,17 +1422,24 @@
         document.getElementById('header-user').innerText = username;
         document.getElementById('drop-user').innerText = atob(AUTH_USER_HASH);
 
+        // Atualiza plano no dropdown (importante)
+        document.getElementById('user-plan-status').innerText = userPlan;
+
         // Mostra/Esconde o aviso do plano FREE
-        document.getElementById('plan-warning').style.display = userPlan === 'FREE' ? 'block' : 'none';
+        if (document.getElementById('plan-warning')) {
+             document.getElementById('plan-warning').style.display = userPlan === 'FREE' ? 'block' : 'none';
+        }
+       
         
         if(instant) {
-            loginArea.style.display = 'none';
-            preLogin.style.display = 'none';
+            if (loginArea) loginArea.style.display = 'none';
+            if (preLogin) preLogin.style.display = 'none';
         } else {
-            loginArea.style.animation = 'slideDown 0.5s reverse forwards';
+            if (loginArea) loginArea.style.animation = 'slideDown 0.5s reverse forwards';
+            if (preLogin) preLogin.style.animation = 'fadeOut 0.5s forwards';
             setTimeout(() => { 
-                loginArea.style.display = 'none'; 
-                preLogin.style.display = 'none';
+                if (loginArea) loginArea.style.display = 'none'; 
+                if (preLogin) preLogin.style.display = 'none';
             }, 500);
         }
         panelArea.style.display = 'block';
@@ -923,25 +1456,41 @@
     // ------------------- CRÉDITOS & COOLDOWN (Lógica Corrigida) -------------------
 
     function updateCreditsDisplay() {
-        // Atualiza o plano no dropdown
-        document.getElementById('user-plan-status').innerText = userPlan;
-        document.getElementById('user-plan-status').style.color = userPlan === 'FREE' ? 'var(--neon-purple)' : 'var(--neon-green)';
+        // CORREÇÃO: Garante que os elementos existam antes de tentar acessá-los.
+        const creditsVal = document.getElementById('credits-val');
+        const panelCreditsStatus = document.getElementById('panel-credits-status');
+        const panelCredits = document.getElementById('panel-credits');
+        const userPlanStatus = document.getElementById('user-plan-status');
+        const planWarning = document.getElementById('plan-warning');
 
-        // Atualiza o valor dos créditos
-        const creditsText = userPlan === 'VIP' ? 'Ilimitados' : credits;
-        document.getElementById('credits-val').innerText = creditsText;
-        document.getElementById('panel-credits-status').innerText = creditsText;
-        document.getElementById('panel-credits').innerText = DEFAULT_CREDITS;
+        if (!userPlanStatus || !creditsVal) return; // Se os elementos básicos do header não existirem, aborta.
+
+
+        // 1. Atualiza o plano no dropdown
+        userPlanStatus.innerText = userPlan;
+        userPlanStatus.style.color = userPlan === 'FREE' ? 'var(--neon-purple)' : 'var(--neon-green)';
+
+        // 2. Atualiza o valor dos créditos
+        let creditsText = credits;
+        if (userPlan === 'VIP') {
+            creditsText = currentTranslations.noCreditsFeature1.replace(/\*\*(.*?)\*\*/g, '').replace(/\(.*\)/g, '').trim() || 'Unlimited'; 
+        }
+        
+        creditsVal.innerText = creditsText;
+
+        // 3. Atualiza os elementos que causam o erro (só se estiverem presentes)
+        if (panelCreditsStatus) panelCreditsStatus.innerText = creditsText;
+        if (panelCredits) panelCredits.innerText = DEFAULT_CREDITS;
+        if (planWarning) planWarning.style.display = userPlan === 'FREE' ? 'block' : 'none';
         
         localStorage.setItem(CREDITS_KEY, credits);
-        updateCooldownDisplay(); // Chama para garantir que o estado do timer é exibido corretamente
+        updateCooldownDisplay(); 
     }
     
     // Função para mostrar o modal de upgrade (NOVO)
     function showUpgradePrompt() {
         const now = Math.floor(Date.now() / 1000);
         const timeRemaining = cooldownEndTimestamp - now;
-        const timerElement = document.getElementById('no-credits-timer');
         const messageElement = document.getElementById('cooldown-message');
         
         // Formata o tempo restante
@@ -952,11 +1501,12 @@
             const timeStr = [hours, minutes, seconds]
                 .map(v => v < 10 ? "0" + v : v)
                 .join(":");
-            timerElement.innerText = timeStr;
-            messageElement.innerHTML = `Você atingiu o limite de uso diário do plano **FREE**. Recarga automática em <b id="no-credits-timer" style="color:#ffaa00">${timeStr}</b>`;
+            
+            // Mensagem traduzida com o tempo
+            messageElement.innerHTML = currentTranslations.cooldownMessageFree(timeStr);
         } else {
-            timerElement.innerText = "AGORA";
-            messageElement.innerHTML = `Você atingiu o limite de uso diário do plano **FREE**. Clique em recarregar para continuar!`;
+            // Mensagem traduzida para recarga pronta
+            messageElement.innerHTML = currentTranslations.cooldownMessageReady;
         }
 
         document.getElementById('noCreditsModal').style.display = 'block';
@@ -965,17 +1515,21 @@
     
     // Função para recarregar créditos manualmente/automaticamente
     function resetCredits() {
-        if (credits < DEFAULT_CREDITS) {
+        if (userPlan === 'VIP') return; // VIP não precisa de recarga
+        
+        const now = Math.floor(Date.now() / 1000);
+        
+        // Lógica de recarga
+        if (credits < DEFAULT_CREDITS || cooldownEndTimestamp <= now) {
             credits = DEFAULT_CREDITS;
-            cooldownEndTimestamp = 0; // Reseta o cooldown
+            cooldownEndTimestamp = 0; 
             localStorage.setItem(COOLDOWN_KEY, 0);
             updateCreditsDisplay(); 
-            showToast("Créditos recarregados com sucesso!", "success");
+            showToast(currentTranslations.toastSuccessCreditsRecharged, "success");
             addLog('Sistema: Recarga de créditos concluída manualmente.');
-            // Garante que o modal de falta de créditos seja fechado se estiver aberto
             closeModal('noCreditsModal'); 
         } else {
-             showToast("Créditos já estão cheios.", "warning");
+             showToast(currentTranslations.toastWarningCreditsFull, "warning");
         }
     }
 
@@ -983,37 +1537,47 @@
     function updateCooldownDisplay() {
         const now = Math.floor(Date.now() / 1000);
         let timeRemaining = cooldownEndTimestamp - now;
+        
         const timerElement = document.getElementById('cooldown-timer');
         const statusElement = document.getElementById('credits-status');
         const labelElement = document.getElementById('cooldown-label');
         const rechargeBtnDropdown = document.getElementById('recharge-btn-dropdown');
         const rechargeBtnPanel = document.getElementById('recharge-btn-panel');
         
+        if (!timerElement || !statusElement) return; // Aborta se o painel não estiver na DOM
+
         rechargeBtnDropdown.style.display = 'none';
         rechargeBtnPanel.style.display = 'none';
+        
+        // Atualiza a label para o idioma atual
+        if (labelElement) labelElement.innerText = currentTranslations.rechargeInLabel;
 
         if (userPlan === 'VIP') {
             timerElement.innerText = "BYPASS ATIVO";
-            labelElement.innerText = "Status:";
+            if (labelElement) labelElement.innerText = "Status:";
             statusElement.style.color = 'var(--neon-green)';
             return; // Sai se for VIP
         }
 
-        if (credits < DEFAULT_CREDITS && credits > 0) {
-             // Usuário gastou créditos, mas ainda não chegou a zero. Cooldown não deve iniciar/aparecer
-            timerElement.innerText = "--:--:--";
-            labelElement.innerText = "Recarga em:";
-            statusElement.style.color = '#aaa';
+        if (credits > 0) {
+            timerElement.innerText = "CHEIO";
+            if (labelElement) labelElement.innerText = "Status:";
+            statusElement.style.color = 'var(--neon-green)';
+            if (cooldownEndTimestamp !== 0 && cooldownEndTimestamp > now) {
+                // Se os créditos voltaram ao normal, cancela o cooldown.
+                cooldownEndTimestamp = 0;
+                localStorage.setItem(COOLDOWN_KEY, 0);
+            }
         }
         
         if (credits === 0) {
             if (timeRemaining <= 0) {
                  // **Estado 1: Créditos a Zero E Cooldown Terminado (Recarga Pronta)**
-                timerElement.innerText = "RECARGA PRONTA";
-                labelElement.innerText = "Status:";
+                timerElement.innerText = currentTranslations.rechargeNowButton.replace('<i class="fa-solid fa-arrows-rotate"></i> ', ''); 
+                if (labelElement) labelElement.innerText = "Status:";
                 statusElement.style.color = 'var(--neon-green)';
-                rechargeBtnDropdown.style.display = 'block'; // Mostra botão para reset manual (a pedido do cliente)
-                rechargeBtnPanel.style.display = 'block'; // Mostra botão no painel
+                rechargeBtnDropdown.style.display = 'block'; 
+                rechargeBtnPanel.style.display = 'block'; 
                 
             } else {
                 // **Estado 2: Créditos a Zero E Cooldown Ativo (Exibe Timer)**
@@ -1026,19 +1590,17 @@
                     .join(":");
 
                 timerElement.innerText = timeStr;
-                labelElement.innerText = "Recarga em:";
+                if (labelElement) labelElement.innerText = currentTranslations.rechargeInLabel;
                 statusElement.style.color = '#ffaa00';
                 
-                // Re-checa a cada segundo
                 setTimeout(updateCooldownDisplay, 1000);
             }
         }
     }
     
     function startCooldown() {
-        if (userPlan === 'VIP') return; // VIP não tem cooldown
+        if (userPlan === 'VIP') return; 
         const now = Math.floor(Date.now() / 1000);
-        // Só inicia se ainda não estiver ativo
         if (cooldownEndTimestamp === 0 || cooldownEndTimestamp <= now) { 
             cooldownEndTimestamp = now + COOLDOWN_DURATION;
             localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
@@ -1047,36 +1609,35 @@
         }
     }
     
-    // Função unificada para check de créditos (NOVO)
     function checkCredits(cost) {
         if (userPlan === 'VIP') return true;
         
-        // Verifica se é a hora da recarga e a faz
         const now = Math.floor(Date.now() / 1000);
         if (credits === 0 && cooldownEndTimestamp !== 0 && cooldownEndTimestamp <= now) {
-            resetCredits(); // Recarrega automaticamente se o cooldown acabou e os créditos estão a zero
+            resetCredits(); 
         }
         
         if (credits >= cost) {
             credits -= cost;
-            updateCreditsDisplay(); // Atualiza display ANTES de verificar o zero
+            updateCreditsDisplay(); 
             
-            // Verifica se chegou a zero *após* o gasto
+            if (credits < cost && credits > 0) {
+                showToast(currentTranslations.creditsAvailablePrefix + ` ${credits} ` + currentTranslations.creditsAvailableSuffix, "warning");
+            }
+
             if (credits === 0) {
-                startCooldown(); // Inicia o cooldown
-                showToast("Créditos esgotados! Recarga iniciada (4h).", "warning");
-                updateCooldownDisplay(); // Atualiza display para mostrar o timer
+                startCooldown(); 
+                showToast(currentTranslations.toastWarningCreditsExhausted, "warning");
+                updateCooldownDisplay(); 
+                showUpgradePrompt();
             }
 
             return true;
         } else {
-            // Não tem créditos suficientes
-            showUpgradePrompt();
-            
-            // Se o cooldown não estiver ativo, inicia-o ao esgotar os créditos
             if (credits === 0) {
                  startCooldown(); 
             }
+            showUpgradePrompt(); 
             return false;
         }
     }
@@ -1093,58 +1654,110 @@
                 i++;
                 setTimeout(type, speed);
             } else {
-                element.innerHTML = text; // Remove cursor
-                // Adiciona botão copiar
+                element.innerHTML = text; 
                 const btnDiv = document.createElement('div');
                 btnDiv.style.marginTop = '10px';
                 btnDiv.style.borderTop = '1px solid #333';
                 btnDiv.style.paddingTop = '5px';
-                // Note o uso de `&#x2398;` para o símbolo de cópia, e ajuste do onclick.
-                btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, \`${text.replace(/`/g, '\\`')}\`)"> Copiar Texto</i>`;
+                const copyText = currentLang === 'pt' ? 'Copiar Texto' : (currentLang === 'en' ? 'Copy Text' : 'Copiar Texto');
+                btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, \`${text.replace(/`/g, '\\`')}\`)"> ${copyText}</i>`;
                 element.appendChild(btnDiv);
                 playSound('success');
             }
         }
         type();
     }
-
-    const textosZap = [
-        "Suporte WhatsApp, solicito a revisão do banimento do meu número. Utilizo-o para fins profissionais e não violei os termos de serviço conscientemente. Acredito que fui alvo de denúncias em massa injustas.",
-        "Prezados, meu número foi suspenso por erro. Não utilizo automação ou spam. Por favor, verifiquem meu histórico de uso. Dependo deste contato para minha família e trabalho.",
-        "Olá, fui banido injustamente. Sou um usuário real e sigo as diretrizes. Peço o desbloqueio imediato pois estou sendo prejudicado por um falso positivo do sistema."
-    ];
-    const textosTikTok = [
-        "Equipe TikTok, minha conta foi suspensa permanentemente por engano. Meu conteúdo é original e não viola diretrizes. Peço análise humana urgente.",
-        "Olá, apelo contra o banimento da minha conta. Acredito que denúncias falsas ativaram o sistema automático. Nunca postei conteúdo proibido.",
-        "Solicito revisão do meu banimento. Sou criador de conteúdo sério e respeito a comunidade. A suspensão foi injusta."
-    ];
-    const textosGame = [
-        "Prezada Equipe, solicito revisão do banimento da minha conta. Não utilizei cheats ou softwares não autorizados. Fui penalizado injustamente. Por favor, reexaminem meu caso. ID: [SEU ID DO JOGO]",
-        "Apelo contra o banimento. Sou jogador há anos e jamais comprometeria a experiência. O sistema de detecção errou. Peço o unban.",
-        "Estou banido por engano. Minha conta foi comprometida e o banimento ocorreu após isso. Peço que restaurem minha conta após investigação."
-    ];
+    
+    // Textos de Apelação por Idioma (Mantido o original, que é robusto)
+    const appealTexts = {
+        'pt': {
+            whatsapp: [
+                "Suporte WhatsApp, solicito a revisão do banimento do meu número. Utilizo-o para fins profissionais e não violei os termos de serviço conscientemente. Acredito que fui alvo de denúncias em massa injustas.",
+                "Prezados, meu número foi suspenso por erro. Não utilizo automação ou spam. Por favor, verifiquem meu histórico de uso. Dependo deste contato para minha família e trabalho.",
+                "Olá, fui banido injustamente. Sou um usuário real e sigo as diretrizes. Peço o desbloqueio imediato pois estou sendo prejudicado por um falso positivo do sistema."
+            ],
+            tiktok: [
+                "Equipe TikTok, minha conta foi suspensa permanentemente por engano. Meu conteúdo é original e não viola diretrizes. Peço análise humana urgente.",
+                "Olá, apelo contra o banimento da minha conta. Acredito que denúncias falsas ativaram o sistema automático. Nunca postei conteúdo proibido.",
+                "Solicito revisão do meu banimento. Sou criador de conteúdo sério e respeito a comunidade. A suspensão foi injusta."
+            ],
+            game: [
+                "Prezada Equipe, solicito revisão do banimento da minha conta. Não utilizei cheats ou softwares não autorizados. Fui penalizado injustamente. Por favor, reexaminem meu caso. ID: [SEU ID DO JOGO]",
+                "Apelo contra o banimento. Sou jogador há anos e jamais comprometeria a experiência. O sistema de detecção errou. Peço o unban.",
+                "Estou banido por engano. Minha conta foi comprometida e o banimento ocorreu após isso. Peço que restaurem minha conta após investigação."
+            ]
+        },
+        'en': {
+            whatsapp: [
+                "WhatsApp Support, I request a review of the ban on my number. I use it for professional purposes and have not knowingly violated the terms of service. I believe I was a victim of unfair mass reporting.",
+                "Dear Sir/Madam, my number was suspended by mistake. I do not use automation or spam. Please check my usage history. I rely on this contact for my family and work.",
+                "Hello, I was unjustly banned. I am a real user and I follow the guidelines. I ask for immediate unblocking as I am being harmed by a false positive from the system."
+            ],
+            tiktok: [
+                "TikTok Team, my account was permanently suspended by mistake. My content is original and does not violate guidelines. I request an urgent human review.",
+                "Hello, I appeal against the ban of my account. I believe false reports triggered the automatic system. I have never posted prohibited content.",
+                "I request a review of my ban. I am a serious content creator and I respect the community. The suspension was unfair."
+            ],
+            game: [
+                "Dear Team, I request a review of the ban on my account. I have not used cheats or unauthorized software. I was unfairly penalized. Please re-examine my case. ID: [YOUR GAME ID]",
+                "I appeal against the ban. I have been a player for years and would never compromise the experience. The detection system erred. I ask for the unban.",
+                "I am banned by mistake. My account was compromised and the ban occurred after that. I ask you to restore my account after investigation."
+            ]
+        },
+        'es': {
+            whatsapp: [
+                "Soporte de WhatsApp, solicito una revisión de la prohibición de mi número. Lo utilizo con fines profesionales y no he violado conscientemente los términos de servicio. Creo que fui víctima de informes masivos injustos.",
+                "Estimados, mi número fue suspendido por error. No utilizo automatización ni spam. Por favor, revisen mi historial de uso. Dependo de este contacto para mi familia y trabajo.",
+                "Hola, fui baneado injustamente. Soy un usuario real y sigo las pautas. Solicito el desbloqueo inmediato ya que estoy siendo perjudicado por un falso positivo del sistema."
+            ],
+            tiktok: [
+                "Equipo de TikTok, mi cuenta fue suspendida permanentemente por error. Mi contenido es original y no viola las pautas. Solicito una revisión humana urgente.",
+                "Hola, apelo contra la prohibición de mi cuenta. Creo que informes falsos activaron el sistema automático. Nunca he publicado contenido prohibido.",
+                "Solicito una revisión de mi prohibición. Soy un creador de contenido serio y respeto a la comunidad. La suspensión fue injusta."
+            ],
+            game: [
+                "Estimado equipo, solicito una revisión de la prohibición de mi cuenta. No utilicé trucos ni software no autorizado. Fui penalizado injustamente. Por favor, reexaminen mi caso. ID: [TU ID DE JUEGO]",
+                "Apelo contra la prohibición. He sido jugador durante años y nunca comprometería la experiencia. El sistema de detección falló. Solicito el desbloqueo.",
+                "Fui baneado por error. Mi cuenta fue comprometida y el baneo ocurrió después de eso. Les pido que restauren mi cuenta después de investigación."
+            ]
+        }
+    };
 
     function gerarTexto(tipo) {
         playSound('click');
         const box = document.getElementById('res-' + tipo);
-        const cost = 1; // Custo fixo para geradores de texto
+        const cost = 1; 
 
         if (!checkCredits(cost)) {
             return;
         }
 
         box.style.display = 'block';
-        box.innerHTML = '<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> Conectando IA...</span>';
+        const loadingText = {
+            'pt': 'Conectando IA...',
+            'en': 'Connecting AI...',
+            'es': 'Conectando IA...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
 
         setTimeout(() => {
-            let lista = textosZap; // Default
-            if (tipo === 'whatsapp') lista = textosZap;
-            if (tipo === 'tiktok') lista = textosTikTok;
-            if (tipo === 'game') lista = textosGame;
+            let lista = appealTexts[currentLang] && appealTexts[currentLang][tipo];
+            
+            // CORREÇÃO DE BUG E ROBUSTEZ: Fallback para PT e verifica se a lista existe e não está vazia
+            if (!lista || lista.length === 0) {
+                lista = appealTexts['pt'][tipo];
+            }
+            
+            if (!lista || lista.length === 0) {
+                box.innerHTML = `<span style="color:#ff5555">${currentLang === 'pt' ? 'Erro: Textos de apelação não encontrados.' : 'Error: Appeal texts not found.'}</span>`;
+                addLog(`Erro: Textos para ${tipo} ausentes.`);
+                playSound('error');
+                return;
+            }
 
             const texto = lista[Math.floor(Math.random() * lista.length)];
             
-            box.innerHTML = ''; // Limpa loading
+            box.innerHTML = ''; 
             typeWriter(box, texto);
             addLog(`Gerador: Texto para ${tipo} criado (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1000);
@@ -1161,20 +1774,36 @@
         }
         
         box.style.display = 'block';
-        box.innerHTML = '<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> Criando endereço anônimo...</span>';
+        const loadingText = {
+            'pt': 'Criando endereço anônimo...',
+            'en': 'Creating anonymous address...',
+            'es': 'Creando dirección anónima...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
 
         setTimeout(() => {
             const domains = ['anonmail.net', 'temp-inbox.xyz', 'safe.org'];
             const randomString = Math.random().toString(36).substring(2, 10);
             const email = `${randomString}@${domains[Math.floor(Math.random() * domains.length)]}`;
             
+            const warningText = {
+                'pt': 'E-mail ativo por 10 minutos.', 
+                'en': 'Email active for 10 minutes.', 
+                'es': 'Correo activo por 10 minutos.'
+            }[currentLang];
+            const copyButtonText = {
+                'pt': 'Copiar', 
+                'en': 'Copy', 
+                'es': 'Copiar'
+            }[currentLang];
+
             box.innerHTML = `<span style="color:var(--card-tempmail); font-weight:bold;">${email}</span>
-                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:#888;">E-mail ativo por 10 minutos.</span>`;
+                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:#888;">${warningText}</span>`;
             
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
             btnDiv.style.borderTop = '1px solid #333';
-            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${email}')"> Copiar</i>`;
+            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${email}')"> ${copyButtonText}</i>`;
             box.appendChild(btnDiv);
             
             playSound('success');
@@ -1193,15 +1822,18 @@
         }
         
         box.style.display = 'block';
-        box.innerHTML = '<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> Gerando documento...</span>';
+        const loadingText = {
+            'pt': 'Gerando documento...',
+            'en': 'Generating document...',
+            'es': 'Generando documento...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
 
         setTimeout(() => {
             // Lógica simples de geração e validação de CPF (Apenas simulação)
             function generateCpf() {
-                const n = (i) => Math.floor(Math.random() * i);
-                const mod = (dividendo) => 11 - (dividendo % 11);
-                
                 const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+                const mod = (dividendo) => 11 - (dividendo % 11);
                 
                 let cpf = Array(9).fill(0).map(() => rand(0, 9)).join('');
 
@@ -1227,13 +1859,24 @@
             
             const cpfGerado = generateCpf();
             
+            const warningText = {
+                'pt': 'Uso apenas para testes de validação.', 
+                'en': 'Use only for validation tests.', 
+                'es': 'Uso solo para pruebas de validación.'
+            }[currentLang];
+            const copyButtonText = {
+                'pt': 'Copiar', 
+                'en': 'Copy', 
+                'es': 'Copiar'
+            }[currentLang];
+
             box.innerHTML = `<span style="color:var(--card-doc); font-weight:bold;">${cpfGerado}</span>
-                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:#888;">Uso apenas para testes de validação.</span>`;
+                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:#888;">${warningText}</span>`;
             
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
             btnDiv.style.borderTop = '1px solid #333';
-            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${cpfGerado}')"> Copiar</i>`;
+            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${cpfGerado}')"> ${copyButtonText}</i>`;
             box.appendChild(btnDiv);
 
             playSound('success');
@@ -1248,32 +1891,54 @@
         const box = document.getElementById('res-ipgeo');
         const cost = 3;
 
-        if (!ipOrLink) { showToast("Insira um IP ou Link!", "error"); box.innerHTML = ''; return; }
+        if (!ipOrLink) { showToast(currentTranslations.toastErrorNoLink, "error"); box.innerHTML = ''; return; }
         if (!checkCredits(cost)) {
             return;
         }
 
         box.style.display = 'block';
-        box.innerHTML = '<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> Triangulando coordenadas...</span>';
+        const loadingText = {
+            'pt': 'Triangulando coordenadas...',
+            'en': 'Triangulating coordinates...',
+            'es': 'Triangulando coordenadas...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
 
         setTimeout(() => {
-            const city = ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Recife', 'Miami'][Math.floor(Math.random() * 5)];
+            const cities = {
+                'pt': ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Recife', 'Miami'],
+                'en': ['New York', 'London', 'Paris', 'Tokyo', 'Sydney'],
+                'es': ['Madrid', 'Barcelona', 'Buenos Aires', 'Ciudad de México', 'Lima']
+            }[currentLang] || ['São Paulo', 'Miami', 'Madrid'];
+            const city = cities[Math.floor(Math.random() * cities.length)];
             const provider = ['AWS', 'CloudFlare', 'VIVO', 'NET', 'Starlink'][Math.floor(Math.random() * 5)];
             const lat = (Math.random() * 90).toFixed(4);
             const long = (Math.random() * 180).toFixed(4);
             
-            const resultText = `<span style="color:var(--card-geo); font-weight:bold;">[RESULTADO RASTREIO]</span><br>
+            const langMap = {
+                'pt': { result: 'RESULTADO RASTREIO', location: 'Local', provider: 'Provedor', coords: 'Coords' },
+                'en': { result: 'TRACKING RESULT', location: 'Location', provider: 'Provider', coords: 'Coords' },
+                'es': { result: 'RESULTADO RASTREO', location: 'Ubicación', provider: 'Proveedor', coords: 'Coordenadas' }
+            }[currentLang];
+            
+            const resultText = `<span style="color:var(--card-geo); font-weight:bold;">[${langMap.result}]</span><br>
                                 IP/Host: ${ipOrLink}<br>
-                                Local: ${city} (BR)<br>
-                                Provedor: ${provider}<br>
-                                Coords: Lat ${lat}, Long -${long}`;
+                                ${langMap.location}: ${city} (${currentLang.toUpperCase()})<br>
+                                ${langMap.provider}: ${provider}<br>
+                                ${langMap.coords}: Lat ${lat}, Long -${long}`;
             
             box.innerHTML = resultText;
+            
+            const copyButtonText = {
+                'pt': 'Copiar Dados Chave', 
+                'en': 'Copy Key Data', 
+                'es': 'Copiar Datos Clave'
+            }[currentLang];
             
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
             btnDiv.style.borderTop = '1px solid #333';
-            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, 'Local: ${city} / Provedor: ${provider}')"> Copiar Dados Chave</i>`;
+            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, 'Local: ${city} / Provedor: ${provider}')"> ${copyButtonText}</i>`;
             box.appendChild(btnDiv);
 
             playSound('success');
@@ -1285,10 +1950,10 @@
         playSound('click');
         // Usa a API Clipboard, mais moderna
         navigator.clipboard.writeText(txt).then(() => {
-            showToast("Texto copiado para a área de transferência!", "success");
+            showToast(currentTranslations.toastSuccessCopied, "success");
         }).catch(err => {
             console.error('Erro ao copiar: ', err);
-            showToast("Erro ao copiar. Tente selecionar o texto.", "error");
+            showToast(currentTranslations.toastErrorCopy, "error");
         });
     }
 
@@ -1297,15 +1962,35 @@
         playSound('click');
         const box = document.getElementById('res-tools');
         box.style.display = 'block';
-        box.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Rastreando...';
+        const loadingText = {
+            'pt': 'Rastreando...',
+            'en': 'Tracking...',
+            'es': 'Rastreando...'
+        }[currentLang];
+        box.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText} `;
         try {
             const req = await fetch('https://api.ipify.org?format=json');
             const json = await req.json();
-            box.innerHTML = `<span style="color:#fff">IP: ${json.ip}</span><br><span style="color:var(--neon-green); font-size:10px">Conexão Protegida</span>`;
+            const protectedText = {
+                'pt': 'Conexão Protegida',
+                'en': 'Protected Connection',
+                'es': 'Conexión Protegida'
+            }[currentLang];
+            const ipText = {
+                'pt': 'IP',
+                'en': 'IP',
+                'es': 'IP'
+            }[currentLang];
+            box.innerHTML = `<span style="color:#fff">${ipText}: ${json.ip}</span><br><span style="color:var(--neon-green); font-size:10px">${protectedText}</span>`;
             addLog(`Tools: IP ${json.ip} verificado.`);
             playSound('success');
         } catch(e) {
-            box.innerHTML = 'Erro ao obter IP.';
+            const errorText = {
+                'pt': 'Erro ao obter IP.',
+                'en': 'Error getting IP.',
+                'es': 'Error al obtener IP.'
+            }[currentLang];
+            box.innerHTML = errorText;
             playSound('error');
         }
     }
@@ -1320,10 +2005,17 @@
         
         box.innerHTML = `<span style="color:var(--neon-green)">${pass}</span>`;
         
+        const copyButtonText = {
+            'pt': 'Copiar', 
+            'en': 'Copy', 
+            'es': 'Copiar'
+        }[currentLang];
+        
         const btnDiv = document.createElement('div');
         btnDiv.style.marginTop = '5px';
         btnDiv.style.borderTop = '1px solid #333';
-        btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${pass}')"> Copiar</i>`;
+        btnDiv.style.paddingTop = '5px';
+        btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${pass}')"> ${copyButtonText}</i>`;
         box.appendChild(btnDiv);
         playSound('success');
         addLog('Tools: Senha gerada.');
@@ -1335,24 +2027,34 @@
         const box = document.getElementById('res-scanner');
         box.style.display = 'block';
         
-        if(!url) { showToast("Insira uma URL!", "error"); box.innerHTML = ''; return; }
+        if(!url) { showToast(currentTranslations.toastErrorNoURL, "error"); box.innerHTML = ''; return; }
         
-        box.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Analisando headers...';
+        const loadingText = {
+            'pt': 'Analisando headers...',
+            'en': 'Analyzing headers...',
+            'es': 'Analizando encabezados...'
+        }[currentLang];
+        box.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText} `;
         setTimeout(() => {
             const isSuspicious = Math.random() > 0.7; // Simulação: 30% chance de ser suspeito
-            const resultText = isSuspicious 
-                ? `<span style="color:#ff5555"><i class="fa-solid fa-triangle-exclamation"></i> PERIGO: Link Suspeito!</span>`
-                : `<span style="color:var(--neon-green)"><i class="fa-solid fa-check-circle"></i> SEGURO: Link Limpo.</span>`;
+            
+            let resultText;
+            let logMessage;
+            
+            if (isSuspicious) {
+                const dangerText = { 'pt': 'PERIGO: Link Suspeito!', 'en': 'DANGER: Suspicious Link!', 'es': 'PELIGRO: ¡Enlace Sospechoso!' }[currentLang];
+                resultText = `<span style="color:#ff5555"><i class="fa-solid fa-triangle-exclamation"></i> ${dangerText}</span>`; 
+                logMessage = `Scanner: URL suspeita detectada: ${url}`;
+                playSound('error');
+            } else {
+                const safeText = { 'pt': 'SEGURO: Link Limpo.', 'en': 'SAFE: Clean Link.', 'es': 'SEGURO: Enlace Limpio.' }[currentLang];
+                resultText = `<span style="color:var(--neon-green)"><i class="fa-solid fa-check-circle"></i> ${safeText}</span>`;
+                logMessage = `Scanner: URL verificada como segura: ${url}`;
+                playSound('success');
+            }
             
             box.innerHTML = resultText;
-
-            if(isSuspicious) {
-                playSound('error');
-                addLog(`Scanner: URL suspeita detectada: ${url}`);
-            } else {
-                playSound('success');
-                addLog(`Scanner: URL verificada como segura: ${url}`);
-            }
+            addLog(logMessage);
         }, 1500);
     }
 
@@ -1363,7 +2065,7 @@
         const messageDiv = document.createElement('div');
         messageDiv.className = 'chat-message chat-bot';
         // Permite HTML para formatação em negrito/quebra de linha
-        messageDiv.innerHTML = text.replace(/\n/g, '<br>'); 
+        messageDiv.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); // Adicionando suporte a negrito **
 
         chatBody.appendChild(messageDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
@@ -1375,7 +2077,7 @@
             buttons.forEach(btn => {
                 const button = document.createElement('button');
                 button.className = 'chatbot-btn';
-                button.innerHTML = btn.text; // Permite HTML no texto do botão
+                button.innerHTML = btn.text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); // Adicionando suporte a negrito **
                 button.setAttribute('data-action', btn.action);
                 button.setAttribute('onclick', `handleChatbotClick(this)`);
                 btnDiv.appendChild(button);
@@ -1398,21 +2100,20 @@
         const user = document.getElementById('drop-user').innerText;
         
         if (userPlan === 'VIP') {
-            const vipText = `Bem-vindo, **${user}**! Seu acesso **VIP Supremo** está ativo. Qual ferramenta você precisa usar hoje?`;
+            const vipText = currentTranslations.chatbotInitialGreetingVIP(user);
             const vipButtons = [
-                { text: "⚡ Geradores de Texto (Unban)", action: "unbanMenu" },
-                { text: "🛠️ Ferramentas Avançadas", action: "advancedTools" },
-                { text: "❓ Suporte/FAQ Prioritário", action: "openSupport" }
+                { text: currentTranslations.chatbotUnbanMenu, action: "unbanMenu" },
+                { text: currentTranslations.chatbotAdvancedTools, action: "advancedTools" },
+                { text: currentTranslations.chatbotSupportPriority, action: "openSupport" }
             ];
             addBotMessage(vipText, vipButtons);
         } else {
-            const freeText = `Olá, ${user}! Eu sou a Over AI. Seu plano é **FREE** (<span style="color:var(--neon-green)">${credits}/${DEFAULT_CREDITS}</span> créditos).
-            <br>Foque no upgrade para ter créditos ilimitados!`;
+            const freeText = currentTranslations.chatbotInitialGreetingFree(user, credits, DEFAULT_CREDITS);
             
             const freeButtons = [
-                { text: "🚀 Upgrade VIP Supremo AGORA", action: "openVIP" },
-                { text: "🤷‍♂️ O que eu ganho com o VIP?", action: "showBenefits" },
-                { text: "🛠️ Ver Ferramentas Disponíveis", action: "advancedTools" }
+                { text: currentTranslations.chatbotUpgradeNowButton, action: "openVIP" },
+                { text: currentTranslations.chatbotWhatIsVipButton, action: "showBenefits" },
+                { text: currentTranslations.chatbotAvailableToolsButton, action: "advancedTools" }
             ];
             addBotMessage(freeText, freeButtons);
         }
@@ -1421,71 +2122,74 @@
     // NOVO MENU DE UNBAN
     function showUnbanMenu() {
         const toolButtons = [
-            { text: "Desbanir WhatsApp (1 Crédito)", action: "useTool:whatsapp" },
-            { text: "Recuperar TikTok (1 Crédito)", action: "useTool:tiktok" },
-            { text: "Unban Games (1 Crédito)", action: "useTool:game" },
-            { text: "⬅️ Voltar ao Menu Principal", action: "initialMenu" }
+            { text: currentTranslations.chatbotUnbanZapButton, action: "useTool:whatsapp" },
+            { text: currentTranslations.chatbotRecoverTikTokButton, action: "useTool:tiktok" },
+            { text: currentTranslations.chatbotUnbanGamesButton, action: "useTool:game" },
+            { text: currentTranslations.chatbotBackToMainMenu, action: "initialMenu" }
         ];
-        addBotMessage("Escolha o gerador de apelação que deseja usar:", toolButtons);
+        addBotMessage(currentTranslations.chatbotChooseUnbanGenerator, toolButtons);
     }
 
     // NOVO MENU DE FERRAMENTAS AVANÇADAS (Incluindo novos cards)
     function showAdvancedTools() {
         const secButtons = [
-            { text: "Gerar E-mail Temp (2 Créditos)", action: "useTool:tempmail" },
-            { text: "Gerar CPF Válido (1 Crédito)", action: "useTool:cpfgen" },
-            { text: "Localizador IP/GPS (3 Créditos)", action: "useTool:ipgeo" },
-            { text: "Scanner URL & Checar IP (Gratuito)", action: "securityTools" },
-            { text: "⬅️ Voltar ao Menu Principal", action: "initialMenu" }
+            { text: currentTranslations.chatbotTempEmailButton, action: "useTool:tempmail" },
+            { text: currentTranslations.chatbotCPFGenButton, action: "useTool:cpfgen" },
+            { text: currentTranslations.chatbotIPGeoButton, action: "useTool:ipgeo" },
+            { text: currentTranslations.chatbotSecurityTools, action: "securityTools" },
+            { text: currentTranslations.chatbotBackToMainMenu, action: "initialMenu" }
         ];
-        addBotMessage("Explore as ferramentas avançadas do painel:", secButtons);
+        addBotMessage(currentTranslations.chatbotExploreTools, secButtons);
     }
     
     // MENU DE SEGURANÇA MANTIDO
     function showSecurityTools() {
         const secButtons = [
-            { text: "Checar meu IP", action: "useTool:checkip" },
-            { text: "Gerar Senha Forte", action: "useTool:genpass" },
-            { text: "⬅️ Voltar ao Menu de Ferramentas", action: "advancedTools" }
+            { text: currentTranslations.chatbotCheckMyIP, action: "useTool:checkip" },
+            { text: currentTranslations.chatbotGenerateStrongPass, action: "useTool:genpass" },
+            { text: currentTranslations.chatbotBackToTools, action: "advancedTools" }
         ];
-        addBotMessage("Ferramentas de análise de rede (Grátis):", secButtons);
+        addBotMessage(currentTranslations.chatbotSecurityFree, secButtons);
     }
     
     function showBenefitsMessage() {
-        const benefits = `Claro! Com o **VIP Supremo** você garante:
-        <br>✅ **Créditos Ilimitados** (Sem Cooldown!)
-        <br>✅ **Todas as Ferramentas** (incluindo as futuras)
-        <br>✅ **Suporte Prioritário 24/7**
-        <br>É o fim das limitações para você!`;
+        const benefits = currentTranslations.chatbotBenefits;
         
         const buttons = [
-            { text: "COMPRAR VIP", action: "openVIP" },
-            { text: "Voltar ao menu", action: "initialMenu" }
+            { text: currentTranslations.chatbotBuyVip, action: "openVIP" },
+            { text: currentTranslations.chatbotBackToMainMenu, action: "initialMenu" }
         ];
         addBotMessage(benefits, buttons);
     }
 
     function handleToolExecution(toolType) {
+        // As ferramentas gratuitas (IP/Senha) não precisam de checkCredits, as pagas precisam.
         if (toolType === 'checkip') {
              mostrarIP(); 
-             addBotMessage("IP Checado! Olhe o box de ferramentas no painel principal. O que mais?");
+             addBotMessage(currentTranslations.chatbotToolChecked);
         } else if (toolType === 'genpass') {
              gerarSenhaSegura(); 
-             addBotMessage("Senha gerada e exibida no box de ferramentas. Use o botão 'Copiar'.");
-        } else if (toolType === 'tempmail') {
-            gerarEmailTemporario();
-            if (credits >= 0) addBotMessage("E-mail temporário gerado e exibido no card. Copie e use-o!");
-        } else if (toolType === 'cpfgen') {
-            gerarCPF();
-             if (credits >= 0) addBotMessage("CPF gerado (Simulação). Lembre-se, apenas para testes de validação.");
+             addBotMessage(currentTranslations.chatbotPassGenerated);
         } else if (toolType === 'ipgeo') {
-             addBotMessage(`Para rastrear, acesse o painel principal, insira o **IP/Link** no card **IP/GPS Locator** e clique em Rastrear.
-             <br>Essa função exige um IP ou Link digitado!`);
+            addBotMessage(currentTranslations.chatbotIPGeoInfo);
+        } else if (toolType === 'tempmail') {
+            const hasCredits = checkCredits(2); 
+            if(hasCredits) {
+                gerarEmailTemporario();
+                addBotMessage(currentTranslations.chatbotEmailGenerated);
+            }
+        } else if (toolType === 'cpfgen') {
+            const hasCredits = checkCredits(1);
+             if(hasCredits) {
+                gerarCPF();
+                addBotMessage(currentTranslations.chatbotCPFGenerated);
+             }
         } else if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
-            // Executa a função do painel principal
-            gerarTexto(toolType);
-            if (credits >= 0) addBotMessage(`Texto de apelação para **${toolType}** gerado!
-            <br>Verifique o resultado no painel principal e copie o texto.`);
+            const hasCredits = checkCredits(1);
+            if(hasCredits) {
+                gerarTexto(toolType);
+                addBotMessage(currentTranslations.chatbotTextGenerated(toolType));
+            }
         }
         
         // Retorna ao menu correto após a execução
@@ -1552,14 +2256,15 @@
         document.getElementById('userDropdown').classList.toggle('show');
     }
     window.onclick = function(e) {
-        if (!e.target.closest('.user-menu-btn') && !e.target.closest('.notification-icon') && !e.target.closest('#chatbot-container') && !e.target.closest('#chatbot-button')) {
+        if (!e.target.closest('.user-menu-btn') && !e.target.closest('.notification-icon') && !e.target.closest('#chatbot-container') && !e.target.closest('#chatbot-button') && !e.target.closest('#lang-select')) {
             document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
-            // Comentado para não fechar no primeiro clique fora
-            // if (document.getElementById('chatbot-container').style.display === 'flex') {
-            //      closeChatbot(); 
-            // }
         }
-        if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+        // Fechar modais ao clicar fora
+        document.querySelectorAll('.modal').forEach(modal => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
     }
     function openVIPModal() { document.getElementById('vipModal').style.display = 'block'; }
     function openLogsModal() { document.getElementById('logsModal').style.display = 'block'; }
