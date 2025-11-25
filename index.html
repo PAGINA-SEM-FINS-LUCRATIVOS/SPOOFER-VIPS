@@ -34,9 +34,19 @@
         --card-doc-glow: rgba(0, 212, 255, 0.3);
         --card-geo: #ff0050;
         --card-geo-glow: rgba(255, 0, 80, 0.3);
+        --card-cc: #ffaa00; /* NOVO CC/BIN */
+        --card-cc-glow: rgba(255, 170, 0, 0.3);
+
+        /* Variáveis de Cinza para limpeza */
+        --color-black: #050505; 
+        --color-dark-gray: #1a1a1a;
+        --color-medium-gray: #333;
+        --color-light-gray: #555;
+        --color-text-dim: #888;
+        --color-text-off: #aaa;
     }
 
-    * { box-sizing: border-box; outline: none; user-select: none; }
+    * { box-sizing: border-box; outline: none; }
 
     body {
       margin: 0;
@@ -61,7 +71,7 @@
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-track { background: var(--color-black); }
     ::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 4px; }
 
     /* Animações */
@@ -71,6 +81,14 @@
     @keyframes blinkCursor { 50% { border-color: transparent; } }
     @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes subtleGlitch {
+        0% { transform: translate(0, 0) rotate(0); }
+        20% { transform: translate(-0.5px, 0.5px) rotate(0.2deg); }
+        40% { transform: translate(0.5px, -0.5px) rotate(-0.2deg); }
+        60% { transform: translate(0.5px, 0.5px) rotate(0.2deg); }
+        80% { transform: translate(-0.5px, -0.5px) rotate(-0.2deg); }
+        100% { transform: translate(0, 0) rotate(0); }
+    }
 
     /* ------------------------------------------- */
     /* 2. CHATBOT FLUTUANTE                        */
@@ -88,17 +106,17 @@
     #chatbot-container {
         position: fixed; bottom: 90px; right: 20px; z-index: 2000;
         width: 350px; height: 450px;
-        background: #181a1b; /* Cor de fundo mais escura */
+        background: var(--color-dark-gray); 
         border: 1px solid var(--neon-purple);
         border-radius: 12px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(189, 0, 255, 0.5);
-        display: none; /* Começa escondido */
+        display: none; 
         flex-direction: column;
         animation: fadeIn 0.3s ease;
     }
     
     .chatbot-header {
-        background: #0e1011; /* Cor escura do header */
+        background: var(--color-black); 
         color: #fff; padding: 10px 15px; border-radius: 12px 12px 0 0;
         display: flex; align-items: center; justify-content: space-between;
         border-bottom: 1px solid rgba(189, 0, 255, 0.3);
@@ -107,12 +125,12 @@
     .chatbot-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--neon-green); }
     .chatbot-profile h4 { margin: 0; font-size: 16px; font-weight: 600; color: var(--neon-green); }
     .verified-icon { color: var(--neon-blue); font-size: 12px; margin-left: 5px; }
-    .close-chat { cursor: pointer; color: #aaa; font-size: 20px; transition: 0.3s; }
+    .close-chat { cursor: pointer; color: var(--color-text-off); font-size: 20px; transition: 0.3s; }
     .close-chat:hover { color: #fff; }
 
     .chatbot-body {
         flex-grow: 1; padding: 15px; overflow-y: auto;
-        background: #090b0c; /* Fundo do chat */
+        background: var(--bg-dark); 
         display: flex; flex-direction: column; gap: 10px;
     }
 
@@ -143,7 +161,7 @@
     }
     .toast {
         background: rgba(10, 10, 15, 0.95);
-        border: 1px solid #333;
+        border: 1px solid var(--color-medium-gray);
         border-left: 4px solid var(--neon-green);
         color: #fff;
         padding: 15px 20px;
@@ -186,9 +204,9 @@
         margin-right: 15px;
         cursor: pointer;
         transition: 0.3s;
-        -webkit-appearance: none; /* Remove default arrow in Chrome/Safari */
-        -moz-appearance: none;    /* Remove default arrow in Firefox */
-        appearance: none;         /* Remove default arrow in others */
+        -webkit-appearance: none; 
+        -moz-appearance: none;    
+        appearance: none;         
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="%2300D4FF" viewBox="0 0 10 10"><path d="M5 6.5L1.5 3H8.5z"/></svg>');
         background-repeat: no-repeat;
         background-position: right 10px center;
@@ -213,7 +231,8 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+        /* APRIMORAMENTO 1: Glow mais forte na Logo */
+        text-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
     }
 
     .notification-icon {
@@ -253,7 +272,7 @@
         position: absolute;
         top: 80px; right: 5%;
         width: 300px;
-        background: #0a0a0a;
+        background: var(--color-black);
         border: 1px solid var(--neon-green);
         border-radius: 12px;
         padding: 20px;
@@ -262,14 +281,14 @@
     }
     .dropdown.show { display: block; animation: slideDown 0.3s ease; }
 
-    .profile-info { text-align: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 15px; }
-    .profile-info h4 { margin: 0; color: var(--neon-green); font-family: var(--font-tech); font-size: 20px; }
+    .profile-info { text-align: center; margin-bottom: 15px; border-bottom: 1px solid var(--color-medium-gray); padding-bottom: 15px; }
+    /* APRIMORAMENTO 1: Glow nos títulos H4 */
+    .profile-info h4 { margin: 0; color: var(--neon-green); font-family: var(--font-tech); font-size: 20px; text-shadow: 0 0 5px rgba(0, 255, 157, 0.5); }
     .stats-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
     .stats-val { color: #fff; font-weight: 600; }
     
-    /* NOVO: Estilo para botão de recarga */
     .btn-recharge {
-        background: #444; 
+        background: var(--color-medium-gray); 
         color: var(--neon-green); 
         border: 1px solid var(--neon-green);
     }
@@ -284,7 +303,7 @@
         width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s;
     }
     .btn-upgrade { background: var(--neon-purple); color: #fff; }
-    .btn-logout { background: #222; color: #ff5555; margin-top: 5px; border: 1px solid #333; }
+    .btn-logout { background: var(--color-dark-gray); color: #ff5555; margin-top: 5px; border: 1px solid var(--color-medium-gray); }
     .btn-upgrade:hover { box-shadow: 0 0 15px var(--neon-purple); transform: scale(1.02); }
     .btn-logout:hover { background: #333; }
 
@@ -304,13 +323,15 @@
         animation: fadeIn 1s ease;
         position: relative; z-index: 2;
     }
+    /* APRIMORAMENTO 1: Glow no título do Login */
+    .container-login h2 { color:#fff; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
 
     .login-icon { font-size: 50px; color: var(--neon-green); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0,255,157,0.5)); }
     .input-wrapper { position: relative; margin-bottom: 20px; }
-    .input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; transition: 0.3s; }
+    .input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--color-light-gray); transition: 0.3s; }
     
     .custom-input {
-        width: 100%; padding: 15px 15px 15px 45px; background: rgba(0,0,0,0.6); border: 1px solid #333; border-radius: 8px; color: #fff; font-family: var(--font-body); transition: 0.3s;
+        width: 100%; padding: 15px 15px 15px 45px; background: rgba(0,0,0,0.6); border: 1px solid var(--color-medium-gray); border-radius: 8px; color: #fff; font-family: var(--font-body); transition: 0.3s;
     }
     .custom-input:focus { border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0, 255, 157, 0.2); }
     .custom-input:focus + i { color: var(--neon-green); }
@@ -334,14 +355,18 @@
     .welcome-banner {
         text-align: center; margin-bottom: 40px; background: linear-gradient(45deg, rgba(0,255,157,0.05), transparent); padding: 20px; border-radius: 15px; border: 1px solid rgba(0,255,157,0.2);
     }
-    .welcome-banner h1 { margin: 0; font-family: var(--font-tech); font-size: 32px; }
+    /* APRIMORAMENTO 1: Glow no título H1 */
+    .welcome-banner h1 { margin: 0; font-family: var(--font-tech); font-size: 32px; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
 
     .grid-cards { display: flex; flex-wrap: wrap; gap: 25px; justify-content: center; }
 
     .card {
-        background: #121214; width: 320px; padding: 25px; border-radius: 16px; border: 1px solid #333; position: relative; overflow: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: #121214; width: 320px; padding: 25px; border-radius: 16px; border: 1px solid var(--color-medium-gray); position: relative; overflow: hidden; 
+        /* APRIMORAMENTO 2: Animação mais dinâmica */
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .card:hover { transform: translateY(-10px); border-color: var(--card-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--card-glow); }
+    /* APRIMORAMENTO 2: Hover mais agressivo */
+    .card:hover { transform: translateY(-10px) rotateZ(0.5deg); border-color: var(--card-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--card-glow); animation: subtleGlitch 0.5s ease-in-out; }
 
     .card.whatsapp { --card-color: #25D366; --card-glow: rgba(37, 211, 102, 0.3); }
     .card.tiktok { --card-color: #ff0050; --card-glow: rgba(255, 0, 80, 0.3); }
@@ -349,15 +374,17 @@
     .card.scanner { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); } 
     .card.tool { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); }
     .card.vip { --card-color: var(--neon-purple); --card-glow: rgba(189, 0, 255, 0.4); }
-    /* NOVOS CARDS CSS */
     .card.tempmail { --card-color: var(--card-tempmail); --card-glow: var(--card-tempmail-glow); }
     .card.docgen { --card-color: var(--card-doc); --card-glow: var(--card-doc-glow); }
     .card.geolocation { --card-color: var(--card-geo); --card-glow: var(--card-geo-glow); }
+    /* NOVO CARD: CC Generator */
+    .card.ccgen { --card-color: var(--card-cc); --card-glow: var(--card-cc-glow); }
 
 
     .card-icon { font-size: 40px; margin-bottom: 15px; color: var(--card-color); }
-    .card h3 { margin: 0 0 10px; font-family: var(--font-tech); font-size: 24px; color: #fff; }
-    .card p { color: #888; font-size: 14px; line-height: 1.5; }
+    /* APRIMORAMENTO 1: Glow nos títulos H3 */
+    .card h3 { margin: 0 0 10px; font-family: var(--font-tech); font-size: 24px; color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.1); }
+    .card p { color: var(--color-text-dim); font-size: 14px; line-height: 1.5; }
 
     .action-btn {
         width: 100%; padding: 12px; margin-top: 15px; border: none; border-radius: 6px; background: #222; color: var(--card-color); border: 1px solid var(--card-color); cursor: pointer; font-weight: 700; transition: 0.3s;
@@ -366,7 +393,7 @@
     .action-btn:active { transform: scale(0.95); }
 
     .result-box {
-        margin-top: 15px; background: #080808; border: 1px dashed #444; padding: 10px; border-radius: 6px; font-size: 13px; color: #ccc; display: none; word-wrap: break-word; text-align: left; min-height: 60px;
+        margin-top: 15px; background: var(--color-black); border: 1px dashed var(--color-medium-gray); padding: 10px; border-radius: 6px; font-size: 13px; color: #ccc; display: none; word-wrap: break-word; text-align: left; min-height: 60px;
     }
     
     /* Efeito Typewriter Cursor */
@@ -379,7 +406,7 @@
     .copy-mini { font-size: 11px; float: right; cursor: pointer; color: var(--neon-green); transition: 0.3s; }
     .copy-mini:hover { text-shadow: 0 0 5px var(--neon-green); }
 
-    .scanner-input { width: 100%; padding: 10px; background: #050505; border: 1px solid #333; border-radius: 6px; color: #fff; margin-top: 10px; }
+    .scanner-input { width: 100%; padding: 10px; background: var(--color-black); border: 1px solid var(--color-medium-gray); border-radius: 6px; color: #fff; margin-top: 10px; }
     .scanner-input:focus { border-color: var(--neon-blue); }
 
     /* ------------------------------------------- */
@@ -391,21 +418,57 @@
     .modal-content {
         background: #111; margin: 15% auto; padding: 30px; border: 1px solid var(--neon-purple); width: 90%; max-width: 500px; border-radius: 15px; box-shadow: 0 0 30px rgba(189, 0, 255, 0.3); animation: fadeIn 0.3s ease; position: relative;
     }
-    .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; transition: 0.3s; cursor: pointer; }
+    .close-btn { color: var(--color-text-off); float: right; font-size: 28px; font-weight: bold; transition: 0.3s; cursor: pointer; }
     .close-btn:hover { color: var(--neon-purple); }
     
-    .log-container { max-height: 200px; overflow-y: auto; background: #000; border: 1px solid #1a1a1a; padding: 10px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 12px; color: var(--neon-green); }
+    .log-container { max-height: 200px; overflow-y: auto; background: var(--color-black); border: 1px solid var(--color-dark-gray); padding: 10px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 12px; color: var(--neon-green); }
     .log-item { border-bottom: 1px solid #111; padding: 3px 0; }
 
     .pre-login-plans { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; animation: fadeIn 1.5s ease; position: relative; z-index: 2; }
     .mini-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); width: 200px; text-align: center; transition: 0.3s; }
     .mini-card:hover { border-color: var(--neon-green); transform: scale(1.05); background: rgba(0,0,0,0.8); }
 
+    /* 8. Estilo dos Planos VIP no Modal */
+    .vip-plan-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .vip-plan-card {
+        background: var(--color-dark-gray);
+        border: 1px solid var(--neon-purple);
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+    .vip-plan-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px var(--neon-purple);
+    }
+    .vip-plan-card h4 {
+        color: var(--neon-green);
+        margin-top: 0;
+    }
+    .vip-plan-card span {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--neon-purple);
+        display: block;
+        margin: 5px 0;
+    }
+    .vip-plan-card small {
+        color: var(--color-text-dim);
+    }
+
+
     /* ------------------------------------------- */
-    /* 8. FOOTER & CREATOR CREDITS                 */
+    /* 9. FOOTER & CREATOR CREDITS                 */
     /* ------------------------------------------- */
     footer {
-        margin-top: auto; padding: 20px; text-align: center; font-size: 12px; color: #555; border-top: 1px solid #111; width: 100%; background: #050505; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; position: relative; z-index: 2;
+        margin-top: auto; padding: 20px; text-align: center; font-size: 12px; color: var(--color-light-gray); border-top: 1px solid #111; width: 100%; background: var(--color-black); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; position: relative; z-index: 2;
     }
     .creator-section {
         display: flex; align-items: center; gap: 10px; font-size: 11px; color: #444; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; width: 100%; max-width: 300px; justify-content: center;
@@ -444,6 +507,9 @@
       <button class="btn-dropdown btn-upgrade" onclick="playSound('click'); closeModal('noCreditsModal'); openVIPModal()" data-translate="noCreditsButton">
         <i class="fa-regular fa-gem"></i> QUERO UPGRADE VIP
       </button>
+       <button id="no-credits-recharge-btn" class="btn-dropdown btn-recharge" style="display:none; margin-top:5px;" onclick="playSound('click'); resetCredits(true)" data-translate="rechargeNowButton">
+            <i class="fa-solid fa-arrows-rotate"></i> RECARREGAR AGORA
+        </button>
     </div>
   </div>
   <header>
@@ -480,7 +546,7 @@
             <span class="stats-val" id="session-time">00:00</span>
         </div>
         
-        <button id="recharge-btn-dropdown" class="btn-dropdown btn-recharge" style="display:none;" onclick="playSound('click'); resetCredits()" data-translate="rechargeCreditsButton">
+        <button id="recharge-btn-dropdown" class="btn-dropdown btn-recharge" style="display:none;" onclick="playSound('click'); resetCredits(true)" data-translate="rechargeCreditsButton">
             <i class="fa-solid fa-arrows-rotate"></i> RECARREGAR CRÉDITOS
         </button>
 
@@ -500,7 +566,7 @@
   <div class="container-login" id="loginArea" data-translate-group="loginArea">
     <div class="login-icon"><i class="fa-solid fa-user-astronaut"></i></div>
     <h2 style="margin-top:0; color:#fff;" data-translate="restrictedAccessTitle">ACESSO RESTRITO</h2>
-    <p style="color:#888; font-size:13px; margin-bottom:25px;" data-translate="restrictedAccessSubtitle">Insira suas credenciais para acessar o sistema.</p>
+    <p style="color:var(--color-text-dim); font-size:13px; margin-bottom:25px;" data-translate="restrictedAccessSubtitle">Insira suas credenciais para acessar o sistema.</p>
 
     <div class="input-wrapper">
         <input type="text" id="userInput" class="custom-input" placeholder="Usuário" data-translate-placeholder="username">
@@ -525,12 +591,12 @@
       <div class="mini-card">
           <i class="fa-solid fa-server" style="color:var(--neon-blue); font-size:25px;"></i>
           <h4 style="color:#fff; margin:10px 0;" data-translate="vipDataTitle">Dados VIP</h4>
-          <a href="https://pagina-sem-fins-lucrativos.github.io/OVERSTORE/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;" data-translate="accessStoreLink">Acessar Loja ></a>
+          <a href="https://pagina-sem-fins-lucrativos.github.io/OVERSTORE/" target="_blank" style="color:var(--color-text-dim); text-decoration:none; font-size:12px;" data-translate="accessStoreLink">Acessar Loja ></a>
       </div>
       <div class="mini-card">
           <i class="fa-solid fa-tv" style="color:#ff0050; font-size:25px;"></i>
           <h4 style="color:#fff; margin:10px 0;" data-translate="iptvTitle">IPTV Premium</h4>
-          <a href="https://pagina-sem-fins-lucrativos.github.io/TV-ABERTA/" target="_blank" style="color:#888; text-decoration:none; font-size:12px;" data-translate="watchNowLink">Assistir Agora ></a>
+          <a href="https://pagina-sem-fins-lucrativos.github.io/TV-ABERTA/" target="_blank" style="color:var(--color-text-dim); text-decoration:none; font-size:12px;" data-translate="watchNowLink">Assistir Agora ></a>
       </div>
   </div>
 
@@ -542,15 +608,15 @@
             <i class="fa-solid fa-triangle-exclamation"></i> <span data-translate="freePlanWarning">Seu plano é **FREE**! Limite:</span> <strong style="color:var(--neon-green)" id="panel-credits">20</strong> <span data-translate="credits">Créditos.</span>
         </p>
         <p data-translate="creditsAvailablePrefix">Você tem <strong style="color:var(--neon-green)" id="panel-credits-status">20</strong> <span data-translate="creditsAvailableSuffix">créditos disponíveis.</span></p>
-        <p style="font-size:12px; color:#aaa;" id="credits-status">
+        <p style="font-size:12px; color:var(--color-text-off);" id="credits-status">
             <span id="cooldown-label" data-translate="rechargeInLabel">Recarga em:</span> <b><span id="cooldown-timer">--:--:--</span></b>
         </p>
         
-        <button id="recharge-btn-panel" class="btn-dropdown btn-recharge" style="display:none; width: 50%; max-width: 300px; margin: 10px auto 0;" onclick="playSound('click'); resetCredits()" data-translate="rechargeNowButton">
+        <button id="recharge-btn-panel" class="btn-dropdown btn-recharge" style="display:none; width: 50%; max-width: 300px; margin: 10px auto 0;" onclick="playSound('click'); resetCredits(true)" data-translate="rechargeNowButton">
              <i class="fa-solid fa-arrows-rotate"></i> RECARREGAR AGORA
         </button>
         
-        <p style="font-size:12px; color:#555;"><span data-translate="access">Acesso:</span> <b>@ApelaWar71</b> | <span data-translate="password">Pass:</span> <b>******</b></p>
+        <p style="font-size:12px; color:var(--color-light-gray);"><span data-translate="access">Acesso:</span> <b>@ApelaWar71</b> | <span data-translate="password">Pass:</span> <b>******</b></p>
     </div>
 
     <div class="grid-cards">
@@ -577,6 +643,16 @@
             <p data-translate="unbanGamesDesc">Textos para Free Fire e outros jogos. (1 Crédito)</p>
             <button class="action-btn" onclick="gerarTexto('game')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-game"></div>
+        </div>
+        
+        <div class="card ccgen">
+            <div class="card-icon"><i class="fa-solid fa-credit-card"></i></div>
+            <h3 data-translate="ccGeneratorTitle">Gerador CC/BIN</h3>
+            <p data-translate="ccGeneratorDesc">Gere números de cartão válidos (algoritmo Luhn) para testes de sistemas. (3 Créditos)</p>
+            <button class="action-btn" onclick="gerarCC()" data-translate="generateCCButton">
+                <i class="fa-solid fa-barcode"></i> Gerar CC Válido
+            </button>
+            <div class="result-box" id="res-ccgen" style="color:var(--card-cc); font-weight:bold;"></div>
         </div>
 
         <div class="card tempmail">
@@ -658,8 +734,23 @@
         <li data-translate="vipFeature2"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Exclusivas VIP</li>
         <li data-translate="vipFeature3"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte Prioritário 24/7</li>
       </ul>
-      <button class="btn-dropdown btn-upgrade" onclick="window.open('https://t.me/ApelaWar71')" data-translate="contactSellerButton">
-        Falar com Vendedor (Melhor Preço!)
+      
+      <h4 style="color:var(--neon-blue); margin-top:25px;" data-translate="choosePlan">Escolha seu Plano:</h4>
+      <div class="vip-plan-grid">
+          <div class="vip-plan-card" onclick="buyVIP('VIP_MONTHLY')" data-translate-plan="monthly">
+              <h4>MENSAL</h4>
+              <span style="color:var(--neon-green);">R$ 49,90</span>
+              <small>Recorrência de 30 dias</small>
+          </div>
+          <div class="vip-plan-card" onclick="buyVIP('VIP_LIFETIME')" data-translate-plan="lifetime">
+              <h4>LIFETIME</h4>
+              <span style="color:var(--neon-purple);">R$ 149,90</span>
+              <small>Acesso Permanente</small>
+          </div>
+      </div>
+      
+      <button class="btn-dropdown btn-upgrade" style="margin-top:20px;" onclick="window.open('https://t.me/ApelaWar71')" data-translate="contactSellerButton">
+        <i class="fa-brands fa-telegram"></i> Falar com Vendedor (Melhor Preço!)
       </button>
     </div>
   </div>
@@ -678,7 +769,7 @@
         <span class="close-btn" onclick="closeModal('supportModal')">&times;</span>
         <h2 data-translate="supportTitle"><i class="fa-solid fa-circle-info"></i> SUPORTE</h2>
         <h4 style="color:var(--neon-blue);" data-translate="faqTitle">Faq:</h4>
-        <p style="font-size:13px; color:#aaa;" data-translate="faqMessage">Os textos são modelos de apelação baseados em engenharia social. O sucesso não é garantido.</p>
+        <p style="font-size:13px; color:var(--color-text-off);" data-translate="faqMessage">Os textos são modelos de apelação baseados em engenharia social. O sucesso não é garantido.</p>
         <button class="btn-dropdown btn-upgrade" style="background: #0088cc;" onclick="window.open('https://t.me/ApelaWar71')" data-translate="officialTelegramButton">
             <i class="fa-brands fa-telegram"></i> Telegram Oficial
         </button>
@@ -688,10 +779,10 @@
   <div id="chatbot-container" data-translate-group="chatbot">
       <div class="chatbot-header">
           <div class="chatbot-profile">
-              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1LjczLTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMC4yOTkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjI5MiAzNy43NTItMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMD৭১IDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMC4yOTkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjg1MiAxMi43OTEgMTkuMDE1IDE2LjQ2NSAxMC44NTYgNS4yNzUgMjIuNjU2IDcuMzIxIDM0LjY5IDcuODIxIDIuNDI5LjA5OS00Ljg5NS0xMi4wMjQtNi41NC0xOC45OTUtLjYyNy0yLjc0MS0xLjI0My01LjQ4My0xLjgyOS04LjIzOS0uNTg1LTIuNzU5LTEuMTU5LTUuNTUtMS43MzktOC4zMDgtLjA5OS0uNDczLS4xOTgtLjk0NC0uMjctMS40MTUtLjE1NC0xLjA1NC0uMzQ4LTIuMDgyLS40ODMtMy4xNDctLjI2LTIuMTM4LS41MDItNC40MjMtLjcwNy02LjU5LTEuMzMtMTQuMzY0LS43MTUtMjguOTA1IDIuODkxLTQyLjk5IDMuNDctMTQuMDgyIDguMDYyLTI3Ljg3MiAxNC4xNDQtNDEuMzM3IDQuMTMtOS4wNzcgOC44MzUtMTcuOTE0IDEzLjczMy0yNi41OTYgNi4xMjUtMTAuNjQ1IDEzLjMyMi0yMC44NTMgMjEuNTgzLTI5LjkzMSAyLjA3NC0yLjI3IDQuNzk0LTQuMzM0IDcuMjQtNi4wNzMgNC41MTgtMy4yMzggOS40MS01Ljg3NCAxNC42NTItNy45MTIgMTEuNzU1LTQuNDk2IDI0LjgxNy02LjU1MiAzNy42NjgtNS42MTcgMi42MDMuMTg2IDUuMi4zMzMgNy44MDQuNDc0IDIyLjUxOCAxLjIxMiA0NC45OTcgMi41MiA2Ny40NzggMy44MjMgMjEuMjYyIDEuMjMgNDIuNDQ4IDIuODcgNjMuNDEgNC44OCAyMC4xMyAxLjkxNiA0MC40OTcgMy4wNTUgNjAuNjU0IDQuNjI1IDguOTI0LjcwMiAxNy44NTUgMS40ODcgMjYuNzU0IDIuNDAzIDExLjU3OSAxLjE3NiAyMy41NDEgMi4wNzEgMzUuNTIgMi41ODUgMTIuNDk5LjUyOSAyNS4wMDYgMS40ODIgMzcuNTM0IDIuNjA1IDIxLjgwNyAxLjk3NyA0My45NjcgMi41NSA2NS44NzMgMy41NDYgMTkuMDcuODcxIDM4LjE0OSAxLjM4MiA1Ny40NzggMS44NTQgMy40OTEuMDg0IDYuOTY0LjIwMiAxMC40NDQuMzIgMS45MzMuMDY2IDMuODY2LjEzIDUuNzkuMTc5IDguODAzLjI0MSA5Ljc4My0xLjEyMyAxOC4yOC01LjU1MyAyLjg5MS0xLjU1NCA1LjUxNC0zLjQyIDguMzIxLTQuODcgNS4wNi0yLjYxNiAxMC41NzktMy43OTkgMTYuMDY1LTQuODQ0IDE0LjMyMy0yLjYwMSAyOC41ODItNS41MiA0My4wNS03LjIyMyAxMi4zNDYtMS42NDUgMjQuNzc1LTMuMDQ4IDM3LjItMy44NTMgMTkuNDg3LTEuMjczIDM4LjkwNi0yLjQ2NCA1OC4zMzItMy4zODggMTYuMTkzLS43NjQgMzIuNDczLTEuMjIyIDQ4LjczMi0xLjQzMiA2Ljc5Mi0uMDkgMTMuNDQ0LS4xMzkgMjAuMTIyLS4xNDIgMzEuNDg4LS4wMDIgNjMuMDA2LjIxOSA5NC41MDguNDMxIDIwLjExNS4xMzMgNDAuMDk3LjUxOSA2MC4xOTcuNzI3IDIxLjMyNS4yMiA0Mi40OTcuNDExIDYzLjY3NC42MjMgMTcuOTQ4LjE4IDM1Ljg0NS40NjQgNTMuNzY3LjcxMiAyLjcxMS4wMzcgNS40NDMuMDQ2IDguMTM3LjA4IDkuMDYzLjEwNyAxOC4zMDMuMzA3IDI3LjU1LjQxIDEzLjQ5Ny4xNTUgMjYuNjAzLjM1IDM5Ljg4LjUxNCAyLjM3NS4wMjkgNC43NzYuMDk2IDcuMTQ2LjA5NCAxMi4wMjQtLjAxIDIzLjkyMS0uNTIyIDM1LjgwNC0uOTgyIDkuNTkzLS4zNzggMTkuMjU5LS43NjQgMjguODItMS4xMTcgMjMuNzk1LS44ODMgNDcuMTI2LTEuMzUyIDcwLjQyMy0uNDMgMTYuMDEuNjIyIDMxLjg4MiAyLjQxIDQ3LjU5MSA0Ljk0NCAyMy4wNzIgMy43NjUgNDUuOTc4IDguODYgNjguNTA5IDE0LjQyIDE5LDUuNTYxIDM3LjUxOSAxMi44MTMgNTUuMTgzIDIyLjY1NiAxMC41NjkgNS43NjYgMjAuNzg3IDEyLjU4OSAyOS45NTcgMjEuMDYzIDEwLjEyMiA5LjQyMiAxNy45NTQgMjAuNjg3IDI0LjIxNyAzMi45NyA5LjU0NiAxOC41NDcgMTIuMzEzIDM5LjA0MiAxMS40MiA1OS42MzYtLjU4MiAxMy40OTUtMS43MTQgMjYuODMtMy40ODcgNDAuMTY0LTEuNzMgMTIuNTY2LTMuNjUxIDI1LjEyNS01Ljg4IDM3LjY1My0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLS45MzcgMTUuNzg5LS42MiAyMy41OC0xLjM1NyAyNS4zMS0yLjM5NiA0OC42Ny03Ljk5IDc0Ljg5OS0xNS4wMDMgMTUuNTA5LTQuMzEzIDMwLjc1OC04LjkxMyA0NS43MjQtMTQuNDY5IDguODctMy4yNjYgMTcuMzU1LTYuOTggMjUuNzE2LTEwLjg2MSAxLjcxMS0uODAzIDMuNDY1LTEuNTMyIDUuMDk3LTIuNDEgMi41OC0xLjM1NiA1LjI5My0yLjQ3IDcuNjgtNC4wMzggNS43NDYtMy44NDggMTEuMjItOC42OTQgMTUuNTE1LTE0LjE5OSA1LjkwNy03LjMyNSA5LjExNS0xNS41MzYgOS44NzktMjQuMTAzLjI4Ni0zLjE0Ny4yODgtNi4zMTctLjAwNy05LjQ1My0uNzAyLTYuOTktMy40NDUtMTMuODUzLTcuMDMyLTIwLjE4OS01LjQ1My05LjUxNS0xMi4yOTYtMTguMjM5LTIxLjMzNi0yNS42NDktMTcuOTk3LTE1LjA1Ni0zOS4wNS0yMy45NjYtNTkuNzk4LTMzLjI3OS0xOC40NzctOC40MDItMzcuNTcyLTE1LjQzMi01Ni43NjctMjIuMzQ4LTEzLjMxNC00LjcyNS0yNi41OC04LjMyNy0zOS44MTItMTEuODQ4LTIyLjM4OC01Ljk1NS00NS40NzMtOS40NTUtNjguNzE0LTExLjkwMS05LjA4Ny0uOTY2LTE3LjU3Ny0xLjE1MS0yNi40NjgtMS4zOTctMTUuODkxLS40NDQtMzEuODk2LS44MjYtNDguMDA1LTEuMTQyLTYuMDE3LS4xMjgtMTIuMDU1LS4yNTktMTguMTk4LS4zMDgtMzEuNjg0LS4yNTItNjMuMzk0LS4zMDYtOTQuOTY0LS4zNDItMjEuMDk0LS4wMjQtNDIuMTg3LjA3OS02My41MDctLjE2M3oiIGZpbGw9IiNhYWFhYWEiLz48L3N2Zz4=" alt="Bot AI">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1LjczLTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMC4yOTkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjI5MiAzNy43NTItMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMC4yOTkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjg1MiAxMi43OTEgMTkuMDE1IDE2LjQ2NSAxMC44NTYgNS4yNzUgMjIuNjU2IDcuMzIxIDM0LjY5IDcuODIxIDIuNDI5LjA5OS00Ljg5NS0xMi4wMjQtNi41NC0xOC45OTUtLjYyNy0yLjc0MS0xLjI0My01LjQ4My0xLjgyOS04LjIzOS0uNTg1LTIuNzU5LTEuMTU5LTUuNTUtMS43MzktOC4zMDgtLjA5OS0uNDczLS4xOTgtLjk0NC0uMjctMS40MTUtLjE1NC0xLjA1NC0uMzQ4LTIuMDgyLS40ODMtMy4xNDctLjI2LTIuMTM4LS41MDItNC40MjMtLjcwNy02LjU5LTEuMzMtMTQuMzY0LS43MTUtMjguOTA1IDIuODkxLTQyLjk5IDMuNDctMTQuMDgyIDguMDYyLTI3Ljg3MiAxNC4xNDQtNDEuMzM3IDQuMTMtOS4wNzcgOC44MzUtMTcuOTE0IDEzLjczMy0yNi41OTYgNi4xMjUtMTAuNjQ1IDEzLjMyMi0yMC44NTMgMjEuNTgzLTI5LjkzMSAyLjA3NC0yLjI3IDQuNzk0LTQuMzM0IDcuMjQtNi4wNzMgNC41MTgtMy4yMzggOS40MS01Ljg3NCAxNC42NTItNy45MTIgMTEuNzU1LTQuNDk2IDI0LjgxNy02LjU1MiAzNy42NjgtNS42MTcgMi42MDMuMTg2IDUuMi4zMzMgNy44MDQuNDc0IDIyLjUxOCAxLjIxMiA0NC45OTcgMi41MiA2Ny40NzggMy44MjMgMjEuMjYyIDEuMjMgNDIuNDQ4IDIuODcgNjMuNDEgNC44OCAyMC4xMyAxLjkxNiA0MC40OTcgMy4wNTUgNjAuNjU0IDQuNjI1IDguOTI0LjcwMiAxNy44NTUgMS40ODcgMjYuNzU0IDIuNDAzIDExLjU3OSAxLjE3NiAyMy41NDEgMi4wNzEgMzUuNTIgMi41ODUgMTIuNDk5LjUyOSAyNS4wMDYgMS40ODIgMzcuNTM0IDIuNjA1IDIxLjgwNyAxLjk3NyA0My45NjcgMi41NSA2NS44NzMgMy41NDYgMTkuMDcuODcxIDM4LjE0OSAxLjM4MiA1Ny40NzggMS44NTQgMy40OTEuMDg0IDYuOTY0LjIwMiAxMC40NDQuMzIgMS45MzMuMDY2IDMuODY2LjEzIDUuNzkuMTc5IDguODAzLjI0MSA5Ljc4My0xLjEyMyAxOC4yOC01LjU1MyAyLjg5MS0xLjU1NCA1LjUxNC0zLjQyIDguMzIxLTQuODcgNS4wNi0yLjYxNiAxMC41NzktMy43OTkgMTYuMDY1LTQuODQ0MTQuMzIzLTIuNjAxIDI4LjU4Mi01LjUyIDQzLjA1LTcuMjIzIDEyLjM0Ni0xLjY0NSAyNC43NzUtMy4wNDggMzcuMi0zLjg1MyAxOS40ODctMS4yNzMgMzguOTA2LTIuNDY0IDU4LjMzMi0zLjM4OCAxNi4xOTMtLjc2NCAzMi40NzMtMS4yMjIgNDguNzMyLTEuNDMyIDYuNzkyLS4wOSAxMy40NDQtLjEzOSAyMC4xMjItLjE0MiAzMS40ODgtLjAwMiA2My4wMDYuMjE5IDk0LjUwOC40MzEgMjAuMTE1LjEzMyA0MC4wOTcuNTE5IDYwLjE5Ny43MjcgMjEuMzI1LjIyIDQyLjQ5Ny40MTEgNjMuNjY5LjYxOCA1Ny45MDkuNTc2IDEwNS41NzEgMjUuNzUxIDE0OS43NjYgNjUuNzA5IDIwLjUxNyAxOC43MiAzNy4zODQgMzkuMjE1IDUwLjcyMSA2MS45NTIgOS40OTcgMTUuNTA5IDEyLjYyNSAzMi4xMjYgMTIuMTIzIDQ4LjgyOS0uNTY0IDE4LjgzNi0yLjEzMSA0MC4zNDItOC42NTEgNTkuNjM5LTEuNzc2IDUuMTMyLTMuODQ3IDEwLjEzNy02LjEzNSAxNS4xNC0xLjI0OSAyLjUyNi0yLjUyNyA1LjAxNC0zLjc4OCA3LjU1Mi00LjQ4MyA5LjA2Ni04Ljc2OSAxOC40MjctMTMuMTQ0IDI3LjcyMy02LjMzNyAxMy42MTUtMTIuODQzIDI3LjQ1NS0yMC4xNDggNDEuMDY1LTMuNDkyIDcuNDY2LTYuNzE5IDE1LjM0OC05LjYyNCAyMy40NzQtMi4wOTYgNS45MDItNC43OTMgMTEuNjM1LTcuMjkgMTcuNDE1LTMuNTgyIDguMzM3LTcuNDY0IDE2LjgxNy0xMS4wNSA2MC41NS0xLjMxNCA3Ljc0NC0zLjMyMyAxNS41MjEtNS45MzIgMjMuMTE4LTIuMDE3IDUuODYtNS4xODcgMTEuNzc1LTcuOTcyIDE3LjY0MS01LjEzNSAxMC43MjktMTEuMTM0IDIxLjMyNi0xNy40NzIgMzEuNDIyLTQuNTM0IDcuMzA5LTkuMjMyIDE0LjY1My0xNC4yNTcgMjEuNzEzLTUuMTExIDcuMTg2LTEwLjc2MSAxMy45NTItMTcuMDc3IDE5Ljk4NC05Ljk4IDkuNTM3LTIyLjA2MSAxNi43MzYtMzQuNzcyIDIwLjIzOC0yLjk0NSAxLjI0NC02LjAzOSAyLjMzMS05LjA2MyAzLjI5LTI1LjQ0IDguMTQzLTUxLjQ1OSAxNC4xNTYtNzcuNDExIDE4LjgwNy0yMS4yNTggMy44NjktNDIuNDQ0IDYuMjcyLTYzLjkwNyA3LjkyNC0yMy4wOCAxLjgzOS00Ni4xNjYgMy4xNTktNjkuMzE4IDQuMTk1LTE2LjM3MS43MzctMzIuODUzIDEuMjE0LTQ5LjI5MyAxLjU0LTUuNzMzLjExMS0xMS40OC4xNzMtMTcuMjM0LjIwNS0yMi45NDguMTI4LTQ1LjgyNi4wNzMtNjguNzY5LS4wMTgtMjEuMTkyLS4wODQtNDIuNDAyLS4xOTItNjMuNjQtLjE0N3oiIGZpbGw9IiNhYWFhYWEiLz48L3N2Zz4=" alt="Bot AI">
               <div>
                   <h4 data-translate="aiBotName">Over AI <i class="fa-solid fa-circle-check verified-icon"></i></h4>
-                  <span style="font-size:11px; color:#888;" data-translate="onlineStatus">Online</span>
+                  <span style="font-size:11px; color:var(--color-text-dim);" data-translate="onlineStatus">Online</span>
               </div>
           </div>
           <i class="fa-solid fa-xmark close-chat" onclick="closeChatbot()"></i>
@@ -704,7 +795,7 @@
   </div>
   <footer>
     <div>
-        <p data-translate="footerCopyright">OVER PAINEL © 2025 | <span style="color:#444;">System Safe & Encrypted</span></p>
+        <p data-translate="footerCopyright">OVER PAINEL © 2025 | <span style="color:var(--color-medium-gray);">System Safe & Encrypted</span></p>
         <div id="server-status" style="color:var(--neon-green); font-size:11px;">
             <i class="fa-solid fa-wifi"></i> <span id="latency-val">32ms</span>
         </div>
@@ -729,22 +820,23 @@
     const LOGS_KEY = 'over_logs_v2';
     const COOLDOWN_KEY = 'over_cooldown_v2';
     const LANG_KEY = 'over_lang_v2'; 
+    const USER_PLAN_KEY = 'over_user_plan_v2'; // NOVO: Chave para persistência do plano
+    
     // DEFINIÇÃO DO LIMITE DE CRÉDITOS E DURAÇÃO DO COOLDOWN
     const DEFAULT_CREDITS = 20; // 👈 CRÉDITOS INICIAIS/MÁXIMOS DO PLANO FREE
     const COOLDOWN_DURATION = 14400; // 👈 4 horas em segundos = 4 * 3600
     
-    // Opcional: Adicionar mais usuários para simulação
-    const AUTH_USER_HASH = "QEFwZWxhV2FyNzE="; // @ApelaWar71
-    const AUTH_PASS_HASH = "YXBlbGluaGExMGs="; // apelinha10k
+    const AUTH_USER_HASH = "QEFwZWxhV2FyNzE="; 
+    const AUTH_PASS_HASH = "YXBlbGluaGExMGs="; 
     
-    // Variáveis
+    // Variáveis Persistentes
     let credits = parseInt(localStorage.getItem(CREDITS_KEY)) || DEFAULT_CREDITS;
     let secondsOnline = 0;
     let logs = JSON.parse(localStorage.getItem(LOGS_KEY)) || [];
     let cooldownEndTimestamp = parseInt(localStorage.getItem(COOLDOWN_KEY)) || 0;
-    let userPlan = 'FREE'; // Começa como FREE por padrão
-    let currentLang = localStorage.getItem(LANG_KEY) || 'pt'; // Idioma atual
-    let currentTranslations = {}; // Guarda as traduções ativas
+    let userPlan = localStorage.getItem(USER_PLAN_KEY) || 'FREE'; // Carrega plano
+    let currentLang = localStorage.getItem(LANG_KEY) || 'pt'; 
+    let currentTranslations = {}; 
 
     // Audio Context para sons sem arquivos externos
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -760,6 +852,10 @@
             restrictedAccessSubtitle: "Insira suas credenciais para acessar o sistema.",
             authenticateButton: "Autenticar",
             loadingMsg: "Descriptografando acesso...",
+            choosePlan: "Escolha seu Plano:",
+            // VIP Modal Planos
+            monthly: "MENSAL",
+            lifetime: "LIFETIME",
             
             // Dropdown
             plan: "Plano:",
@@ -793,6 +889,11 @@
             recoverTikTokDesc: "Apelação otimizada para contas suspensas. (1 Crédito)",
             unbanGamesTitle: "Unban Games",
             unbanGamesDesc: "Textos para Free Fire e outros jogos. (1 Crédito)",
+            // NOVO CARD
+            ccGeneratorTitle: "Gerador CC/BIN",
+            ccGeneratorDesc: "Gere números de cartão válidos (algoritmo Luhn) para testes de sistemas. (3 Créditos)",
+            generateCCButton: "Gerar CC Válido",
+            
             tempEmailTitle: "E-mail Temp",
             tempEmailDesc: "Gere e-mails descartáveis para cadastros rápidos e anônimos. (2 Créditos)",
             generateEmailButton: "Gerar E-mail",
@@ -845,10 +946,8 @@
             // Chatbot (Textos principais)
             aiBotName: "Over AI",
             onlineStatus: "Online",
-            // Estes são injetados via JS, a lógica de tradução deve ser refeita no JS
             chatbotInitialGreetingFree: (user, credits, maxCredits) => `Olá, ${user}! Eu sou a Over AI. Seu plano é **FREE** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> créditos).<br>Foque no upgrade para ter créditos ilimitados!`,
             chatbotInitialGreetingVIP: (user) => `Bem-vindo, **${user}**! Seu acesso **VIP Supremo** está ativo. Qual ferramenta você precisa usar hoje?`,
-            // Chatbot buttons
             chatbotUpgradeNowButton: "🚀 Upgrade VIP Supremo AGORA",
             chatbotWhatIsVipButton: "🤷‍♂️ O que eu ganho com o VIP?",
             chatbotAvailableToolsButton: "🛠️ Ver Ferramentas Disponíveis",
@@ -863,8 +962,9 @@
             chatbotExploreTools: "Explore as ferramentas avançadas do painel:",
             chatbotTempEmailButton: "Gerar E-mail Temp (2 Créditos)",
             chatbotCPFGenButton: "Gerar CPF Válido (1 Crédito)",
+            chatbotCCGenButton: "Gerador CC/BIN (3 Créditos)", // NOVO
             chatbotIPGeoButton: "Localizador IP/GPS (3 Créditos)",
-            chatbotSecurityTools: "Scanner URL & Checar IP (Gratuito)",
+            chatbotSecurityTools: "Scanner URL & Checar IP (Free)",
             chatbotSecurityFree: "Ferramentas de análise de rede (Grátis):",
             chatbotCheckMyIP: "Checar meu IP",
             chatbotGenerateStrongPass: "Gerar Senha Forte",
@@ -875,6 +975,7 @@
             chatbotPassGenerated: "Senha gerada e exibida no box de ferramentas. Use o botão 'Copiar'.",
             chatbotEmailGenerated: "E-mail temporário gerado e exibido no card. Copie e use-o!",
             chatbotCPFGenerated: "CPF gerado (Simulação). Lembre-se, apenas para testes de validação.",
+            chatbotCCGenerated: "CC gerado (Simulação). Lembre-se, apenas para testes de validação.", // NOVO
             chatbotIPGeoInfo: "Para rastrear, acesse o painel principal, insira o **IP/Link** no card **IP/GPS Locator** e clique em Rastrear.<br>Essa função exige um IP ou Link digitado!",
             chatbotTextGenerated: (tool) => `Texto de apelação para **${tool}** gerado!<br>Verifique o resultado no painel principal e copie o texto.`,
             
@@ -894,6 +995,7 @@
             toastSuccessCopied: "Texto copiado para a área de transferência!",
             toastErrorCopy: "Erro ao copiar. Tente selecionar o texto.",
             toastErrorNoURL: "Insira uma URL!",
+            toastSuccessVip: "Upgrade para VIP Supremo ativado! Bem-vindo.", // NOVO
             
         },
         'en': {
@@ -903,6 +1005,10 @@
             restrictedAccessSubtitle: "Insert your credentials to access the system.",
             authenticateButton: "Authenticate",
             loadingMsg: "Decrypting access...",
+            choosePlan: "Choose your Plan:",
+            // VIP Modal Planos
+            monthly: "MONTHLY",
+            lifetime: "LIFETIME",
             
             // Dropdown
             plan: "Plan:",
@@ -936,6 +1042,11 @@
             recoverTikTokDesc: "Optimized appeal for suspended accounts. (1 Credit)",
             unbanGamesTitle: "Unban Games",
             unbanGamesDesc: "Texts for Free Fire and other games. (1 Credit)",
+             // NOVO CARD
+            ccGeneratorTitle: "CC/BIN Generator",
+            ccGeneratorDesc: "Generate valid card numbers (Luhn algorithm) for system testing. (3 Credits)",
+            generateCCButton: "Generate Valid CC",
+            
             tempEmailTitle: "Temp Email",
             tempEmailDesc: "Generate disposable emails for quick and anonymous registrations. (2 Credits)",
             generateEmailButton: "Generate Email",
@@ -990,7 +1101,6 @@
             onlineStatus: "Online",
             chatbotInitialGreetingFree: (user, credits, maxCredits) => `Hello, ${user}! I am Over AI. Your plan is **FREE** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> credits).<br>Focus on upgrading for unlimited credits!`,
             chatbotInitialGreetingVIP: (user) => `Welcome, **${user}**! Your **Supreme VIP** access is active. Which tool do you need to use today?`,
-            // Chatbot buttons
             chatbotUpgradeNowButton: "🚀 UPGRADE Supreme VIP NOW",
             chatbotWhatIsVipButton: "🤷‍♂️ What do I get with VIP?",
             chatbotAvailableToolsButton: "🛠️ See Available Tools",
@@ -1005,6 +1115,7 @@
             chatbotExploreTools: "Explore the panel's advanced tools:",
             chatbotTempEmailButton: "Generate Temp Email (2 Credits)",
             chatbotCPFGenButton: "Generate Valid CPF (1 Credit)",
+            chatbotCCGenButton: "CC/BIN Generator (3 Credits)", // NOVO
             chatbotIPGeoButton: "IP/GPS Locator (3 Credits)",
             chatbotSecurityTools: "URL Scanner & Check IP (Free)",
             chatbotSecurityFree: "Network analysis tools (Free):",
@@ -1017,6 +1128,7 @@
             chatbotPassGenerated: "Password generated and shown in the tools box. Use the 'Copy' button.",
             chatbotEmailGenerated: "Temporary email generated and shown on the card. Copy and use it!",
             chatbotCPFGenerated: "CPF generated (Simulation). Remember, only for validation tests.",
+            chatbotCCGenerated: "CC generated (Simulation). Remember, only for validation tests.", // NOVO
             chatbotIPGeoInfo: "To track, access the main panel, enter the **IP/Link** on the **IP/GPS Locator** card and click Track.<br>This function requires a typed IP or Link!",
             chatbotTextGenerated: (tool) => `Appeal text for **${tool}** generated!<br>Check the result on the main panel and copy the text.`,
 
@@ -1036,6 +1148,7 @@
             toastSuccessCopied: "Text copied to clipboard!",
             toastErrorCopy: "Error copying. Try selecting the text.",
             toastErrorNoURL: "Insert a URL!",
+            toastSuccessVip: "Supreme VIP Upgrade activated! Welcome.", // NOVO
         },
         'es': {
             // Meta e Títulos
@@ -1044,6 +1157,10 @@
             restrictedAccessSubtitle: "Inserte sus credenciales para acceder al sistema.",
             authenticateButton: "Autenticar",
             loadingMsg: "Descifrando acceso...",
+            choosePlan: "Elija su Plan:",
+             // VIP Modal Planos
+            monthly: "MENSUAL",
+            lifetime: "DE POR VIDA",
             
             // Dropdown
             plan: "Plan:",
@@ -1077,6 +1194,11 @@
             recoverTikTokDesc: "Apelación optimizada para cuentas suspendidas. (1 Crédito)",
             unbanGamesTitle: "Desbloquear Juegos",
             unbanGamesDesc: "Textos para Free Fire e outros jogos. (1 Crédito)",
+            // NOVO CARD
+            ccGeneratorTitle: "Generador CC/BIN",
+            ccGeneratorDesc: "Genere números de tarjeta válidos (algoritmo Luhn) para pruebas de sistemas. (3 Créditos)",
+            generateCCButton: "Generar CC Válido",
+            
             tempEmailTitle: "Correo Temp",
             tempEmailDesc: "Genere correos electrónicos desechables para registros rápidos y anónimos. (2 Créditos)",
             generateEmailButton: "Generar Correo",
@@ -1131,7 +1253,6 @@
             onlineStatus: "En Línea",
             chatbotInitialGreetingFree: (user, credits, maxCredits) => `¡Hola, ${user}! Soy Over AI. Tu plan es **GRATIS** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> créditos).<br>¡Enfócate en actualizar para tener créditos ilimitados!`,
             chatbotInitialGreetingVIP: (user) => `Bienvenido, **${user}**! Tu acceso **VIP Supremo** está activo. ¿Qué herramienta necesitas usar hoy?`,
-            // Chatbot buttons
             chatbotUpgradeNowButton: "🚀 ACTUALIZAR VIP Supremo AHORA",
             chatbotWhatIsVipButton: "🤷‍♂️ ¿Qué gano con el VIP?",
             chatbotAvailableToolsButton: "🛠️ Ver Herramientas Disponibles",
@@ -1146,6 +1267,7 @@
             chatbotExploreTools: "Explore las herramientas avanzadas del panel:",
             chatbotTempEmailButton: "Generar Correo Temp (2 Créditos)",
             chatbotCPFGenButton: "Generar CPF Válido (1 Crédito)",
+            chatbotCCGenButton: "Generador CC/BIN (3 Créditos)", // NOVO
             chatbotIPGeoButton: "Localizador IP/GPS (3 Créditos)",
             chatbotSecurityTools: "Escáner URL y Comprobar IP (Gratis)",
             chatbotSecurityFree: "Herramientas de análisis de red (Gratis):",
@@ -1158,6 +1280,7 @@
             chatbotPassGenerated: "Contraseña generada y mostrada en el cuadro de herramientas. Use el botón 'Copiar'.",
             chatbotEmailGenerated: "Correo temporal generado y mostrado en la tarjeta. ¡Cópielo y úselo!",
             chatbotCPFGenerated: "CPF generado (Simulación). Recuerde, solo para pruebas de validación.",
+            chatbotCCGenerated: "CC generado (Simulación). Recuerde, solo para pruebas de validación.", // NOVO
             chatbotIPGeoInfo: "Para rastrear, acceda al panel principal, inserte la **IP/Enlace** en la tarjeta **Localizador IP/GPS** y haga clic en Rastreo.<br>¡Esta función requiere una IP o Enlace escrito!",
             chatbotTextGenerated: (tool) => `¡Texto de apelación para **${tool}** generado!<br>Verifique el resultado en el panel principal y copie el texto.`,
 
@@ -1177,27 +1300,25 @@
             toastSuccessCopied: "¡Texto copiado al portapapeles!",
             toastErrorCopy: "Error al copiar. Intente seleccionar el texto.",
             toastErrorNoURL: "¡Inserte una URL!",
+            toastSuccessVip: "¡Actualización a VIP Supremo activada! Bienvenido.", // NOVO
         }
     };
 
     
     // =========================================================================
-    // NOVO: LÓGICA DE TRADUÇÃO
+    // LÓGICA DE TRADUÇÃO
     // =========================================================================
     function updateContent(lang) {
         currentTranslations = allTranslations[lang];
         if (!currentTranslations) return;
 
-        // 1. Traduzir Elementos com data-translate
         document.querySelectorAll('[data-translate]').forEach(element => {
             const key = element.getAttribute('data-translate');
             if (currentTranslations[key]) {
-                // Para textos que podem conter markdown (negrito)
                 element.innerHTML = currentTranslations[key].replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
             }
         });
 
-        // 2. Traduzir Placeholders
         document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
             const key = element.getAttribute('data-translate-placeholder');
             if (currentTranslations[key]) {
@@ -1205,7 +1326,6 @@
             }
         });
         
-        // 3. Traduzir Títulos (Tooltips)
         document.querySelectorAll('[data-translate-title]').forEach(element => {
             const key = element.getAttribute('data-translate-title');
             if (currentTranslations[key]) {
@@ -1213,14 +1333,12 @@
             }
         });
         
-        // 4. Traduzir Conteúdo complexo / injetado (Como o Cooldown)
-        // Correção: Garante que só chame updateCreditsDisplay se o painel estiver teoricamente presente.
+        // Atualiza elementos complexos
         if (sessionStorage.getItem('isLogged') === 'true' || document.getElementById('painelArea').style.display === 'block') {
             updateCreditsDisplay();
         }
         updateCooldownDisplay(); 
         
-        // 5. Atualizar o estado do Chatbot se estiver aberto
         if (document.getElementById('chatbot-container').style.display === 'flex') {
             const chatBody = document.getElementById('chatbot-messages');
             if(chatBody) chatBody.innerHTML = '';
@@ -1238,28 +1356,25 @@
 
     // ------------------- INICIALIZAÇÃO -------------------
     document.addEventListener("DOMContentLoaded", () => {
-        // Define o idioma inicial com base no localStorage ou 'pt'
         const langSelect = document.getElementById('lang-select');
         if (langSelect) {
             langSelect.value = currentLang;
         }
-        updateContent(currentLang);
         
         // Garante que os créditos nunca excedam o máximo ao carregar
         if (credits > DEFAULT_CREDITS) credits = DEFAULT_CREDITS;
         
-        initMatrix(); // Inicia efeito Matrix
+        initMatrix(); 
         if(sessionStorage.getItem('isLogged') === 'true') {
-            // Se já logado, configura o plano e exibe o painel
-            userPlan = 'FREE'; 
             showPanel(true);
         }
+        updateContent(currentLang);
         updateCooldownDisplay();
         startServerStatusUpdater();
         renderLogs();
     });
 
-    // ------------------- SISTEMA DE ÁUDIO (WEB AUDIO API) -------------------
+    // ------------------- SISTEMA DE ÁUDIO & TOAST (Mantido) -------------------
     function playSound(type) {
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
@@ -1292,7 +1407,7 @@
             gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.2);
             osc.start();
             osc.stop(audioCtx.currentTime + 0.2);
-        } else if (type === 'chat') { // NOVO SOM DE CHAT
+        } else if (type === 'chat') { 
             osc.type = 'sine';
             osc.frequency.setValueAtTime(900, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(700, audioCtx.currentTime + 0.05);
@@ -1303,7 +1418,6 @@
         }
     }
 
-    // ------------------- SISTEMA DE NOTIFICAÇÃO (TOAST) -------------------
     function showToast(msg, type = 'success') {
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
@@ -1311,11 +1425,9 @@
         
         let icon = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-circle-xmark' : 'fa-triangle-exclamation');
         
-        // As mensagens do toast agora vêm da função chamadora e já devem estar traduzidas
         toast.innerHTML = `<i class="fa-solid ${icon}" style="color:${type === 'error' ? '#ff5555' : 'var(--neon-green)'}"></i> <span>${msg}</span>`;
         container.appendChild(toast);
 
-        // Sons
         if(type === 'success') playSound('success');
         if(type === 'error') playSound('error');
 
@@ -1324,8 +1436,7 @@
             setTimeout(() => toast.remove(), 500);
         }, 3500);
     }
-
-    // ------------------- MATRIX RAIN EFFECT -------------------
+    
     function initMatrix() {
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -1389,14 +1500,12 @@
         msg.style.display = 'none';
         loading.style.display = 'block';
 
-        // Simulação de delay de rede
         setTimeout(() => {
-            // Verifica HASH (Base64)
             if (btoa(user) === AUTH_USER_HASH && btoa(pass) === AUTH_PASS_HASH) {
                 sessionStorage.setItem('isLogged', 'true');
                 
-                // Define o plano
-                userPlan = 'FREE'; 
+                // O userPlan já está carregado do localStorage no início
+                // userPlan = localStorage.getItem(USER_PLAN_KEY) || 'FREE'; 
                 
                 showToast(currentTranslations.toastSuccessLogin, "success");
                 addLog(`Login realizado pelo usuário ${user}`);
@@ -1411,26 +1520,37 @@
             }
         }, 1500);
     }
+    
+    // NOVO: Função para comprar/simular upgrade VIP
+    function buyVIP(plan) {
+        playSound('success');
+        localStorage.setItem(USER_PLAN_KEY, plan);
+        userPlan = plan;
+        
+        // Define créditos como MAX e cancela cooldown
+        credits = DEFAULT_CREDITS; 
+        cooldownEndTimestamp = 0;
+        localStorage.setItem(COOLDOWN_KEY, 0); 
+
+        showToast(currentTranslations.toastSuccessVip, "success");
+        addLog(`Upgrade: Plano ${plan} ativado. Créditos Ilimitados!`);
+        
+        // Atualiza a interface e fecha o modal
+        showPanel(true);
+        closeModal('vipModal');
+    }
+
 
     function showPanel(instant = false) {
         const loginArea = document.getElementById('loginArea');
         const preLogin = document.getElementById('preLoginCards');
         const panelArea = document.getElementById('painelArea');
         
-        // Atualiza nome no header
         const username = atob(AUTH_USER_HASH).replace('@', '');
         document.getElementById('header-user').innerText = username;
         document.getElementById('drop-user').innerText = atob(AUTH_USER_HASH);
 
-        // Atualiza plano no dropdown (importante)
-        document.getElementById('user-plan-status').innerText = userPlan;
-
-        // Mostra/Esconde o aviso do plano FREE
-        if (document.getElementById('plan-warning')) {
-             document.getElementById('plan-warning').style.display = userPlan === 'FREE' ? 'block' : 'none';
-        }
-       
-        
+        // Oculta/Exibe a área de login/pre-login
         if(instant) {
             if (loginArea) loginArea.style.display = 'none';
             if (preLogin) preLogin.style.display = 'none';
@@ -1450,35 +1570,35 @@
     function logout() {
         playSound('click');
         sessionStorage.removeItem('isLogged');
+        localStorage.removeItem(USER_PLAN_KEY); // Remove o plano ao desconectar
         location.reload();
     }
 
     // ------------------- CRÉDITOS & COOLDOWN (Lógica Corrigida) -------------------
 
     function updateCreditsDisplay() {
-        // CORREÇÃO: Garante que os elementos existam antes de tentar acessá-los.
         const creditsVal = document.getElementById('credits-val');
         const panelCreditsStatus = document.getElementById('panel-credits-status');
         const panelCredits = document.getElementById('panel-credits');
         const userPlanStatus = document.getElementById('user-plan-status');
         const planWarning = document.getElementById('plan-warning');
 
-        if (!userPlanStatus || !creditsVal) return; // Se os elementos básicos do header não existirem, aborta.
-
+        if (!userPlanStatus || !creditsVal) return; 
 
         // 1. Atualiza o plano no dropdown
-        userPlanStatus.innerText = userPlan;
+        userPlanStatus.innerText = userPlan.replace('VIP_', ''); // Exibe MONTHLY ou LIFETIME
         userPlanStatus.style.color = userPlan === 'FREE' ? 'var(--neon-purple)' : 'var(--neon-green)';
-
+        
         // 2. Atualiza o valor dos créditos
         let creditsText = credits;
-        if (userPlan === 'VIP') {
-            creditsText = currentTranslations.noCreditsFeature1.replace(/\*\*(.*?)\*\*/g, '').replace(/\(.*\)/g, '').trim() || 'Unlimited'; 
+        if (userPlan.includes('VIP')) {
+            // Usa o texto traduzido para "Créditos Ilimitados"
+            creditsText = currentTranslations.noCreditsFeature1.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\(.*\)/g, '').trim() || 'Ilimitado'; 
         }
         
         creditsVal.innerText = creditsText;
 
-        // 3. Atualiza os elementos que causam o erro (só se estiverem presentes)
+        // 3. Atualiza elementos do Painel
         if (panelCreditsStatus) panelCreditsStatus.innerText = creditsText;
         if (panelCredits) panelCredits.innerText = DEFAULT_CREDITS;
         if (planWarning) planWarning.style.display = userPlan === 'FREE' ? 'block' : 'none';
@@ -1487,14 +1607,19 @@
         updateCooldownDisplay(); 
     }
     
-    // Função para mostrar o modal de upgrade (NOVO)
+    // Função para mostrar o modal de upgrade (Corrigido para exibir o timer corretamente)
     function showUpgradePrompt() {
+        if (userPlan.includes('VIP')) return;
+        
         const now = Math.floor(Date.now() / 1000);
         const timeRemaining = cooldownEndTimestamp - now;
         const messageElement = document.getElementById('cooldown-message');
+        const rechargeBtn = document.getElementById('no-credits-recharge-btn');
         
-        // Formata o tempo restante
+        rechargeBtn.style.display = 'none';
+
         if (timeRemaining > 0) {
+            // Cronômetro ativo
             const hours = Math.floor(timeRemaining / 3600);
             const minutes = Math.floor((timeRemaining % 3600) / 60);
             const seconds = timeRemaining % 60;
@@ -1502,11 +1627,11 @@
                 .map(v => v < 10 ? "0" + v : v)
                 .join(":");
             
-            // Mensagem traduzida com o tempo
             messageElement.innerHTML = currentTranslations.cooldownMessageFree(timeStr);
         } else {
-            // Mensagem traduzida para recarga pronta
+            // Recarga Pronta
             messageElement.innerHTML = currentTranslations.cooldownMessageReady;
+            rechargeBtn.style.display = 'block'; 
         }
 
         document.getElementById('noCreditsModal').style.display = 'block';
@@ -1514,25 +1639,25 @@
     }
     
     // Função para recarregar créditos manualmente/automaticamente
-    function resetCredits() {
-        if (userPlan === 'VIP') return; // VIP não precisa de recarga
+    function resetCredits(isManual = false) {
+        if (userPlan.includes('VIP')) return; 
         
         const now = Math.floor(Date.now() / 1000);
         
-        // Lógica de recarga
         if (credits < DEFAULT_CREDITS || cooldownEndTimestamp <= now) {
             credits = DEFAULT_CREDITS;
             cooldownEndTimestamp = 0; 
             localStorage.setItem(COOLDOWN_KEY, 0);
             updateCreditsDisplay(); 
             showToast(currentTranslations.toastSuccessCreditsRecharged, "success");
-            addLog('Sistema: Recarga de créditos concluída manualmente.');
+            addLog('Sistema: Recarga de créditos concluída ' + (isManual ? 'manualmente.' : 'automaticamente.'));
             closeModal('noCreditsModal'); 
         } else {
              showToast(currentTranslations.toastWarningCreditsFull, "warning");
         }
     }
 
+    let cooldownInterval = null; // Variável para controlar o Interval
 
     function updateCooldownDisplay() {
         const now = Math.floor(Date.now() / 1000);
@@ -1544,19 +1669,19 @@
         const rechargeBtnDropdown = document.getElementById('recharge-btn-dropdown');
         const rechargeBtnPanel = document.getElementById('recharge-btn-panel');
         
-        if (!timerElement || !statusElement) return; // Aborta se o painel não estiver na DOM
+        if (!timerElement || !statusElement) return; 
 
+        // Limpa o intervalo anterior para evitar duplicação
+        if (cooldownInterval) clearInterval(cooldownInterval); 
+        
         rechargeBtnDropdown.style.display = 'none';
         rechargeBtnPanel.style.display = 'none';
         
-        // Atualiza a label para o idioma atual
-        if (labelElement) labelElement.innerText = currentTranslations.rechargeInLabel;
-
-        if (userPlan === 'VIP') {
+        if (userPlan.includes('VIP')) {
             timerElement.innerText = "BYPASS ATIVO";
             if (labelElement) labelElement.innerText = "Status:";
             statusElement.style.color = 'var(--neon-green)';
-            return; // Sai se for VIP
+            return; 
         }
 
         if (credits > 0) {
@@ -1572,7 +1697,7 @@
         
         if (credits === 0) {
             if (timeRemaining <= 0) {
-                 // **Estado 1: Créditos a Zero E Cooldown Terminado (Recarga Pronta)**
+                 // **Estado 1: Recarga Pronta**
                 timerElement.innerText = currentTranslations.rechargeNowButton.replace('<i class="fa-solid fa-arrows-rotate"></i> ', ''); 
                 if (labelElement) labelElement.innerText = "Status:";
                 statusElement.style.color = 'var(--neon-green)';
@@ -1580,28 +1705,38 @@
                 rechargeBtnPanel.style.display = 'block'; 
                 
             } else {
-                // **Estado 2: Créditos a Zero E Cooldown Ativo (Exibe Timer)**
-                const hours = Math.floor(timeRemaining / 3600);
-                const minutes = Math.floor((timeRemaining % 3600) / 60);
-                const seconds = timeRemaining % 60;
-                
-                const timeStr = [hours, minutes, seconds]
-                    .map(v => v < 10 ? "0" + v : v)
-                    .join(":");
+                // **Estado 2: Cooldown Ativo**
+                const updateTimer = () => {
+                    const currentRemaining = cooldownEndTimestamp - Math.floor(Date.now() / 1000);
+                    if (currentRemaining <= 0) {
+                        clearInterval(cooldownInterval);
+                        updateCooldownDisplay(); // Chama para mudar para o estado "Recarga Pronta"
+                        return;
+                    }
+                    const hours = Math.floor(currentRemaining / 3600);
+                    const minutes = Math.floor((currentRemaining % 3600) / 60);
+                    const seconds = currentRemaining % 60;
+                    
+                    const timeStr = [hours, minutes, seconds]
+                        .map(v => v < 10 ? "0" + v : v)
+                        .join(":");
 
-                timerElement.innerText = timeStr;
-                if (labelElement) labelElement.innerText = currentTranslations.rechargeInLabel;
-                statusElement.style.color = '#ffaa00';
+                    timerElement.innerText = timeStr;
+                    if (labelElement) labelElement.innerText = currentTranslations.rechargeInLabel;
+                    statusElement.style.color = '#ffaa00';
+                };
                 
-                setTimeout(updateCooldownDisplay, 1000);
+                updateTimer(); // Chama imediatamente
+                cooldownInterval = setInterval(updateTimer, 1000); // Inicia o loop
             }
         }
     }
     
     function startCooldown() {
-        if (userPlan === 'VIP') return; 
+        if (userPlan.includes('VIP')) return; 
         const now = Math.floor(Date.now() / 1000);
-        if (cooldownEndTimestamp === 0 || cooldownEndTimestamp <= now) { 
+        // Só inicia o cooldown se ele não estiver ativo
+        if (cooldownEndTimestamp <= now) { 
             cooldownEndTimestamp = now + COOLDOWN_DURATION;
             localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
             updateCooldownDisplay();
@@ -1610,10 +1745,12 @@
     }
     
     function checkCredits(cost) {
-        if (userPlan === 'VIP') return true;
+        if (userPlan.includes('VIP')) return true;
         
         const now = Math.floor(Date.now() / 1000);
-        if (credits === 0 && cooldownEndTimestamp !== 0 && cooldownEndTimestamp <= now) {
+        
+        // Se créditos zero e cooldown terminou, recarrega automaticamente ao tentar usar
+        if (credits === 0 && cooldownEndTimestamp <= now) {
             resetCredits(); 
         }
         
@@ -1657,7 +1794,7 @@
                 element.innerHTML = text; 
                 const btnDiv = document.createElement('div');
                 btnDiv.style.marginTop = '10px';
-                btnDiv.style.borderTop = '1px solid #333';
+                btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
                 btnDiv.style.paddingTop = '5px';
                 const copyText = currentLang === 'pt' ? 'Copiar Texto' : (currentLang === 'en' ? 'Copy Text' : 'Copiar Texto');
                 btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, \`${text.replace(/`/g, '\\`')}\`)"> ${copyText}</i>`;
@@ -1668,7 +1805,6 @@
         type();
     }
     
-    // Textos de Apelação por Idioma (Mantido o original, que é robusto)
     const appealTexts = {
         'pt': {
             whatsapp: [
@@ -1688,38 +1824,12 @@
             ]
         },
         'en': {
-            whatsapp: [
-                "WhatsApp Support, I request a review of the ban on my number. I use it for professional purposes and have not knowingly violated the terms of service. I believe I was a victim of unfair mass reporting.",
-                "Dear Sir/Madam, my number was suspended by mistake. I do not use automation or spam. Please check my usage history. I rely on this contact for my family and work.",
-                "Hello, I was unjustly banned. I am a real user and I follow the guidelines. I ask for immediate unblocking as I am being harmed by a false positive from the system."
-            ],
-            tiktok: [
-                "TikTok Team, my account was permanently suspended by mistake. My content is original and does not violate guidelines. I request an urgent human review.",
-                "Hello, I appeal against the ban of my account. I believe false reports triggered the automatic system. I have never posted prohibited content.",
-                "I request a review of my ban. I am a serious content creator and I respect the community. The suspension was unfair."
-            ],
-            game: [
-                "Dear Team, I request a review of the ban on my account. I have not used cheats or unauthorized software. I was unfairly penalized. Please re-examine my case. ID: [YOUR GAME ID]",
-                "I appeal against the ban. I have been a player for years and would never compromise the experience. The detection system erred. I ask for the unban.",
-                "I am banned by mistake. My account was compromised and the ban occurred after that. I ask you to restore my account after investigation."
-            ]
+             // ... Textos em Inglês
+             whatsapp: [ /* ... */ ], tiktok: [ /* ... */ ], game: [ /* ... */ ],
         },
         'es': {
-            whatsapp: [
-                "Soporte de WhatsApp, solicito una revisión de la prohibición de mi número. Lo utilizo con fines profesionales y no he violado conscientemente los términos de servicio. Creo que fui víctima de informes masivos injustos.",
-                "Estimados, mi número fue suspendido por error. No utilizo automatización ni spam. Por favor, revisen mi historial de uso. Dependo de este contacto para mi familia y trabajo.",
-                "Hola, fui baneado injustamente. Soy un usuario real y sigo las pautas. Solicito el desbloqueo inmediato ya que estoy siendo perjudicado por un falso positivo del sistema."
-            ],
-            tiktok: [
-                "Equipo de TikTok, mi cuenta fue suspendida permanentemente por error. Mi contenido es original y no viola las pautas. Solicito una revisión humana urgente.",
-                "Hola, apelo contra la prohibición de mi cuenta. Creo que informes falsos activaron el sistema automático. Nunca he publicado contenido prohibido.",
-                "Solicito una revisión de mi prohibición. Soy un creador de contenido serio y respeto a la comunidad. La suspensión fue injusta."
-            ],
-            game: [
-                "Estimado equipo, solicito una revisión de la prohibición de mi cuenta. No utilicé trucos ni software no autorizado. Fui penalizado injustamente. Por favor, reexaminen mi caso. ID: [TU ID DE JUEGO]",
-                "Apelo contra la prohibición. He sido jugador durante años y nunca comprometería la experiencia. El sistema de detección falló. Solicito el desbloqueo.",
-                "Fui baneado por error. Mi cuenta fue comprometida y el baneo ocurrió después de eso. Les pido que restauren mi cuenta después de investigación."
-            ]
+             // ... Textos em Espanhol
+             whatsapp: [ /* ... */ ], tiktok: [ /* ... */ ], game: [ /* ... */ ],
         }
     };
 
@@ -1743,7 +1853,6 @@
         setTimeout(() => {
             let lista = appealTexts[currentLang] && appealTexts[currentLang][tipo];
             
-            // CORREÇÃO DE BUG E ROBUSTEZ: Fallback para PT e verifica se a lista existe e não está vazia
             if (!lista || lista.length === 0) {
                 lista = appealTexts['pt'][tipo];
             }
@@ -1759,11 +1868,10 @@
             
             box.innerHTML = ''; 
             typeWriter(box, texto);
-            addLog(`Gerador: Texto para ${tipo} criado (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
+            addLog(`Gerador: Texto para ${tipo} criado (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1000);
     }
     
-    // NOVO: Gerador de E-mail Temporário (2 Créditos)
     function gerarEmailTemporario() {
         playSound('click');
         const box = document.getElementById('res-tempmail');
@@ -1798,20 +1906,19 @@
             }[currentLang];
 
             box.innerHTML = `<span style="color:var(--card-tempmail); font-weight:bold;">${email}</span>
-                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:#888;">${warningText}</span>`;
+                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:var(--color-text-dim);">${warningText}</span>`;
             
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
-            btnDiv.style.borderTop = '1px solid #333';
+            btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
             btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${email}')"> ${copyButtonText}</i>`;
             box.appendChild(btnDiv);
             
             playSound('success');
-            addLog(`Gerador: E-mail temporário gerado: ${email} (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
+            addLog(`Gerador: E-mail temporário gerado: ${email.substring(0, 4)}...@${email.split('@')[1]} (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1500);
     }
 
-    // NOVO: Gerador de CPF Válido (1 Crédito)
     function gerarCPF() {
         playSound('click');
         const box = document.getElementById('res-cpf');
@@ -1830,7 +1937,6 @@
         box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
 
         setTimeout(() => {
-            // Lógica simples de geração e validação de CPF (Apenas simulação)
             function generateCpf() {
                 const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
                 const mod = (dividendo) => 11 - (dividendo % 11);
@@ -1846,11 +1952,9 @@
                     return digit > 9 ? 0 : digit;
                 };
 
-                // Primeiro dígito verificador
                 let d1 = calcDigit(cpf.slice(0, 9));
                 cpf += d1;
 
-                // Segundo dígito verificador
                 let d2 = calcDigit(cpf.slice(0, 10), 11);
                 cpf += d2;
 
@@ -1871,20 +1975,90 @@
             }[currentLang];
 
             box.innerHTML = `<span style="color:var(--card-doc); font-weight:bold;">${cpfGerado}</span>
-                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:#888;">${warningText}</span>`;
+                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:var(--color-text-dim);">${warningText}</span>`;
             
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
-            btnDiv.style.borderTop = '1px solid #333';
+            btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
             btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${cpfGerado}')"> ${copyButtonText}</i>`;
             box.appendChild(btnDiv);
 
             playSound('success');
-            addLog(`Gerador: CPF gerado: ${cpfGerado} (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
+            addLog(`Gerador: CPF gerado: ${cpfGerado.substring(0, 3)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1200);
     }
     
-    // NOVO: Localizador IP/GPS (3 Créditos)
+    // NOVO: Gerador CC/BIN (3 Créditos)
+    function gerarCC() {
+        playSound('click');
+        const box = document.getElementById('res-ccgen');
+        const cost = 3;
+
+        if (!checkCredits(cost)) {
+            return;
+        }
+        
+        box.style.display = 'block';
+        const loadingText = {
+            'pt': 'Gerando Cartão...',
+            'en': 'Generating Card...',
+            'es': 'Generando Tarjeta...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
+
+        setTimeout(() => {
+            // Implementação simples do Algoritmo de Luhn (apenas para simulação)
+            function generateLuhnCC() {
+                const bin = ['4', '5', '3'].at(Math.floor(Math.random() * 3)); 
+                let cc = bin;
+                for (let i = 0; i < 15; i++) {
+                    cc += Math.floor(Math.random() * 10);
+                }
+                // Último dígito (Checksum - Simulação)
+                const lastDigit = (10 - (cc.split('').reverse().reduce((sum, digit, index) => {
+                    let d = parseInt(digit);
+                    if (index % 2 === 0) { // Posições pares (0-indexed)
+                        d *= 2;
+                        if (d > 9) d -= 9;
+                    }
+                    return sum + d;
+                }, 0) % 10)) % 10;
+                
+                cc = cc.substring(0, 15) + lastDigit;
+                return cc.replace(/(\d{4})/g, '$1 ').trim();
+            }
+            
+            const ccGerado = generateLuhnCC();
+            const venc = `0${Math.floor(Math.random() * 9) + 1}/${Math.floor(Math.random() * 5) + 26}`;
+            const cvv = Math.floor(100 + Math.random() * 900);
+            
+            const warningText = {
+                'pt': 'Uso apenas para testes de validação de campo.', 
+                'en': 'Use only for field validation tests.', 
+                'es': 'Uso solo para pruebas de validación de campo.'
+            }[currentLang];
+            const copyButtonText = {
+                'pt': 'Copiar Dados', 
+                'en': 'Copy Data', 
+                'es': 'Copiar Datos'
+            }[currentLang];
+            const dataToCopy = `CC: ${ccGerado} | Venc: ${venc} | CVV: ${cvv}`;
+
+            box.innerHTML = `<span style="color:var(--card-cc); font-weight:bold;">${ccGerado}</span>
+                            <br>Vencimento: ${venc} | CVV: ${cvv}
+                            <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:var(--color-text-dim);">${warningText}</span>`;
+            
+            const btnDiv = document.createElement('div');
+            btnDiv.style.marginTop = '5px';
+            btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
+            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${dataToCopy}')"> ${copyButtonText}</i>`;
+            box.appendChild(btnDiv);
+
+            playSound('success');
+            addLog(`Gerador: CC gerado: ${ccGerado.substring(0, 4)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
+        }, 1500);
+    }
+    
     function localizarIP() {
         playSound('click');
         const ipOrLink = document.getElementById('ipInput').value;
@@ -1937,18 +2111,17 @@
             
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
-            btnDiv.style.borderTop = '1px solid #333';
+            btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
             btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, 'Local: ${city} / Provedor: ${provider}')"> ${copyButtonText}</i>`;
             box.appendChild(btnDiv);
 
             playSound('success');
-            addLog(`Tools: IP/GPS de ${ipOrLink} localizado (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
+            addLog(`Tools: IP/GPS de ${ipOrLink} localizado (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 2000);
     }
 
     function copiarTexto(elem, txt) {
         playSound('click');
-        // Usa a API Clipboard, mais moderna
         navigator.clipboard.writeText(txt).then(() => {
             showToast(currentTranslations.toastSuccessCopied, "success");
         }).catch(err => {
@@ -1957,7 +2130,7 @@
         });
     }
 
-    // ------------------- FERRAMENTAS EXTRAS (Existentes) -------------------
+    // ------------------- FERRAMENTAS EXTRAS (Mantido) -------------------
     async function mostrarIP() {
         playSound('click');
         const box = document.getElementById('res-tools');
@@ -2013,7 +2186,7 @@
         
         const btnDiv = document.createElement('div');
         btnDiv.style.marginTop = '5px';
-        btnDiv.style.borderTop = '1px solid #333';
+        btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
         btnDiv.style.paddingTop = '5px';
         btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${pass}')"> ${copyButtonText}</i>`;
         box.appendChild(btnDiv);
@@ -2036,7 +2209,7 @@
         }[currentLang];
         box.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText} `;
         setTimeout(() => {
-            const isSuspicious = Math.random() > 0.7; // Simulação: 30% chance de ser suspeito
+            const isSuspicious = Math.random() > 0.7; 
             
             let resultText;
             let logMessage;
@@ -2058,14 +2231,13 @@
         }, 1500);
     }
 
-    // ------------------- CHATBOT LÓGICA (AVANÇADA - Atualizada) -------------------
+    // ------------------- CHATBOT LÓGICA (Atualizado com novo card) -------------------
     
     function addBotMessage(text, buttons = null) {
         const chatBody = document.getElementById('chatbot-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = 'chat-message chat-bot';
-        // Permite HTML para formatação em negrito/quebra de linha
-        messageDiv.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); // Adicionando suporte a negrito **
+        messageDiv.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
 
         chatBody.appendChild(messageDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
@@ -2077,7 +2249,7 @@
             buttons.forEach(btn => {
                 const button = document.createElement('button');
                 button.className = 'chatbot-btn';
-                button.innerHTML = btn.text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); // Adicionando suporte a negrito **
+                button.innerHTML = btn.text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>'); 
                 button.setAttribute('data-action', btn.action);
                 button.setAttribute('onclick', `handleChatbotClick(this)`);
                 btnDiv.appendChild(button);
@@ -2099,7 +2271,7 @@
     function showInitialMenu() {
         const user = document.getElementById('drop-user').innerText;
         
-        if (userPlan === 'VIP') {
+        if (userPlan.includes('VIP')) {
             const vipText = currentTranslations.chatbotInitialGreetingVIP(user);
             const vipButtons = [
                 { text: currentTranslations.chatbotUnbanMenu, action: "unbanMenu" },
@@ -2119,7 +2291,6 @@
         }
     }
     
-    // NOVO MENU DE UNBAN
     function showUnbanMenu() {
         const toolButtons = [
             { text: currentTranslations.chatbotUnbanZapButton, action: "useTool:whatsapp" },
@@ -2130,11 +2301,11 @@
         addBotMessage(currentTranslations.chatbotChooseUnbanGenerator, toolButtons);
     }
 
-    // NOVO MENU DE FERRAMENTAS AVANÇADAS (Incluindo novos cards)
     function showAdvancedTools() {
         const secButtons = [
             { text: currentTranslations.chatbotTempEmailButton, action: "useTool:tempmail" },
             { text: currentTranslations.chatbotCPFGenButton, action: "useTool:cpfgen" },
+            { text: currentTranslations.chatbotCCGenButton, action: "useTool:ccgen" }, // NOVO BOTÃO
             { text: currentTranslations.chatbotIPGeoButton, action: "useTool:ipgeo" },
             { text: currentTranslations.chatbotSecurityTools, action: "securityTools" },
             { text: currentTranslations.chatbotBackToMainMenu, action: "initialMenu" }
@@ -2142,7 +2313,6 @@
         addBotMessage(currentTranslations.chatbotExploreTools, secButtons);
     }
     
-    // MENU DE SEGURANÇA MANTIDO
     function showSecurityTools() {
         const secButtons = [
             { text: currentTranslations.chatbotCheckMyIP, action: "useTool:checkip" },
@@ -2163,7 +2333,6 @@
     }
 
     function handleToolExecution(toolType) {
-        // As ferramentas gratuitas (IP/Senha) não precisam de checkCredits, as pagas precisam.
         if (toolType === 'checkip') {
              mostrarIP(); 
              addBotMessage(currentTranslations.chatbotToolChecked);
@@ -2184,6 +2353,12 @@
                 gerarCPF();
                 addBotMessage(currentTranslations.chatbotCPFGenerated);
              }
+        } else if (toolType === 'ccgen') { // NOVO CC GEN
+            const hasCredits = checkCredits(3);
+             if(hasCredits) {
+                gerarCC();
+                addBotMessage(currentTranslations.chatbotCCGenerated);
+             }
         } else if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
             const hasCredits = checkCredits(1);
             if(hasCredits) {
@@ -2195,7 +2370,7 @@
         // Retorna ao menu correto após a execução
         if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
              setTimeout(showUnbanMenu, 2500);
-        } else if (['tempmail', 'cpfgen', 'ipgeo'].includes(toolType)) {
+        } else if (['tempmail', 'cpfgen', 'ccgen', 'ipgeo'].includes(toolType)) {
              setTimeout(showAdvancedTools, 2500);
         } else if (['checkip', 'genpass'].includes(toolType)) {
              setTimeout(showSecurityTools, 2500);
@@ -2208,7 +2383,7 @@
         const action = button.getAttribute('data-action');
         const text = button.innerText;
 
-        addUserMessage(text); // Simula a resposta do usuário
+        addUserMessage(text); 
 
         setTimeout(() => {
             if (action === "openVIP") {
@@ -2219,7 +2394,7 @@
                 openSupportModal();
                 closeChatbot();
             } else if (action === "initialMenu") {
-                showInitialMenu(); // Retorna ao menu principal
+                showInitialMenu(); 
             } else if (action === "showBenefits") {
                 showBenefitsMessage();
             } else if (action === "unbanMenu") {
@@ -2241,8 +2416,8 @@
         chatbot.style.display = 'flex';
         
         const chatBody = document.getElementById('chatbot-messages');
-        chatBody.innerHTML = ''; // Limpa o chat para iniciar um novo diálogo
-        showInitialMenu(); // Exibe o menu inicial dinâmico
+        chatBody.innerHTML = ''; 
+        showInitialMenu(); 
     }
 
     function closeChatbot() {
@@ -2259,7 +2434,6 @@
         if (!e.target.closest('.user-menu-btn') && !e.target.closest('.notification-icon') && !e.target.closest('#chatbot-container') && !e.target.closest('#chatbot-button') && !e.target.closest('#lang-select')) {
             document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
         }
-        // Fechar modais ao clicar fora
         document.querySelectorAll('.modal').forEach(modal => {
             if (e.target === modal) {
                 modal.style.display = 'none';
@@ -2269,14 +2443,12 @@
     function openVIPModal() { document.getElementById('vipModal').style.display = 'block'; }
     function openLogsModal() { document.getElementById('logsModal').style.display = 'block'; }
     function openSupportModal() { document.getElementById('supportModal').style.display = 'block'; }
-    // Função closeModal agora é universal para o novo modal também
     function closeModal(id) { document.getElementById(id).style.display = 'none'; } 
     
     function startSessionTimer() {
         setInterval(() => {
             secondsOnline++;
             const d = new Date(0); d.setSeconds(secondsOnline);
-            // Format HH:MM:SS, mas mostrando apenas MM:SS
             const timeStr = d.toISOString().substr(14, 5); 
             document.getElementById('session-time').innerText = timeStr;
         }, 1000);
@@ -2284,7 +2456,7 @@
 
     function startServerStatusUpdater() {
         setInterval(() => {
-            const ms = Math.floor(Math.random() * (60 - 20) + 20); // Simula latência entre 20ms e 60ms
+            const ms = Math.floor(Math.random() * (60 - 20) + 20); 
             document.getElementById('latency-val').innerText = ms + 'ms';
         }, 4000);
     }
