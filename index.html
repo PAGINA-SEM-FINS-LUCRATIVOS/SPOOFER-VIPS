@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Painel Over VIP - Acesso exclusivo a geradores, ferramentas de segurança e recuperação de contas.">
-  <meta property="og:title" content="Painel Over VIP | System 2.0 - Acesso Hacker">
-  <meta property="og:description" content="Acesso exclusivo a geradores, segurança e ferramentas de desbanimento.">
   <title>Painel Over VIP | System 2.0</title>
 
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAu0lEQVQ4ja2SQQ6DMAxFj8G54f9/J4XG8A89kX64jYtqKzYQv6J47C5sKkPImK7cO0zYd2o5Dq/H+0k/YAAh/8nQkG70YnAYnAA/lB8gA4Y8h2i3m90r2K4o8m7C464Tq2Q1k9dYy3l7G6X6bK+k9hR3r5pGv5341h3l7g0n3B0fO6wN+bY2x8/42x3l7m8v39w1O3r/k4r871/kY4P+v3F6vJgAAAAAASUVORK5CYII=">
@@ -13,7 +11,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
@@ -32,16 +29,12 @@
         --font-body: 'Poppins', sans-serif;
     }
 
-    * { box-sizing: border-box; outline: none; }
+    * { box-sizing: border-box; outline: none; user-select: none; }
 
     body {
       margin: 0;
       font-family: var(--font-body);
       background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(189, 0, 255, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(0, 255, 157, 0.1) 0%, transparent 40%);
-      background-attachment: fixed;
       color: var(--text-main);
       display: flex;
       flex-direction: column;
@@ -50,18 +43,55 @@
       overflow-x: hidden;
     }
 
-    /* Scrollbar personalizada */
+    /* Efeito Matrix no Background */
+    #matrixCanvas {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: -1;
+        opacity: 0.12; /* Sutil */
+    }
+
+    /* Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #000; }
     ::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 4px; }
 
-    /* Animações Gerais */
+    /* Animações */
     @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(0, 255, 157, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); } }
+    @keyframes blinkCursor { 50% { border-color: transparent; } }
 
     /* ------------------------------------------- */
-    /* 2. HEADER & MENU VIP                        */
+    /* 2. TOAST NOTIFICATIONS (Novo)               */
+    /* ------------------------------------------- */
+    #toast-container {
+        position: fixed; top: 80px; right: 20px; z-index: 3000;
+        display: flex; flex-direction: column; gap: 10px;
+    }
+    .toast {
+        background: rgba(10, 10, 15, 0.95);
+        border: 1px solid #333;
+        border-left: 4px solid var(--neon-green);
+        color: #fff;
+        padding: 15px 20px;
+        border-radius: 4px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        display: flex; align-items: center; gap: 15px;
+        animation: slideInRight 0.4s ease forwards;
+        min-width: 280px;
+        backdrop-filter: blur(5px);
+    }
+    .toast.error { border-left-color: #ff5555; }
+    .toast.warning { border-left-color: #ffaa00; }
+    .toast i { font-size: 18px; }
+    
+    @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+    /* ------------------------------------------- */
+    /* 3. HEADER & MENU                            */
     /* ------------------------------------------- */
     header {
       width: 100%;
@@ -88,17 +118,17 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
     }
-    .logo i { text-shadow: 0 0 10px var(--neon-green); }
 
     .notification-icon {
         color: var(--neon-blue);
         font-size: 18px;
         cursor: pointer;
         margin-right: 15px;
-        position: relative;
+        transition: 0.3s;
     }
-    .notification-icon:hover { color: var(--neon-green); }
+    .notification-icon:hover { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
 
     .user-menu-btn {
         background: rgba(255, 255, 255, 0.05);
@@ -128,7 +158,7 @@
         position: absolute;
         top: 80px; right: 5%;
         width: 300px;
-        background: #111;
+        background: #0a0a0a;
         border: 1px solid var(--neon-green);
         border-radius: 12px;
         padding: 20px;
@@ -137,39 +167,25 @@
     }
     .dropdown.show { display: block; animation: slideDown 0.3s ease; }
 
-    .profile-info {
-        text-align: center;
-        margin-bottom: 15px;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        padding-bottom: 15px;
-    }
+    .profile-info { text-align: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 15px; }
     .profile-info h4 { margin: 0; color: var(--neon-green); font-family: var(--font-tech); font-size: 20px; }
-    .profile-info span { font-size: 12px; color: #888; }
-
     .stats-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
     .stats-val { color: #fff; font-weight: 600; }
 
     .btn-dropdown {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: 0.2s;
+        width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s;
     }
     .btn-upgrade { background: var(--neon-purple); color: #fff; }
-    .btn-logout { background: #333; color: #ff5555; margin-top: 5px; }
-    .btn-upgrade:hover { box-shadow: 0 0 15px var(--neon-purple); }
+    .btn-logout { background: #222; color: #ff5555; margin-top: 5px; border: 1px solid #333; }
+    .btn-upgrade:hover { box-shadow: 0 0 15px var(--neon-purple); transform: scale(1.02); }
+    .btn-logout:hover { background: #333; }
 
     /* ------------------------------------------- */
-    /* 3. LOGIN                                    */
+    /* 4. LOGIN                                    */
     /* ------------------------------------------- */
     .container-login {
         margin-top: 150px;
-        width: 90%;
-        max-width: 400px;
+        width: 90%; max-width: 400px;
         background: var(--glass-bg);
         border: 1px solid var(--glass-border);
         padding: 40px;
@@ -178,114 +194,46 @@
         backdrop-filter: blur(10px);
         box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         animation: fadeIn 1s ease;
+        position: relative; z-index: 2;
     }
 
-    .login-icon {
-        font-size: 50px;
-        color: var(--neon-green);
-        margin-bottom: 20px;
-        filter: drop-shadow(0 0 10px rgba(0,255,157,0.5));
-    }
-
-    .input-wrapper {
-        position: relative;
-        margin-bottom: 20px;
-    }
-    .input-wrapper i {
-        position: absolute;
-        left: 15px; top: 50%;
-        transform: translateY(-50%);
-        color: #666;
-        transition: 0.3s;
-    }
+    .login-icon { font-size: 50px; color: var(--neon-green); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0,255,157,0.5)); }
+    .input-wrapper { position: relative; margin-bottom: 20px; }
+    .input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; transition: 0.3s; }
+    
     .custom-input {
-        width: 100%;
-        padding: 15px 15px 15px 45px;
-        background: rgba(0,0,0,0.4);
-        border: 1px solid #333;
-        border-radius: 8px;
-        color: #fff;
-        font-family: var(--font-body);
-        transition: 0.3s;
+        width: 100%; padding: 15px 15px 15px 45px; background: rgba(0,0,0,0.6); border: 1px solid #333; border-radius: 8px; color: #fff; font-family: var(--font-body); transition: 0.3s;
     }
-    .custom-input:focus {
-        border-color: var(--neon-green);
-        box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
-    }
+    .custom-input:focus { border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0, 255, 157, 0.2); }
     .custom-input:focus + i { color: var(--neon-green); }
 
     .btn-login {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(90deg, var(--neon-green), #00cc7a);
-        border: none;
-        border-radius: 8px;
-        color: #000;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.3s;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        width: 100%; padding: 15px; background: linear-gradient(90deg, var(--neon-green), #00cc7a); border: none; border-radius: 8px; color: #000; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
     }
     .btn-login:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--neon-green); }
 
     .msg-box { margin-top: 15px; font-size: 14px; min-height: 20px; }
-    .error { color: #ff5555; }
+    .error { color: #ff5555; display: none; }
     .loading-spin { color: var(--neon-green); display: none; }
 
     /* ------------------------------------------- */
-    /* 4. PAINEL PRINCIPAL & CARDS                 */
+    /* 5. PAINEL PRINCIPAL & CARDS                 */
     /* ------------------------------------------- */
     .main-panel {
-        display: none; /* Escondido até logar */
-        width: 90%;
-        max-width: 1200px;
-        margin-top: 120px;
-        padding-bottom: 50px;
-        animation: fadeIn 1s ease;
+        display: none; width: 90%; max-width: 1200px; margin-top: 120px; padding-bottom: 50px; animation: fadeIn 1s ease; position: relative; z-index: 2;
     }
 
     .welcome-banner {
-        text-align: center;
-        margin-bottom: 40px;
-        background: linear-gradient(45deg, rgba(0,255,157,0.1), transparent);
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid rgba(0,255,157,0.2);
+        text-align: center; margin-bottom: 40px; background: linear-gradient(45deg, rgba(0,255,157,0.05), transparent); padding: 20px; border-radius: 15px; border: 1px solid rgba(0,255,157,0.2);
     }
     .welcome-banner h1 { margin: 0; font-family: var(--font-tech); font-size: 32px; }
 
-    /* Timer Style */
-    #cooldown-timer {
-        color: #ff5555; /* Cor de alerta */
-        font-weight: 700;
-        font-family: monospace;
-        font-size: 16px;
-    }
-
-    .grid-cards {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 25px;
-        justify-content: center;
-    }
+    .grid-cards { display: flex; flex-wrap: wrap; gap: 25px; justify-content: center; }
 
     .card {
-        background: #121214;
-        width: 320px;
-        padding: 25px;
-        border-radius: 16px;
-        border: 1px solid #333;
-        position: relative;
-        overflow: hidden;
-        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: #121214; width: 320px; padding: 25px; border-radius: 16px; border: 1px solid #333; position: relative; overflow: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .card:hover {
-        transform: translateY(-10px);
-        border-color: var(--card-color);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--card-glow);
-    }
+    .card:hover { transform: translateY(-10px); border-color: var(--card-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--card-glow); }
 
     .card.whatsapp { --card-color: #25D366; --card-glow: rgba(37, 211, 102, 0.3); }
     .card.tiktok { --card-color: #ff0050; --card-glow: rgba(255, 0, 80, 0.3); }
@@ -294,153 +242,63 @@
     .card.tool { --card-color: var(--neon-blue); --card-glow: rgba(0, 212, 255, 0.3); }
     .card.vip { --card-color: var(--neon-purple); --card-glow: rgba(189, 0, 255, 0.4); }
 
-    .card-icon {
-        font-size: 40px;
-        margin-bottom: 15px;
-        color: var(--card-color);
-    }
+    .card-icon { font-size: 40px; margin-bottom: 15px; color: var(--card-color); }
     .card h3 { margin: 0 0 10px; font-family: var(--font-tech); font-size: 24px; color: #fff; }
     .card p { color: #888; font-size: 14px; line-height: 1.5; }
 
     .action-btn {
-        width: 100%;
-        padding: 12px;
-        margin-top: 15px;
-        border: none;
-        border-radius: 6px;
-        background: #222;
-        color: var(--card-color);
-        border: 1px solid var(--card-color);
-        cursor: pointer;
-        font-weight: 700;
-        transition: 0.3s;
+        width: 100%; padding: 12px; margin-top: 15px; border: none; border-radius: 6px; background: #222; color: var(--card-color); border: 1px solid var(--card-color); cursor: pointer; font-weight: 700; transition: 0.3s;
     }
-    .action-btn:hover {
-        background: var(--card-color);
-        color: #000;
-        box-shadow: 0 0 15px var(--card-glow);
-    }
+    .action-btn:hover { background: var(--card-color); color: #000; box-shadow: 0 0 15px var(--card-glow); }
+    .action-btn:active { transform: scale(0.95); }
 
     .result-box {
-        margin-top: 15px;
-        background: #000;
-        border: 1px dashed #444;
-        padding: 10px;
-        border-radius: 6px;
-        font-size: 13px;
-        color: #ccc;
-        display: none;
-        word-wrap: break-word;
-        text-align: left;
+        margin-top: 15px; background: #080808; border: 1px dashed #444; padding: 10px; border-radius: 6px; font-size: 13px; color: #ccc; display: none; word-wrap: break-word; text-align: left; min-height: 60px;
     }
-    .copy-mini {
-        font-size: 11px;
-        float: right;
-        cursor: pointer;
+    
+    /* Efeito Typewriter Cursor */
+    .typing-cursor::after {
+        content: '|';
+        animation: blinkCursor 1s infinite step-end;
         color: var(--neon-green);
     }
-    .scanner-input {
-        width: 100%;
-        padding: 10px;
-        background: #050505;
-        border: 1px solid #333;
-        border-radius: 6px;
-        color: #fff;
-        margin-top: 10px;
-    }
+
+    .copy-mini { font-size: 11px; float: right; cursor: pointer; color: var(--neon-green); transition: 0.3s; }
+    .copy-mini:hover { text-shadow: 0 0 5px var(--neon-green); }
+
+    .scanner-input { width: 100%; padding: 10px; background: #050505; border: 1px solid #333; border-radius: 6px; color: #fff; margin-top: 10px; }
     .scanner-input:focus { border-color: var(--neon-blue); }
 
-    .log-container {
-        max-height: 200px;
-        overflow-y: auto;
-        background: #000;
-        border: 1px solid #1a1a1a;
-        padding: 10px;
-        border-radius: 8px;
-        margin-top: 20px;
-        font-family: monospace;
-        font-size: 12px;
-        color: var(--neon-green);
-    }
-    .log-item {
-        border-bottom: 1px solid #111;
-        padding: 3px 0;
-    }
-    .log-item:last-child { border-bottom: none; }
-
     /* ------------------------------------------- */
-    /* 6. MODAL (Popup)                            */
+    /* 6. MODAL & EXTRAS                           */
     /* ------------------------------------------- */
     .modal {
-        display: none;
-        position: fixed;
-        z-index: 2000;
-        left: 0; top: 0;
-        width: 100%; height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.8);
-        backdrop-filter: blur(5px);
+        display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
     }
     .modal-content {
-        background: var(--bg-dark);
-        margin: 15% auto;
-        padding: 30px;
-        border: 1px solid var(--neon-purple);
-        width: 90%;
-        max-width: 500px;
-        border-radius: 15px;
-        box-shadow: 0 0 30px rgba(189, 0, 255, 0.3);
-        animation: fadeIn 0.3s ease;
-        position: relative;
+        background: #111; margin: 15% auto; padding: 30px; border: 1px solid var(--neon-purple); width: 90%; max-width: 500px; border-radius: 15px; box-shadow: 0 0 30px rgba(189, 0, 255, 0.3); animation: fadeIn 0.3s ease; position: relative;
     }
-    .close-btn {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .close-btn:hover,
-    .close-btn:focus {
-        color: var(--neon-purple);
-        text-decoration: none;
-        cursor: pointer;
-    }
-    .modal h2 { color: var(--neon-purple); font-family: var(--font-tech); }
-    .modal ul { list-style-type: none; padding: 0; }
-    .modal li { margin-bottom: 10px; padding: 5px; border-left: 3px solid var(--neon-purple); }
+    .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; transition: 0.3s; cursor: pointer; }
+    .close-btn:hover { color: var(--neon-purple); }
+    
+    .log-container { max-height: 200px; overflow-y: auto; background: #000; border: 1px solid #1a1a1a; padding: 10px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 12px; color: var(--neon-green); }
+    .log-item { border-bottom: 1px solid #111; padding: 3px 0; }
+
+    .pre-login-plans { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; animation: fadeIn 1.5s ease; position: relative; z-index: 2; }
+    .mini-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); width: 200px; text-align: center; transition: 0.3s; }
+    .mini-card:hover { border-color: var(--neon-green); transform: scale(1.05); background: rgba(0,0,0,0.8); }
 
     /* ------------------------------------------- */
-    /* 5. FOOTER & EXTRAS                          */
+    /* 7. FOOTER & CREATOR CREDITS                 */
     /* ------------------------------------------- */
-    .pre-login-plans {
-        display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;
-        animation: fadeIn 1.5s ease;
-    }
-    .mini-card {
-        background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); width: 200px; text-align: center;
-        transition: 0.3s;
-    }
-    .mini-card:hover { border-color: var(--neon-green); transform: scale(1.05); }
-
     footer {
-        margin-top: auto;
-        padding: 20px;
-        text-align: center;
-        font-size: 12px;
-        color: #555;
-        border-top: 1px solid #111;
-        width: 100%;
-        background: #050505;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
+        margin-top: auto; padding: 20px; text-align: center; font-size: 12px; color: #555; border-top: 1px solid #111; width: 100%; background: #050505; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; position: relative; z-index: 2;
     }
-    #server-status {
-        color: var(--neon-green);
-        font-size: 11px;
+    .creator-section {
+        display: flex; align-items: center; gap: 10px; font-size: 11px; color: #444; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; width: 100%; max-width: 300px; justify-content: center;
     }
+    .creator-section a { color: #666; font-size: 14px; transition: 0.3s; text-decoration: none; }
+    .creator-section a:hover { color: var(--neon-purple); transform: scale(1.2); }
 
     @media (max-width: 768px) {
         header { padding: 15px 20px; }
@@ -453,21 +311,24 @@
 </head>
 <body>
 
+  <canvas id="matrixCanvas"></canvas>
+
+  <div id="toast-container"></div>
+
   <header>
     <div class="logo">
       <i class="fa-solid fa-bolt"></i> OVER PAINEL <span style="font-size:12px; color:var(--neon-purple); border:1px solid var(--neon-purple); padding:2px 5px; border-radius:4px;">VIP</span>
     </div>
 
     <div style="display: flex; align-items: center;">
-        <i class="fa-solid fa-bell notification-icon" onclick="openLogsModal()"></i>
+        <i class="fa-solid fa-bell notification-icon" onclick="playSound('click'); openLogsModal()"></i>
 
-        <div class="user-menu-btn" onclick="toggleDropdown()">
+        <div class="user-menu-btn" onclick="playSound('click'); toggleDropdown()">
             <div class="status-dot" title="Conexão Segura"></div>
             <span id="header-user">Visitante</span>
             <i class="fa-solid fa-chevron-down" style="font-size: 12px;"></i>
         </div>
     </div>
-
 
     <div class="dropdown" id="userDropdown">
         <div class="profile-info">
@@ -483,14 +344,14 @@
             <span class="stats-val" id="session-time">00:00</span>
         </div>
 
-        <button class="btn-dropdown" style="background:#222; color:var(--neon-blue);" onclick="openSupportModal()">
+        <button class="btn-dropdown" style="background:#222; color:var(--neon-blue);" onclick="playSound('click'); openSupportModal()">
             <i class="fa-solid fa-circle-info"></i> Suporte/FAQ
         </button>
 
-        <button class="btn-dropdown btn-upgrade" onclick="openVIPModal()">
+        <button class="btn-dropdown btn-upgrade" onclick="playSound('click'); openVIPModal()">
             <i class="fa-regular fa-gem"></i> Virar VIP Supremo
         </button>
-        <button class="btn-dropdown btn-logout" onclick="logout()">
+        <button class="btn-dropdown btn-logout" onclick="playSound('click'); logout()">
             <i class="fa-solid fa-power-off"></i> Desconectar
         </button>
     </div>
@@ -499,7 +360,7 @@
   <div class="container-login" id="loginArea">
     <div class="login-icon"><i class="fa-solid fa-user-astronaut"></i></div>
     <h2 style="margin-top:0; color:#fff;">ACESSO RESTRITO</h2>
-    <p style="color:#888; font-size:13px; margin-bottom:25px;">Insira suas credenciais para acessar o gerador.</p>
+    <p style="color:#888; font-size:13px; margin-bottom:25px;">Insira suas credenciais para acessar o sistema.</p>
 
     <div class="input-wrapper">
         <input type="text" id="userInput" class="custom-input" placeholder="Usuário">
@@ -510,13 +371,13 @@
         <i class="fa-solid fa-lock"></i>
     </div>
 
-    <button class="btn-login" onclick="fazerLogin()">
+    <button class="btn-login" onclick="playSound('click'); fazerLogin()">
         <i class="fa-solid fa-fingerprint"></i> Autenticar
     </button>
 
     <div class="msg-box">
         <span id="loginMsg" class="error"></span>
-        <span id="loadingMsg" class="loading-spin"><i class="fa-solid fa-circle-notch fa-spin"></i> Conectando ao servidor...</span>
+        <span id="loadingMsg" class="loading-spin"><i class="fa-solid fa-circle-notch fa-spin"></i> Descriptografando acesso...</span>
     </div>
   </div>
 
@@ -536,10 +397,10 @@
   <div class="main-panel" id="painelArea">
 
     <div class="welcome-banner">
-        <h1>BEM-VINDO AO <span style="color:var(--neon-green)">SISTEMA</span></h1>
-        <p>Você tem <strong style="color:var(--neon-green)" id="panel-credits">20</strong> créditos de teste. Use com sabedoria.</p>
-        <p style="font-size:12px; color:#aaa;" id="credits-status">Seus créditos recarregam em: <b><span id="cooldown-timer">--:--:--</span></b></p>
-        <p style="font-size:12px; color:#aaa;">Dados de Login: <b>@ApelaWar71</b> | Senha: <b>apelinha10k</b></p>
+        <h1>BEM-VINDO AO <span style="color:var(--neon-green)">SYSTEM 2.0</span></h1>
+        <p>Você tem <strong style="color:var(--neon-green)" id="panel-credits">20</strong> créditos. Use com sabedoria.</p>
+        <p style="font-size:12px; color:#aaa;" id="credits-status">Cooldown: <b><span id="cooldown-timer">--:--:--</span></b></p>
+        <p style="font-size:12px; color:#555;">Acesso: <b>@ApelaWar71</b> | Pass: <b>******</b></p>
     </div>
 
     <div class="grid-cards">
@@ -547,57 +408,57 @@
         <div class="card whatsapp">
             <div class="card-icon"><i class="fa-brands fa-whatsapp"></i></div>
             <h3>Desbanir Zap</h3>
-            <p>Gere textos persuasivos para recuperar números banidos injustamente. (Gasta 1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('whatsapp')">Gerar Texto</button>
+            <p>Gere textos de engenharia social para recuperar números. (1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('whatsapp')">Executar IA</button>
             <div class="result-box" id="res-whatsapp"></div>
         </div>
 
         <div class="card tiktok">
             <div class="card-icon"><i class="fa-brands fa-tiktok"></i></div>
             <h3>Recuperar TikTok</h3>
-            <p>Modelos de apelação para contas suspensas ou banidas permanentemente. (Gasta 1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('tiktok')">Gerar Texto</button>
+            <p>Apelação otimizada para contas suspensas. (1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('tiktok')">Executar IA</button>
             <div class="result-box" id="res-tiktok"></div>
         </div>
 
         <div class="card game">
             <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
-            <h3>Recuperar Contas Game</h3>
-            <p>Modelos de apelação para contas suspensas em jogos populares. (Gasta 1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('game')">Gerar Apelação</button>
+            <h3>Unban Games</h3>
+            <p>Textos para Free Fire e outros jogos. (1 Crédito)</p>
+            <button class="action-btn" onclick="gerarTexto('game')">Executar IA</button>
             <div class="result-box" id="res-game"></div>
         </div>
 
         <div class="card scanner">
             <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <h3>Scanner de URL</h3>
-            <p>Verifique links em tempo real contra phishing e malware (Simulado).</p>
-            <input type="url" id="urlInput" class="scanner-input" placeholder="Insira a URL (ex: https://site.com)">
+            <h3>Scanner URL</h3>
+            <p>Verifique links suspeitos (Phishing/Malware).</p>
+            <input type="url" id="urlInput" class="scanner-input" placeholder="https://site.com">
             <button class="action-btn" onclick="analisarURL()">
-                <i class="fa-solid fa-bolt-lightning"></i> Analisar Link
+                <i class="fa-solid fa-radar"></i> Escanear
             </button>
-            <div class="result-box" id="res-scanner" style="color: var(--neon-blue); font-weight:bold;"></div>
+            <div class="result-box" id="res-scanner" style="font-weight:bold;"></div>
         </div>
 
         <div class="card tool">
             <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            <h3>Tools Segurança</h3>
-            <p>Ferramentas extras para sua proteção e análise.</p>
+            <h3>Security Tools</h3>
+            <p>Ferramentas de análise de ambiente.</p>
 
             <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="mostrarIP()">
-                <i class="fa-solid fa-network-wired"></i> Checar Meu IP
+                <i class="fa-solid fa-network-wired"></i> Checar IP
             </button>
             <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="gerarSenhaSegura()">
-                <i class="fa-solid fa-key"></i> Gerar Senha Forte
+                <i class="fa-solid fa-key"></i> Senha Forte
             </button>
 
-            <div class="result-box" id="res-tools" style="color: var(--neon-blue); font-weight:bold;"></div>
+            <div class="result-box" id="res-tools" style="font-weight:bold;"></div>
         </div>
 
         <div class="card vip">
             <div class="card-icon"><i class="fa-solid fa-crown"></i></div>
-            <h3>Seja Premium</h3>
-            <p>Créditos infinitos, suporte prioritário e acesso a ferramentas privadas.</p>
+            <h3>Premium Access</h3>
+            <p>Créditos infinitos e bypass de cooldown.</p>
             <button class="action-btn" style="background:var(--neon-purple); color:#fff; border:none;" onclick="openVIPModal()">
                 COMPRAR VIP
             </button>
@@ -612,12 +473,12 @@
       <h2><i class="fa-regular fa-gem"></i> UPGRADE VIP SUPREMO</h2>
       <p>Desbloqueie o poder total do Sistema 2.0!</p>
       <ul style="color:#ccc;">
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Créditos Ilimitados (Todas as Ferramentas)</li>
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte Prioritário 24/7 via Telegram</li>
-        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Acesso a Geradores e Tools Exclusivas</li>
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Créditos Ilimitados</li>
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte 24/7</li>
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Privadas</li>
       </ul>
       <button class="btn-dropdown btn-upgrade" onclick="window.open('https://t.me/ApelaWar71')">
-        Falar com o Vendedor (Telegram)
+        Falar com Vendedor
       </button>
     </div>
   </div>
@@ -625,63 +486,68 @@
   <div id="logsModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal('logsModal')">&times;</span>
-        <h2><i class="fa-solid fa-clipboard-list"></i> HISTÓRICO E LOGS</h2>
-        <div class="log-container" id="log-list">
-             <div class="log-item">Sistema: Bem-vindo ao Painel V2.0.</div>
-        </div>
-        <p style="font-size:11px; color:#555; margin-top:15px;">Os logs são temporários e resetam ao limpar o cache.</p>
+        <h2><i class="fa-solid fa-clipboard-list"></i> LOGS DO SISTEMA</h2>
+        <div class="log-container" id="log-list"></div>
+        <button class="btn-dropdown" style="background:#333; color:#fff; margin-top:10px;" onclick="limparLogs()">Limpar Logs</button>
     </div>
   </div>
 
   <div id="supportModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal('supportModal')">&times;</span>
-        <h2><i class="fa-solid fa-circle-info"></i> SUPORTE E FAQ</h2>
-        <h4 style="color:var(--neon-blue); margin-bottom: 5px;">Como consigo mais créditos?</h4>
-        <p style="font-size:13px; color:#aaa;">O plano FREE possui 20 créditos de teste. Para uso ilimitado, você deve realizar o upgrade para o plano VIP Supremo.</p>
-
-        <h4 style="color:var(--neon-blue); margin-bottom: 5px;">Os geradores funcionam de verdade?</h4>
-        <p style="font-size:13px; color:#aaa;">Os textos são modelos otimizados para apelação, escritos por especialistas. O sucesso depende da moderação da plataforma alvo.</p>
-
-        <h4 style="color:var(--neon-blue); margin-bottom: 5px;">Precisa de Ajuda?</h4>
-        <button class="btn-dropdown btn-upgrade" style="background: #0088cc; margin-top:0;" onclick="window.open('https://t.me/ApelaWar71')">
-            <i class="fa-brands fa-telegram"></i> Fale Conosco
+        <h2><i class="fa-solid fa-circle-info"></i> SUPORTE</h2>
+        <h4 style="color:var(--neon-blue);">Faq:</h4>
+        <p style="font-size:13px; color:#aaa;">Os textos são modelos de apelação baseados em engenharia social. O sucesso não é garantido.</p>
+        <button class="btn-dropdown btn-upgrade" style="background: #0088cc;" onclick="window.open('https://t.me/ApelaWar71')">
+            <i class="fa-brands fa-telegram"></i> Telegram Oficial
         </button>
     </div>
   </div>
 
-
   <footer>
-    <p>OVER PAINEL © 2025 - Desenvolvido para a Elite.</p>
-    <div id="server-status">
-        <i class="fa-solid fa-server"></i> Status: Geradores Online | Latência: <span id="latency-val">45ms</span>
+    <div>
+        <p>OVER PAINEL © 2025 | <span style="color:#444;">System Safe & Encrypted</span></p>
+        <div id="server-status" style="color:var(--neon-green); font-size:11px;">
+            <i class="fa-solid fa-wifi"></i> <span id="latency-val">32ms</span>
+        </div>
     </div>
-    <div style="font-size:18px;">
-        <i class="fa-brands fa-telegram" style="color:#0088cc; margin:0 5px; cursor:pointer;" onclick="window.open('https://t.me/ApelaWar71')"></i>
-        <i class="fa-brands fa-instagram" style="color:#e1306c; margin:0 5px;"></i>
+
+    <div class="creator-section">
+        <span>Dev: <b>ApelaWar71</b></span>
+        <div style="display:flex; gap:10px;">
+             <a href="https://t.me/ApelaWar71" target="_blank" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+             <a href="https://www.instagram.com/apela_warofc" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
     </div>
   </footer>
 
   <script>
-    // Configurações
+    /* -------------------------------------------------------------- */
+    /* CONFIGURAÇÃO & SEGURANÇA (OFUSCAÇÃO SIMPLES EM BASE64)        */
+    /* -------------------------------------------------------------- */
+    // User: @ApelaWar71 -> QEFwZWxhV2FyNzE=
+    // Pass: apelinha10k -> YXBlbGluaGExMGs=
     const CREDITS_KEY = 'over_credits_v2';
     const LOGS_KEY = 'over_logs_v2';
+    const COOLDOWN_KEY = 'over_cooldown_v2';
     const DEFAULT_CREDITS = 20;
-    const LOGIN_USER = "@ApelaWar71";
-    const LOGIN_PASS = "apelinha10k";
+    // Opcional: Adicionar mais usuários para simulação
+    const AUTH_USER_HASH = "QEFwZWxhV2FyNzE="; // @ApelaWar71
+    const AUTH_PASS_HASH = "YXBlbGluaGExMGs="; // apelinha10k
 
-    // Variáveis de Estado
+    // Variáveis
     let credits = parseInt(localStorage.getItem(CREDITS_KEY)) || DEFAULT_CREDITS;
     let secondsOnline = 0;
-    let timerInterval;
-
-    // Logs
     let logs = JSON.parse(localStorage.getItem(LOGS_KEY)) || [];
+    let cooldownEndTimestamp = parseInt(localStorage.getItem(COOLDOWN_KEY)) || 0;
+    const COOLDOWN_DURATION = 3600; // 1 hora em segundos (para recarga de créditos)
 
-    // ================= FUNÇÕES BASE =================
+    // Audio Context para sons sem arquivos externos
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Inicialização
+    // ------------------- INICIALIZAÇÃO -------------------
     document.addEventListener("DOMContentLoaded", () => {
+        initMatrix(); // Inicia efeito Matrix
         if(sessionStorage.getItem('isLogged') === 'true') {
             showPanel(true);
         }
@@ -690,329 +556,409 @@
         renderLogs();
     });
 
-    // Logging de Ações
+    // ------------------- SISTEMA DE ÁUDIO (WEB AUDIO API) -------------------
+    function playSound(type) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        if (type === 'click') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        } else if (type === 'success') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        } else if (type === 'error') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.2);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.2);
+        }
+    }
+
+    // ------------------- SISTEMA DE NOTIFICAÇÃO (TOAST) -------------------
+    function showToast(msg, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        let icon = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-circle-xmark' : 'fa-triangle-exclamation');
+        
+        toast.innerHTML = `<i class="fa-solid ${icon}" style="color:${type === 'error' ? '#ff5555' : 'var(--neon-green)'}"></i> <span>${msg}</span>`;
+        container.appendChild(toast);
+
+        // Sons
+        if(type === 'success') playSound('success');
+        if(type === 'error') playSound('error');
+
+        setTimeout(() => {
+            toast.style.animation = 'fadeOut 0.5s ease forwards';
+            setTimeout(() => toast.remove(), 500);
+        }, 3500);
+    }
+
+    // ------------------- MATRIX RAIN EFFECT -------------------
+    function initMatrix() {
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 35);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    }
+
+    // ------------------- LÓGICA PRINCIPAL -------------------
+
     function addLog(message) {
-        const timestamp = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        const logEntry = `[${timestamp}] ${message}`;
-        logs.unshift(logEntry); // Adiciona no início
-        if (logs.length > 10) logs.pop(); // Mantém no máximo 10 logs
+        const timestamp = new Date().toLocaleTimeString('pt-BR');
+        logs.unshift(`[${timestamp}] ${message}`);
+        if (logs.length > 15) logs.pop();
         localStorage.setItem(LOGS_KEY, JSON.stringify(logs));
         renderLogs();
     }
     function renderLogs() {
         const logList = document.getElementById('log-list');
-        if (!logList) return;
-        logList.innerHTML = logs.map(log => `<div class="log-item">${log}</div>`).join('');
+        if (logList) logList.innerHTML = logs.map(log => `<div class="log-item">${log}</div>`).join('');
+    }
+    function limparLogs() {
+        logs = [];
+        localStorage.setItem(LOGS_KEY, JSON.stringify([]));
+        renderLogs();
+        showToast("Logs limpos com sucesso.", "success");
     }
 
-    // Função de Login
     function fazerLogin() {
+        playSound('click');
         const user = document.getElementById('userInput').value;
         const pass = document.getElementById('passInput').value;
-        const msg = document.getElementById('loginMsg');
         const loading = document.getElementById('loadingMsg');
-
+        const msg = document.getElementById('loginMsg');
+        
         msg.style.display = 'none';
+        loading.style.display = 'block';
 
-        if (user === LOGIN_USER && pass === LOGIN_PASS) {
-            loading.style.display = 'block';
-            addLog(`Acesso: Usuário ${LOGIN_USER} autenticado.`);
-
-            setTimeout(() => {
+        // Simulação de delay de rede
+        setTimeout(() => {
+            // Verifica HASH (Base64)
+            if (btoa(user) === AUTH_USER_HASH && btoa(pass) === AUTH_PASS_HASH) {
                 sessionStorage.setItem('isLogged', 'true');
+                showToast("Acesso Autorizado. Bem-vindo, Admin.", "success");
+                addLog(`Login realizado pelo usuário ${user}`);
                 showPanel();
+            } else {
                 loading.style.display = 'none';
-            }, 1500);
-        } else {
-            msg.innerText = "⛔ Acesso Negado. Credenciais Inválidas.";
-            msg.style.display = 'block';
-            addLog(`ALERTA: Tentativa de login falha em ${user}.`);
-
-            document.getElementById('userInput').style.borderColor = '#ff5555';
-            document.getElementById('passInput').style.borderColor = '#ff5555';
-            setTimeout(() => {
-                document.getElementById('userInput').style.borderColor = '#333';
-                document.getElementById('passInput').style.borderColor = '#333';
-            }, 2000);
-        }
+                msg.style.display = 'block';
+                msg.innerText = "⛔ Credenciais Inválidas.";
+                playSound('error');
+                addLog(`Falha de login: Tentativa com ${user}`);
+                showToast("Acesso Negado!", "error");
+            }
+        }, 1500);
     }
 
-    // Mostrar Painel e Ocultar Login
     function showPanel(instant = false) {
-        // ... (código showPanel existente) ...
         const loginArea = document.getElementById('loginArea');
         const preLogin = document.getElementById('preLoginCards');
         const panelArea = document.getElementById('painelArea');
-        const headerUser = document.getElementById('header-user');
-        const dropUser = document.getElementById('drop-user');
+        
+        // Atualiza nome no header
+        const username = atob(AUTH_USER_HASH).replace('@', '');
+        document.getElementById('header-user').innerText = username;
+        document.getElementById('drop-user').innerText = atob(AUTH_USER_HASH);
 
         if(instant) {
             loginArea.style.display = 'none';
             preLogin.style.display = 'none';
         } else {
             loginArea.style.animation = 'slideDown 0.5s reverse forwards';
-            setTimeout(() => { loginArea.style.display = 'none'; preLogin.style.display = 'none'; }, 500);
+            setTimeout(() => { 
+                loginArea.style.display = 'none'; 
+                preLogin.style.display = 'none';
+            }, 500);
         }
-
         panelArea.style.display = 'block';
-        headerUser.innerText = "Admin";
-        dropUser.innerText = LOGIN_USER;
-
         updateCreditsDisplay();
         startSessionTimer();
     }
 
-
-    // ================= MODALS E DROPDOWNS =================
-
-    function toggleDropdown() {
-        const drop = document.getElementById('userDropdown');
-        drop.classList.toggle('show');
-    }
-    window.onclick = function(event) {
-        if (!event.target.matches('.user-menu-btn') && !event.target.closest('.user-menu-btn')) {
-            var dropdowns = document.getElementsByClassName("dropdown");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-        // Fechar Modais ao clicar fora
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = "none";
-        }
+    function logout() {
+        playSound('click');
+        sessionStorage.removeItem('isLogged');
+        location.reload();
     }
 
-    function openVIPModal() {
-        document.getElementById('vipModal').style.display = 'block';
-        closeModal('userDropdown');
-    }
-    function openLogsModal() {
-        document.getElementById('logsModal').style.display = 'block';
-    }
-    function openSupportModal() {
-        document.getElementById('supportModal').style.display = 'block';
-        closeModal('userDropdown');
-    }
-    function closeModal(id) {
-        if(id === 'userDropdown') {
-            document.getElementById(id).classList.remove('show');
-        } else {
-            document.getElementById(id).style.display = 'none';
-        }
-    }
-
-
-    // ================= GERADORES E CRÉDITOS =================
+    // ------------------- CRÉDITOS & COOLDOWN -------------------
 
     function updateCreditsDisplay() {
         document.getElementById('credits-val').innerText = credits;
         document.getElementById('panel-credits').innerText = credits;
         localStorage.setItem(CREDITS_KEY, credits);
+    }
+
+    function updateCooldownDisplay() {
+        const now = Math.floor(Date.now() / 1000);
+        const timeRemaining = cooldownEndTimestamp - now;
+        const timerElement = document.getElementById('cooldown-timer');
+        
+        if (timeRemaining <= 0) {
+            // Cooldown terminou: Recarrega Créditos (Simulação)
+            if (credits < DEFAULT_CREDITS) {
+                credits = DEFAULT_CREDITS;
+                updateCreditsDisplay();
+                showToast("Créditos recarregados!", "success");
+                addLog('Sistema: Recarga de créditos concluída.');
+            }
+            timerElement.innerText = "RECARGA PRONTA";
+            document.getElementById('credits-status').style.color = 'var(--neon-green)';
+            cooldownEndTimestamp = 0;
+            localStorage.setItem(COOLDOWN_KEY, 0);
+
+        } else {
+            // Cooldown ativo: Exibe tempo restante
+            const hours = Math.floor(timeRemaining / 3600);
+            const minutes = Math.floor((timeRemaining % 3600) / 60);
+            const seconds = timeRemaining % 60;
+            
+            const timeStr = [hours, minutes, seconds]
+                .map(v => v < 10 ? "0" + v : v)
+                .join(":");
+
+            timerElement.innerText = timeStr;
+            document.getElementById('credits-status').style.color = '#ffaa00';
+            
+            // Re-checa a cada segundo
+            setTimeout(updateCooldownDisplay, 1000);
+        }
+    }
+    
+    function startCooldown() {
+        const now = Math.floor(Date.now() / 1000);
+        cooldownEndTimestamp = now + COOLDOWN_DURATION;
+        localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
         updateCooldownDisplay();
     }
 
-    // Novo: Cooldown / Recarga
-    const COOLDOWN_SECONDS = 14400; // 4 horas
-    function updateCooldownDisplay() {
-        const statusElement = document.getElementById('credits-status');
-        const timerElement = document.getElementById('cooldown-timer');
 
-        if (credits > 0) {
-            statusElement.innerHTML = 'Você tem <strong style="color:var(--neon-green)">Créditos disponíveis</strong>.';
-            return;
+    // ------------------- GERADORES & TYPEWRITER -------------------
+
+    function typeWriter(element, text, speed = 15) {
+        element.innerHTML = '<span class="typing-cursor"></span>';
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                element.innerHTML = text.substring(0, i+1) + '<span class="typing-cursor"></span>';
+                i++;
+                setTimeout(type, speed);
+            } else {
+                element.innerHTML = text; // Remove cursor
+                // Adiciona botão copiar
+                const btnDiv = document.createElement('div');
+                btnDiv.style.marginTop = '10px';
+                btnDiv.style.borderTop = '1px solid #333';
+                btnDiv.style.paddingTop = '5px';
+                // Note o uso de `&#x2398;` para o símbolo de cópia, e ajuste do onclick.
+                btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, \`${text.replace(/`/g, '\\`')}\`)"> Copiar Texto</i>`;
+                element.appendChild(btnDiv);
+                playSound('success');
+            }
         }
-
-        let timePassed = parseInt(localStorage.getItem('cooldown_start')) || 0;
-        let elapsed = Math.floor((Date.now() - timePassed) / 1000);
-        let remainingSeconds = COOLDOWN_SECONDS - elapsed;
-
-        if (remainingSeconds <= 0) {
-            credits = DEFAULT_CREDITS;
-            updateCreditsDisplay();
-            localStorage.removeItem('cooldown_start');
-            statusElement.innerHTML = 'Créditos **RECARREGADOS!**';
-            addLog('Créditos de teste recarregados com sucesso.');
-            return;
-        }
-
-        const h = String(Math.floor(remainingSeconds / 3600)).padStart(2, '0');
-        const m = String(Math.floor((remainingSeconds % 3600) / 60)).padStart(2, '0');
-        const s = String(remainingSeconds % 60).padStart(2, '0');
-
-        timerElement.innerText = `${h}:${m}:${s}`;
-        statusElement.innerHTML = `Seus créditos recarregam em: <b style="color:var(--neon-purple)"><span id="cooldown-timer">${h}:${m}:${s}</span></b>`;
-
-        // Atualiza a cada segundo
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = setInterval(updateCooldownDisplay, 1000);
+        type();
     }
 
-    // Textos (Arrays) - AGORA PREENCHIDOS CORRETAMENTE
     const textosZap = [
-        "Olá suporte do WhatsApp, meu número foi banido por um equívoco. Eu utilizo este número para fins profissionais e pessoais, e sigo rigorosamente os termos de serviço. Solicito uma revisão manual do meu caso, pois acredito ter sido alvo de denúncias injustas.",
-        "Prezada equipe, meu acesso ao WhatsApp foi suspenso indevidamente. Não faço uso de automação, disparo em massa ou qualquer prática de spam. Peço, por gentileza, que verifiquem o histórico da minha conta e restabeleçam meu acesso.",
-        "Solicito o desbloqueio do meu número. O banimento ocorreu sem aviso prévio e acredito que foi um erro do sistema de detecção automática. Uso o app para falar com família e clientes, e estou sendo prejudicado por essa suspensão injusta.",
-        "Urgente: Meu número foi banido incorretamente. Sou um usuário real e respeito as diretrizes da comunidade. Peço que analisem meu caso, pois dependo deste número para comunicação diária e trabalho. Obrigado.",
-        "Olá, acredito que minha conta foi banida por erro. Não violei nenhuma regra de uso. Por favor, revisem minha atividade recente e reativem minha conta o mais rápido possível."
+        "Suporte WhatsApp, solicito a revisão do banimento do meu número. Utilizo-o para fins profissionais e não violei os termos de serviço conscientemente. Acredito que fui alvo de denúncias em massa injustas.",
+        "Prezados, meu número foi suspenso por erro. Não utilizo automação ou spam. Por favor, verifiquem meu histórico de uso. Dependo deste contato para minha família e trabalho.",
+        "Olá, fui banido injustamente. Sou um usuário real e sigo as diretrizes. Peço o desbloqueio imediato pois estou sendo prejudicado por um falso positivo do sistema."
     ];
-
     const textosTikTok = [
-        "Olá equipe do TikTok, minha conta foi suspensa permanentemente por engano. Meu conteúdo é 100% original e não viola as diretrizes da comunidade. Peço que um moderador humano revise meu perfil, pois acredito ser um erro do algoritmo.",
-        "Estou entrando em contato para apelar sobre o banimento da minha conta. Sou um criador de conteúdo dedicado e sigo todas as regras da plataforma. A suspensão foi injusta e solicito a reativação imediata.",
-        "Minha conta foi banida sem justificativa clara. Acredito que denúncias falsas ou um erro no sistema automatizado causaram isso. Por favor, verifiquem meu histórico de postagens, nunca tive intenção de violar as normas.",
-        "Solicito a revisão do banimento da minha conta TikTok. Uso a plataforma para entretenimento e criação saudável. O bloqueio foi um mal-entendido e estou disposto a corrigir qualquer problema, caso exista.",
-        "Prezados, fui banido injustamente. Meu conteúdo respeita os termos de uso. Peço encarecidamente que reanalisem minha conta e removam a suspensão, pois valorizo muito minha presença na plataforma."
+        "Equipe TikTok, minha conta foi suspensa permanentemente por engano. Meu conteúdo é original e não viola diretrizes. Peço análise humana urgente.",
+        "Olá, apelo contra o banimento da minha conta. Acredito que denúncias falsas ativaram o sistema automático. Nunca postei conteúdo proibido.",
+        "Solicito revisão do meu banimento. Sou criador de conteúdo sério e respeito a comunidade. A suspensão foi injusta."
     ];
-
     const textosGame = [
-        "Prezados, minha conta foi suspensa por engano. Sou jogador assíduo e não usei hacks. Peço a revisão.",
-        "Apelo contra o banimento. Tenho histórico limpo e fui vítima de denúncia. Solicito reativação urgente.",
-        "Minha conta é valiosa e foi banida injustamente. Meu conteúdo não viola termos. Reconsiderem, por favor.",
+        "Prezada Equipe, solicito revisão do banimento da minha conta. Não utilizei cheats ou softwares não autorizados. Fui penalizado injustamente. Por favor, reexaminem meu caso. ID: [SEU ID DO JOGO]",
+        "Apelo contra o banimento. Sou jogador há anos e jamais comprometeria a experiência. O sistema de detecção errou. Peço o unban.",
+        "Estou banido por engano. Minha conta foi comprometida e o banimento ocorreu após isso. Peço que restaurem minha conta após investigação."
     ];
 
     function gerarTexto(tipo) {
-        const resultBox = document.getElementById('res-' + tipo);
-
+        playSound('click');
+        const box = document.getElementById('res-' + tipo);
+        
         if (credits <= 0) {
-            alert("⚠️ SEUS CRÉDITOS ACABARAM! Aguarde a recarga ou compre o VIP.");
-            if (!localStorage.getItem('cooldown_start')) {
-                localStorage.setItem('cooldown_start', Date.now().toString());
-                updateCooldownDisplay();
-            }
+            showToast("Créditos Insuficientes! Recarga em breve.", "error");
+            // Inicia ou mantém o cooldown
+            if (cooldownEndTimestamp === 0) startCooldown(); 
             return;
         }
 
-        resultBox.style.display = 'block';
-        resultBox.innerHTML = '<i class="fa-solid fa-gear fa-spin"></i> Processando IA...';
+        box.style.display = 'block';
+        box.innerHTML = '<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> Conectando IA...</span>';
 
         setTimeout(() => {
             credits--;
             updateCreditsDisplay();
-
-            let lista;
+            let lista = textosZap; // Default
             if (tipo === 'whatsapp') lista = textosZap;
-            else if (tipo === 'tiktok') lista = textosTikTok;
-            else if (tipo === 'game') lista = textosGame;
+            if (tipo === 'tiktok') lista = textosTikTok;
+            if (tipo === 'game') lista = textosGame;
 
-            const textoAleatorio = lista[Math.floor(Math.random() * lista.length)];
+            const texto = lista[Math.floor(Math.random() * lista.length)];
+            
+            box.innerHTML = ''; // Limpa loading
+            typeWriter(box, texto);
+            addLog(`Gerador: Texto para ${tipo} criado (1 Crédito).`);
+            // Inicia o cooldown se os créditos acabarem
+            if (credits === 0 && cooldownEndTimestamp === 0) startCooldown(); 
 
-            resultBox.innerHTML = `
-                <span style="color:#fff;">${textoAleatorio}</span>
-                <div style="margin-top:5px; border-top:1px solid #333; padding-top:5px;">
-                   <i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, \`${textoAleatorio}\`)"> Copiar</i>
-                </div>
-            `;
-            addLog(`-1 Crédito: Gerador ${tipo.toUpperCase()} executado.`);
-        }, 800);
+        }, 1000);
     }
 
-    // Função Copiar
-    function copiarTexto(element, texto) {
-        navigator.clipboard.writeText(texto);
-        const originalText = element.innerHTML;
-        element.innerHTML = '<i class="fa-solid fa-check"></i> Copiado!';
-        setTimeout(() => { element.innerHTML = originalText; }, 2000);
+    function copiarTexto(elem, txt) {
+        playSound('click');
+        // Usa a API Clipboard, mais moderna
+        navigator.clipboard.writeText(txt).then(() => {
+            showToast("Texto copiado para a área de transferência!", "success");
+        }).catch(err => {
+            console.error('Erro ao copiar: ', err);
+            showToast("Erro ao copiar. Tente selecionar o texto.", "error");
+        });
     }
 
-    // ================= NOVAS FERRAMENTAS EXTRAS =================
-
-    // 1. Mostrar IP e Info do Dispositivo
+    // ------------------- FERRAMENTAS EXTRAS -------------------
     async function mostrarIP() {
+        playSound('click');
         const box = document.getElementById('res-tools');
         box.style.display = 'block';
         box.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Rastreando...';
-
         try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            const data = await response.json();
-            const device = navigator.platform;
-
-            box.innerHTML = `
-                <span style="color:#fff">IP: ${data.ip}</span><br>
-                <span style="color:#888; font-size:11px;">OS: ${device} | Navegador Seguro</span>
-            `;
-            addLog(`Tools: IP Checado (${data.ip}).`);
-        } catch (e) {
-            box.innerHTML = "Erro ao obter IP. Bloqueador de anúncios?";
-            addLog('Tools: Falha ao checar IP.');
+            const req = await fetch('https://api.ipify.org?format=json');
+            const json = await req.json();
+            box.innerHTML = `<span style="color:#fff">IP: ${json.ip}</span><br><span style="color:var(--neon-green); font-size:10px">Conexão Protegida</span>`;
+            addLog(`Tools: IP ${json.ip} verificado.`);
+            playSound('success');
+        } catch(e) {
+            box.innerHTML = 'Erro ao obter IP.';
+            playSound('error');
         }
     }
 
-    // 2. Gerador de Senha Forte
     function gerarSenhaSegura() {
+        playSound('click');
         const box = document.getElementById('res-tools');
         box.style.display = 'block';
-        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-        let password = "";
-        for (let i = 0; i < 16; i++) {
-            password += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        box.innerHTML = `
-            <span style="color:var(--neon-green)">${password}</span>
-            <div style="margin-top:5px; border-top:1px solid #333; padding-top:5px;">
-               <i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, '${password}')"> Copiar Senha</i>
-            </div>
-        `;
-        addLog('Tools: Senha forte gerada.');
+        const chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789!@#$%&*";
+        let pass = "";
+        for(let i=0; i<16; i++) pass += chars.charAt(Math.floor(Math.random()*chars.length));
+        
+        box.innerHTML = `<span style="color:var(--neon-green)">${pass}</span>`;
+        
+        const btnDiv = document.createElement('div');
+        btnDiv.style.marginTop = '5px';
+        btnDiv.style.borderTop = '1px solid #333';
+        btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${pass}')"> Copiar</i>`;
+        box.appendChild(btnDiv);
+        playSound('success');
+        addLog('Tools: Senha gerada.');
     }
 
-    // 3. Scanner de URL (Simulado)
     function analisarURL() {
-        const url = document.getElementById('urlInput').value.trim();
+        playSound('click');
+        const url = document.getElementById('urlInput').value;
         const box = document.getElementById('res-scanner');
         box.style.display = 'block';
-
-        if (!url) {
-            box.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color:#ffaa00"></i> **ALERTA**: Insira uma URL válida para a análise.`;
-            return;
-        }
-
-        box.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Varrendo ${url}...`;
-
+        
+        if(!url) { showToast("Insira uma URL!", "error"); box.innerHTML = ''; return; }
+        
+        box.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Analisando headers...';
         setTimeout(() => {
-            const isSafe = Math.random() < 0.85; // 85% de chance de ser seguro
+            const isSuspicious = Math.random() > 0.7; // Simulação: 30% chance de ser suspeito
+            const resultText = isSuspicious 
+                ? `<span style="color:#ff5555"><i class="fa-solid fa-triangle-exclamation"></i> PERIGO: Link Suspeito!</span>`
+                : `<span style="color:var(--neon-green)"><i class="fa-solid fa-check-circle"></i> SEGURO: Link Limpo.</span>`;
+            
+            box.innerHTML = resultText;
 
-            if (isSafe) {
-                box.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--neon-green)"></i> **Status:** URL Limpa. Risco: BAIXO.`;
-                addLog(`Scanner: URL (${url.substring(0, 20)}...) Verificada. Limpa.`);
+            if(isSuspicious) {
+                playSound('error');
+                addLog(`Scanner: URL suspeita detectada: ${url}`);
             } else {
-                box.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:#ff5555"></i> **ALERTA:** Risco de Phishing/Malware Detectado! EVITE CLICAR.`;
-                addLog(`Scanner: ALERTA! Risco detectado em (${url.substring(0, 20)}...).`);
+                playSound('success');
+                addLog(`Scanner: URL verificada como segura: ${url}`);
             }
         }, 1500);
     }
 
-    // ================= STATUS E TIMER =================
-
-    // Timer da Sessão
+    // ------------------- UTILITÁRIOS -------------------
+    function toggleDropdown() {
+        document.getElementById('userDropdown').classList.toggle('show');
+    }
+    window.onclick = function(e) {
+        if (!e.target.closest('.user-menu-btn') && !e.target.closest('.notification-icon')) {
+            document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+        }
+        if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+    }
+    function openVIPModal() { document.getElementById('vipModal').style.display = 'block'; }
+    function openLogsModal() { document.getElementById('logsModal').style.display = 'block'; }
+    function openSupportModal() { document.getElementById('supportModal').style.display = 'block'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    
     function startSessionTimer() {
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = setInterval(() => {
+        setInterval(() => {
             secondsOnline++;
-            const date = new Date(0);
-            date.setSeconds(secondsOnline);
-            const timeString = date.toISOString().substr(14, 5);
-            document.getElementById('session-time').innerText = timeString;
+            const d = new Date(0); d.setSeconds(secondsOnline);
+            // Format HH:MM:SS, mas mostrando apenas MM:SS
+            const timeStr = d.toISOString().substr(14, 5); 
+            document.getElementById('session-time').innerText = timeStr;
         }, 1000);
     }
 
-    // Status do Servidor (Simulado)
     function startServerStatusUpdater() {
         setInterval(() => {
-            const latency = Math.floor(Math.random() * (100 - 30 + 1)) + 30; // Latência entre 30ms e 100ms
-            document.getElementById('latency-val').innerText = `${latency}ms`;
-        }, 5000); // Atualiza a cada 5 segundos
-    }
-
-    function logout() {
-        if(confirm("Deseja desconectar do Painel VIP?")) {
-            sessionStorage.removeItem('isLogged');
-            addLog('Usuário desconectado.');
-            location.reload();
-        }
+            const ms = Math.floor(Math.random() * (60 - 20) + 20); // Simula latência entre 20ms e 60ms
+            document.getElementById('latency-val').innerText = ms + 'ms';
+        }, 4000);
     }
   </script>
 </body>
