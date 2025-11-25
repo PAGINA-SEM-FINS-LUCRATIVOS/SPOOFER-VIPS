@@ -314,7 +314,23 @@
   <canvas id="matrixCanvas"></canvas>
 
   <div id="toast-container"></div>
-
+  
+  <div id="noCreditsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('noCreditsModal')">&times;</span>
+      <h2 style="color:#ff5555;"><i class="fa-solid fa-triangle-exclamation"></i> CRÉDITOS ESGOTADOS!</h2>
+      <p>Você atingiu o limite de uso diário. Recarga em <b id="no-credits-timer" style="color:#ffaa00">--:--:--</b></p>
+      <h4 style="color:var(--neon-purple);">Desbloqueie agora o VIP Supremo para:</h4>
+      <ul style="color:#ccc;">
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> **Créditos Ilimitados** (Sem Cooldown!)</li>
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Exclusivas</li>
+        <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte 24/7</li>
+      </ul>
+      <button class="btn-dropdown btn-upgrade" onclick="playSound('click'); closeModal('noCreditsModal'); openVIPModal()">
+        <i class="fa-regular fa-gem"></i> QUERO UPGRADE VIP
+      </button>
+    </div>
+  </div>
   <header>
     <div class="logo">
       <i class="fa-solid fa-bolt"></i> OVER PAINEL <span style="font-size:12px; color:var(--neon-purple); border:1px solid var(--neon-purple); padding:2px 5px; border-radius:4px;">VIP</span>
@@ -540,7 +556,8 @@
     let secondsOnline = 0;
     let logs = JSON.parse(localStorage.getItem(LOGS_KEY)) || [];
     let cooldownEndTimestamp = parseInt(localStorage.getItem(COOLDOWN_KEY)) || 0;
-    const COOLDOWN_DURATION = 3600; // 1 hora em segundos (para recarga de créditos)
+    // CORREÇÃO: 4 horas em segundos = 4 * 3600 = 14400
+    const COOLDOWN_DURATION = 14400; 
 
     // Audio Context para sons sem arquivos externos
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -643,7 +660,7 @@
         setInterval(draw, 35);
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.height = window.height;
         });
     }
 
@@ -734,10 +751,29 @@
         document.getElementById('panel-credits').innerText = credits;
         localStorage.setItem(CREDITS_KEY, credits);
     }
+    
+    // Função para mostrar o modal de upgrade (NOVO)
+    function showUpgradePrompt() {
+        const now = Math.floor(Date.now() / 1000);
+        const timeRemaining = cooldownEndTimestamp - now;
+        
+        // Atualiza o timer no modal
+        const hours = Math.floor(timeRemaining / 3600);
+        const minutes = Math.floor((timeRemaining % 3600) / 60);
+        const seconds = timeRemaining % 60;
+        const timeStr = [hours, minutes, seconds]
+            .map(v => v < 10 ? "0" + v : v)
+            .join(":");
+
+        document.getElementById('no-credits-timer').innerText = timeRemaining > 0 ? timeStr : "AGORA";
+        
+        document.getElementById('noCreditsModal').style.display = 'block';
+        playSound('error');
+    }
 
     function updateCooldownDisplay() {
         const now = Math.floor(Date.now() / 1000);
-        const timeRemaining = cooldownEndTimestamp - now;
+        let timeRemaining = cooldownEndTimestamp - now;
         const timerElement = document.getElementById('cooldown-timer');
         
         if (timeRemaining <= 0) {
@@ -826,7 +862,7 @@
         const box = document.getElementById('res-' + tipo);
         
         if (credits <= 0) {
-            showToast("Créditos Insuficientes! Recarga em breve.", "error");
+            showUpgradePrompt(); // Chama o modal de upgrade
             // Inicia ou mantém o cooldown
             if (cooldownEndTimestamp === 0) startCooldown(); 
             return;
@@ -942,7 +978,8 @@
     function openVIPModal() { document.getElementById('vipModal').style.display = 'block'; }
     function openLogsModal() { document.getElementById('logsModal').style.display = 'block'; }
     function openSupportModal() { document.getElementById('supportModal').style.display = 'block'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    // Função closeModal agora é universal para o novo modal também
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; } 
     
     function startSessionTimer() {
         setInterval(() => {
