@@ -393,7 +393,7 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('noCreditsModal')">&times;</span>
       <h2 style="color:#ff5555;"><i class="fa-solid fa-triangle-exclamation"></i> CRÉDITOS ESGOTADOS!</h2>
-      <p>Você atingiu o limite de uso diário. Recarga em <b id="no-credits-timer" style="color:#ffaa00">--:--:--</b></p>
+      <p>Você atingiu o limite de uso diário do plano **FREE**. Recarga em <b id="no-credits-timer" style="color:#ffaa00">--:--:--</b></p>
       <h4 style="color:var(--neon-purple);">Desbloqueie agora o VIP Supremo para:</h4>
       <ul style="color:#ccc;">
         <li><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> **Créditos Ilimitados** (Sem Cooldown!)</li>
@@ -488,8 +488,13 @@
 
     <div class="welcome-banner">
         <h1>BEM-VINDO AO <span style="color:var(--neon-green)">SYSTEM 2.0</span></h1>
-        <p>Você tem <strong style="color:var(--neon-green)" id="panel-credits">20</strong> créditos. Use com sabedoria.</p>
-        <p style="font-size:12px; color:#aaa;" id="credits-status">Cooldown: <b><span id="cooldown-timer">--:--:--</span></b></p>
+        <p id="plan-warning" style="color:#ffaa00; font-weight:700; font-size:14px; margin-top:10px; display:none;">
+            <i class="fa-solid fa-triangle-exclamation"></i> Seu plano é **FREE**! Limite: <strong style="color:var(--neon-green)" id="panel-credits">20</strong> Créditos.
+        </p>
+        <p>Você tem <strong style="color:var(--neon-green)" id="panel-credits-status">20</strong> créditos disponíveis.</p>
+        <p style="font-size:12px; color:#aaa;" id="credits-status">
+            <span id="cooldown-label">Recarga em:</span> <b><span id="cooldown-timer">--:--:--</span></b>
+        </p>
         <p style="font-size:12px; color:#555;">Acesso: <b>@ApelaWar71</b> | Pass: <b>******</b></p>
     </div>
 
@@ -628,7 +633,7 @@
   <div id="chatbot-container">
       <div class="chatbot-header">
           <div class="chatbot-profile">
-              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLS4yMzQgMTUuNzg5LS42MiAyMy41OC0xLjM1NyAyNS4zMS0yLjM5NiA0OC42Ny03Ljk5IDc0LjQ4OS04LjAzNCAyLjkwMi0uMDQgNS44MDQtLjA2MiA4LjctNzguMDg0IDEzLjY5OC0uMTA0IDI3LjQtLjMzOCA0MS4xMDQtLjQ2IDIyLjQtLjE5NCA0NC44NzUtLjM0MyA2Ny4zNDctLjU1NCAxOC4wMDgtLjE3MiAzNS45ODItLjM3IDU0LjM1OC0uNDcyIDYuNTIzLS4wNjkgMTMuMDU2LS4xMjMgMTkuNTczLS4wODQgOC43NDMgLjAyMiAxNy40ODUuMDQxIDI2LjIxMS4wOTYgMy4xNTguMDE2IDYuMzA4LjA0NSA5LjQ1My4wODcgMjQuOTgxLjM0MiA0OC40NTkgMTAuMjk5IDY5LjE2NCAyNC4wODUgMTAuOTEzIDcuMTQ5IDIxLjM1MiAxNC42ODggMzEuNTY5IDIyLjUzNCAzLjg5NSA2LjcwNSAxMS44NTIgMTIuNzkxIDE5LjAxNSAxNi40NjUgMTAuODU2IDUuMjc1IDIyLjY1NiA3LjMyMSAzNC42OSA3LjgyMSAyLjQyOS4wOTkgNC45ODQuMTggNy4yMTkuNTI1IDMuMjQ2LjQ5MiA1LjQwNiAxLjY1OCA3LjE5NiA0LjM1IDguMzggMTIuOTU0IDcuNzU4IDM1LjM0Ny0uNTIgNDcuOTQtNC4xNzQgNi40OTMtOC45ODkgMTIuNzY0LTE1LjA1NSAxOC4wNjEtNC45NjIgNC4zNTItMTAuMjM2IDguMzU3LTE1LjgwNyAxMi4xMTItNS4yODIgMy41NTctMTEuMTE1IDYuNzI1LTE2Ljg5NSAxMC42NTUtMTEuNzc1IDcuOTE0LTI0LjA3MiAxNS4yMi0zNy4wODcgMjEuMjM4LTI0LjI2IDExLjI1Ny00OS4zMjggMjEuNjE3LTc1LjA4OCAyOS43NTUtMTUuNDMzIDQuOTMtMzAuOTc1IDkuMTgyLTQ3LjEyOCAxMi40MzMtNC44NTUgLjg4Ni05LjY0NyAxLjg1Ny0xNC40OTcgMi42MDUtNC41NDYuNjk5LTkuMjIyIDEuMDYtMTMuODMuNzg0LTguNDcyLS41MDUtMTYuNTctMy4wMDktMjQuMjUtNi44OTEtMTYuNjg3LTguNDIxLTM1Ljc5OS04Ljg2LTVhLjY0Mi0xOS42My0yOS41MDctMTcuMjUyLTU4LjAzLTM2LjU5Mi03Ny4wODMtNTkuNTg4LTE2LjAzNS0xOS40NjItMjUuMDkxLTQyLjYyMy0zMS4yNi02Ni40NjMtMS44NjItNy4yODktMy4zOTgtMTQuNTkzLTQuNTI5LTIxLjk2OC0xLjM3NS04LjgyMS0yLjU2Ny0xNy42MTQtNC4xMTQtMjYuNDE1LTEuNjQ2LTkuMzM5LTMuMzUxLTE4LjY3Ni01LjExMi0yNy45NzItNS4wNjktMjYuNTYtMi4zMTYtNTMuODI3NS4wNTUtNzkuMjYzNy4xNDMtMjQuNzM4IDE4LjQ3MS00Ny4yNDcgMzIuNjM5LTY3LjQyMiAxMC43MTctMTUuMjY0IDIxLjY0Ni0zMC4wMDcgMzUuMTI3LTQzLjQ1MiAxMC4xODItMTAuMjE2IDIxLjI4Mi0xOS40NDkgMzMuMTE1LTI3Ljk5MiA5LjI0Mi02Ljc3MSAxOS4zMzEtMTIuMjk3IDI5LjMyMS0xNy4wNDYgMTMuODEzLTUuOTM2IDI4LjEwNy0xMC41MyA0Mi43MDYtMTQuMDIyIDE4LjIzNi00LjQxNCAzNi44MDItNy4zNCA1NS42MjgtOS4xNDQgMi43MTMtLjI2MiA1LjQ2OC0uMjk0IDguMTU5LS40NzIgOC42ODUtLjU4MyAxNy42NDQtLjk1NCAyNi41OTMtMS4zMTR6bTIyLjc3OSA0MDkuMTgzYy0uMDAyLS4wNzItLjAwMy0uMTQ0LS4wMDUtLjIxN0MxNzkuNzggNDA1LjA0IDE0Ni4yNCAzNDEuNTI0IDExMy41MjggMjIyLjE1Yy0zMi4xMTItMTE3LjQ0MS00NS40My0yMzUuNjIzLTE2Ljk4Mi0zMjkuNzUgNi4xOTctMTkuOTg0IDE1LjEwMy0zOC41MTIgMjcuMzM2LTU0LjY2NCA4LjA4Mi0xMC41NzkgMTYuODctMjAuNjkxIDI3LjQxMS0yOS42OTQgMi41My0yLjIwNSA1LjQ1LTMuODQzIDguMzM3LTUuMzY3IDI0LjUzOS0xMi44OTYgNTAuOTI0LTE4LjU0NSA3OC4yMzQtMTkuNzc4IDE1LjMzLS43MDMgMzAuNjY3LTEuMzk3IDQ2LjA0MS0xLjg0IDYuMDY5LS4xNzQgMTIuMTgyLS4xNjQgMTguMjQ0LS4xNTggMzEuNDk5LjAzMSA2My4wMDkuMjUyIDk0LjUwMS42MTEgMTYuMDgxLjE3NSAzMi4wNzcuMzIgNDguMjM3LjY1MiAxOC4xMTcuMzc2IDM1LjgyMSAxLjQ5MiA1My4zNDggNC4wNzIgMjEuNjY0IDMuMjQ2IDQyLjcyIDguMTkyIDYyLjY0NiAxNC45NTcgMTIuNjYxIDQuMzMyIDI0LjY3MyA5LjQ5NyAzNi42NzMgMTUuODQ4IDEyLjMxIDYuNjUgMjMuNjM5IDE0LjM0MSAzNC4yOTUgMjIuOTk0IDEyLjY1NiAxMC41NzYgMjQuMTA5IDIyLjUzMiAzMi43NjMgMzYuMDM1IDEzLjMyMiAyMS44NCAxNi45NjIgNDYuMDgyIDE1LjE5MyA3MC41NTItMi41MDUgMzQuMjc1LTguOTIyIDY4LjE2OS0xOS4zMzcgMTAwLjkyMi04LjgxNSAyNy45MTItMTkuMTM0IDU1LjY4MS0zMi43NzggODEuNzQ2LTMwLjIyIDU5LjI1Mi01My43MzMgMTE5LjQyLTc2LjY4MSAxNzkuMjk1LTMzLjU2NCA4Ni41ODMtNTUuNTQ1IDE3NS4wMTItNjYuMzMgMjY2LjcxNy0xLjA0IDkuMDY1LS43MzcgMTguMTE1LS4yMzQgMjcuMTEzLjE1NCAyLjg4My40MzIgNS43NTQuNzc4IDguNjA4LjQ5MSAzLjk3My44NzcgNy45NTggMS4zMjUgMTEuOTI4LjQ0MSAzLjkxLjY0NyA3LjgyNS44OTcgMTEuNzMxLjA3OSAxLjIyNS4xNzQgMi40NDcuMjMgMy42NzUuMDcgMS40NzIuMTg3IDIuOTQ3LjMxIDQuNDE1LjE4IDIuMjEzLjM1OCAzLjkwOC0xLjAyIDUuMjk4LTEuNzI1LjY0NS0zLjgxNy41NDUtNS44NjQtLjA3MS04LjUwMi0yLjU0NC0xNy4wNDUtNS4xMTktMjUuNDg4LTcuNzU1LTExLjQyMi0zLjU2My0yMi45NDMtNy4wNS0zNC41MTEtMTAuNDE0LTExLjkwNi0zLjQ0Mi0yMy45MTQtNi40MS0zNi4wMDQtOS4yNDYtMTMuNjM3LTMuMTg3LTI3LjQ0My01Ljc0Ny00MS4zMDMtOC40OTUtMTEuNzc1LTIuMzE0LTIzLjY3Ni00LjI5My0zNS42NjktNi4yNTRtLTI2LjYwMiAzMC43MjVjLTMuNDI0LS4yMzUtNi44NjYtLjQ2Ny0xMC4yOTktLjY5MS0xMi45ODktLjg1LTI2LjA3LTEuMzk4LTM5LjI3My0xLjg3My0yNS40NzctLjk0NC01MC41OTktMi42NDQtNzUuNjI3LTQuNTUtMjEuNTQ1LTEuNjMzLTQyLjQ0Mi00LjQ4MS02My41MDktOC4wNTQtMTMuMjc2LTIuMjQ4LTI2LjI1Ny00LjgwNy0zOC44MDYtOC4xNDktMTUuMDIyLTQuMDI1LTI5LjUzLTkuMDYyLTQzLjM5NC0xNS4xMjktMTEuMjgxLTQuODM0LTIxLjk2OC0xMC41ODMtMzIuNTE1LTE3LjA4NS04LjIxMS01LjE2OC0xNS41MzctMTEuMzYzLTIxLjY5MS0xOC40MTYtMTkuNDUxLTIxLjgzNi0zMS40NjgtNDguNzc4LTM5LjAzMS03Ny41NzktNy40MzYtMjcuNzM1LTguNTItNTcuNjE5LTIuMzMzLTg2LjYzIDMuMDE5LTE0LjMxMyA4LjAxOC0yNy43NDggMTQuMjktNDAuNDM4IDkuMjU0LTE4LjY3NyAxOS41MTUtMzYuOTgxIDM1LjI1MS01MC40OTMgMTMuMjY2LTExLjkzNyAyOC4yMjctMjEuNTg2IDQ0LjMxNi0yNy44NzkgMTQuMjg5LTUuNjYgMjguNzYxLTkuNjExIDQzLjMzMi0xMy41OTIgMTkuOTc3LTUuMzY5IDQwLjYyOS03LjgxNiA2MS4yNjYtOS45MDcgOS44MzEtLjk5MyAxOS43MzgtMS45MzUgMjkuNjM3LTIuODg0IDIxLjY2Ny0yLjA5MyA0My4wNzktMy42MTUgNjQuNDU1LTUuMTQxIDE0LjA3Mi0xLjAyMiAyOC4wNDQtMi4wMzIgNDIuMTktMi44MjUgMjIuMDEtMS4wMiA0My45MjQtMS43ODUgNjUuODkzLTIuOTY2IDE4LjI0My0uOTg4IDM2LjY5NS0xLjQwMSA1NS4wNzgtMS44MDcgMi43MS0uMDYgNS40NDUtLjA5NCA4LjE1OS0uMTIxIDE5LjQzOS0uMTg1IDM4Ljg4NS0uMDk2IDU4LjI5LjE3NyAyMS41NzcuMzAzIDQyLjk5LjkzNiA2NC4zNjMgMi4wMTMgMTYuMjc1LjgyNyAzMS45NSA0LjEyNyA0Ny42MDkgNy4wOTQgMTQuNDM0IDIuODA5IDI4LjU3NSA2LjQxMiA0Mi4zMiAxMC43MjYgMTIuMTkgMy43MzggMjMuMjYxIDguNTcgMzMuNDMgMTQuMjM3IDkuNTY3IDUuMzE1IDE3LjYxIDEyLjQyOCAyMy40NjYgMjEuMDQ2IDcuMzggMTEuMTQzIDEwLjg2NCAyNC41MTcgMTIuNjkgMzguMzcyIDMuMzI1IDI0Ljk5NiAyLjU0MiA1MC44NS0yLjY3MSA3Ni42NDMtNS4xNjEgMjUuNzE2LTExLjY5MiA1MC44ODQtMjEuMjQxIDc0LjQ4OS0xNC4yMTcgMzUuMTY2LTMxLjk5NCA2OC42NDItNTAuODc1IDEwMS4xODctMTguNjUxIDMzLjY5My0zOS42MDQgNjUuNjIxLTU3LjMxMiAxMDAuNDctNC4wODggNy45ODUtNy43NTkgMTYuMDMtMTEuMTc0IDI0LjEzLTIuOTM3IDcuMTAyLTYuMDE5IDE0LjM0LTguNzY3IDIxLjUxOS0yLjc0OCAxMC44Mi0yLjQxIDIyLjA3NC0uNjggMzMuMDUzIDEuNTQ0IDkuNjU4IDQuMzE1IDE4Ljk1MSA4LjIzNiAyNy44NjEgNS42MzMgMTIuMjkgMTMuMTYzIDIzLjY0MSAyMS40MDMgMzQuNjc3IDE2Ljc2MSAyMi4xNTQgMzYuNDg5IDQxLjUxMSA1OS42NDcgNTcuMzE2IDIxLjQwMiAxNC42NDEgNDQuNzk1IDI2LjEyNSA2OS40MDcgMzQuODUgMTEuMTQ0IDQuMDE0IDIyLjUxNSA2LjkwNSAzMy43NjIgOS4yNDMgMTQuNDc5IDIuOTg0IDI5LjEyOSA1LjA2IDQzLjgzOSA2LjA5NCAyMS44ODkgMS42MTEgNDQuMTMzIDEuNTYgNjYuMiAxLjQwNiA2LjQ0NC0uMDQ0IDEyLjg4My0uMTMzIDE5LjMyNS0uMTIgMTYuMDMuMDMyIDMyLjA2MS4wMTQgNDguMDc5LjEzMiAxNS44MDMuMTE3IDMxLjU5My4zMjIgNDcuMzgzLjYzNiAxNS44MzkuMzE1IDMxLjcwOC43MzkgNDcuNTY5IDEuNDEgMTkuMDIzLjgxMyAzOC4xMDkgMS45MzUgNTcuMTgyIDMuNDQ3IDkuNTUuNzU4IDE5LjA0NiAxLjY5OSAyOC41OTggMi4yMjkgOC40NS40NzEgMTYuODgyLjkxNyAyNS4zMzUgMS4yOCAxLjQ5MS4wNjMgMi45NzcuMTQ3IDQuNDU2LjIzIDIuNDQ0LjEzNyA0Ljg2OS40MTcgNy4yOTQuNjA1eiIgZmlsbD0iI2FhYWFhYSIvPjwvc3ZnPg==" alt="Bot AI">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0uMDQgNS44MDQtLjA2MiA4LjctNzguMDg0IDEzLjY5OC0uMTA0IDI3LjQtLjMzOCA0MS4xMDQtLjQ2IDIyLjQtLjE5NCA0NC44NzUtLjM0MyA2Ny4zNDctLjU1NCAxOC4wMDgtLjE3MiAzNS45ODItLjM3IDU0LjM1OC0uNDcyIDYuNTIzLS4wNjkgMTMuMDU2LS4xMjMgMTkuNTczLS4wODQgOC43NDMgLjAyMiAxNy40ODUuMDQxIDI2LjIxMS4wOTYgMy4xNTguMDE2IDYuMzA4LjA0NSA5LjQ1My4wODcgMjQuOTgxLjM0MiA0OC40NTkgMTAuMjk5IDY5LjE2NCAyNC4wODUgMTAuOTEzIDcuMTQ5IDIxLjM1MiAxNC42ODggMzEuNTY5IDIyLjUzNCAzLjg5NSA2LjcwNSAxMS44NTIgMTIuNzkxIDE5LjAxNSAxNi40NjUgMTAuODU2IDUuMjc1IDIyLjY1NiA3LjMyMSAzNC42OSA3LjgyMSAyLjQyOS4wOTkgNC45ODQuMTggNy4yMTkuNTI1IDMuMjQ2LjQ5MiA1LjQwNiAxLjY1OCA3LjE5NiA0LjM1IDguMzggMTIuOTU0IDcuNzU4IDM1LjM0Ny0uNTIgNDcuOTQtNC4xNzQgNi40OTMtOC45ODkgMTIuNzY0LTE1LjA1NSAxOC4wNjEtNC45NjIgNC4zNTItMTAuMjM2IDguMzU3LTE1LjgwNyAxMi4xMTItNS4yODIgMy41NTctMTEuMTE1IDYuNzI1LTE2Ljg5NSAxMC42NTUtMTEuNzc1IDcuOTE0LTI0LjA3MiAxNS4yMi0zNy4wODcgMjEuMjM4LTI0LjI2IDExLjI1Ny00OS4zMjggMjEuNjE3LTc1LjA4OCAyOS43NTUtMTUuNDMzIDQuOTMtMzAuOTc1IDkuMTgyLTQ3LjEyOCAxMi40MzMtNC44NTUgLjg4Ni05LjY0NyAxLjg1Ny0xNC40OTcgMi42MDUtNC41NDYuNjk5LTkuMjIyIDEuMDYtMTMuODMuNzg0LTguNDcyLS41MDUtMTYuNTctMy4wMDktMjQuMjUtNi44OTEtMTYuNjg3LTguNDIxLTM1Ljc5OS04Ljg2LTVhLjY0Mi0xOS42My0yOS41MDctMTcuMjUyLTU4LjAzLTM2LjU5Mi03Ny4wODMtNTkuNTg4LTE2LjAzNS0xOS40NjItMjUuMDkxLTQyLjYyMy0zMS4yNi02Ni40NjMtMS44NjItNy4yODktMy4zOTgtMTQuNTkzLTQuNTI5LTIxLjk2OC0xLjM3NS04LjgyMS0yLjU2Ny0xNy42MTQtNC4xMTQtMjYuNDE1LTEuNjQ2LTkuMzM5LTMuMzUxLTE4LjY3Ni01LjExMi0yNy45NzItNS4wNjktMjYuNTYtMi4zMTYtNTMuODI3NS4wNTUtNzkuMjYzNy4xNDMtMjQuNzM4IDE4LjQ3MS00Ny4yNDcgMzIuNjM5LTY3LjQyMiAxMC43MTctMTUuMjY0IDIxLjY0Ni0zMC4wMDcgMzUuMTI3LTQzLjQ1MiAxMC4xODItMTAuMjE2IDIxLjI4Mi0xOS40NDkgMzMuMTE1LTI3Ljk5MiA5LjI0Mi02Ljc3MSAxOS4zMzEtMTIuMjk3IDI5LjMyMS0xNy4wNDYgMTMuODEzLTUuOTM2IDI4LjEwNy0xMC41MyA0Mi43MDYtMTQuMDIyIDE4LjIzNi00LjQxNCAzNi44MDItNy4zNCA1NS42MjgtOS4xNDQgMi43MTMtLjI2MiA1LjQ2OC0uMjk0IDguMTU5LS40NzIgOC42ODUtLjU4MyAxNy42NDQtLjk1NCAyNi41OTMtMS4zMTR6bTIyLjc3OSA0MDkuMTgzYy0uMDAyLS4wNzItLjAwMy0uMTQ0LS4wMDUtLjIxN0MxNzkuNzggNDA1LjA0IDE0Ni4yNCAzNDEuNTI0IDExMy41MjggMjIyLjE1Yy0zMi4xMTItMTE3LjQ0MS00NS40My0yMzUuNjIzLTE2Ljk4Mi0zMjkuNzUgNi4xOTctMTkuOTg0IDE1LjEwMy0zOC41MTIgMjcuMzM2LTU0LjY2NCA4LjA4Mi0xMC41NzkgMTYuODctMjAuNjkxIDI3LjQxMS0yOS42OTQgMi41My0yLjIwNSA1LjQ1LTMuODQzIDguMzM3LTUuMzY3IDI0LjUzOS0xMi44OTYgNTAuOTI0LTE4LjU0NSA3OC4yMzQtMTkuNzc4IDE1LjMzLS43MDMgMzAuNjY3LTEuMzk3IDQ2LjA0MS0xLjg0IDYuMDY5LS4xNzQgMTIuMTgyLS4xNjQgMTguMjQ0LS4xNTggMzEuNDk5LjAzMSA2My4wMDkuMjUyIDk0LjUwMS42MTEgMTYuMDgxLjE3NSAzMi4wNzcuMzIgNDguMjM3LjY1MiAxOC4xMTcuMzc2IDM1LjgyMSAxLjQ5MiA1My4zNDggNC4wNzIgMjEuNjY0IDMuMjQ2IDQyLjcyIDguMTkyIDYyLjY0NiAxNC45NTcgMTIuNjYxIDQuMzMyIDI0LjY3MyA5LjQ5NyAzNi42NzMgMTUuODQ4IDEyLjMxIDYuNjUgMjMuNjM5IDE0LjM0MSAzNC4yOTUgMjIuOTk0IDEyLjY1NiAxMC41NzYgMjQuMTA5IDIyLjUzMiAzMi43NjMgMzYuMDM1IDEzLjMyMiAyMS44NCAxNi45NjIgNDYuMDgyIDE1LjE5MyA3MC41NTItMi41MDUgMzQuMjc1LTguOTIyIDY4LjE2OS0xOS4zMzcgMTAwLjkyMi04LjgxNSAyNy45MTItMTkuMTM0IDU1LjY4MS0zMi43NzggODEuNzQ2LTMwLjIyIDU5LjI1Mi01My43MzMgMTE5LjQyLTc2LjY4MSAxNzkuMjk1LTMzLjU2NCA4Ni41ODMtNTUuNTQ1IDE3NS4wMTItNjYuMzMgMjY2LjcxNy0xLjA0IDkuMDY1LS43MzcgMTguMTE1LS4yMzQgMjcuMTEzLjE1NCAyLjg4My40MzIgNS43NTQuNzc4IDguNjA4LjQ5MSAzLjk3My44NzcgNy45NTggMS4zMjUgMTEuOTI4LjQ0MSAzLjkxLjY0NyA3LjgyNS44OTcgMTEuNzMxLjA3OSAxLjIyNS4xNzQgMi40NDcuMjMgMy42NzUuMDcgMS40NzIuMTg3IDIuOTQ3LjMxIDQuNDE1LjE4IDIuMjEzLjM1OCAzLjkwOC0xLjAyIDUuMjk4LTEuNzI1LjY0NS0zLjgxNy41NDUtNS44NjQtLjA3MS04LjUwMi0yLjU0NC0xNy4wNDUtNS4xMTktMjUuNDg4LTcuNzU1LTExLjQyMi0zLjU2My0yMi45NDMtNy4wNS0zNC41MTEtMTAuNDE0LTExLjkwNi0zLjQ0Mi0yMy45MTQtNi40MS0zNi4wMDQtOS4yNDYtMTMuNjM3LTMuMTg3LTI3LjQ0My01Ljc0Ny00MS4zMDMtOC40OTUtMTEuNzc1LTIuMzE0LTIzLjY3Ni00LjI5My0zNS42NjktNi4yNTRtLTI2LjYwMiAzMC43MjVjLTMuNDI0LS4yMzUtNi44NjYtLjQ2Ny0xMC4yOTktLjY5MS0xMi45ODktLjg1LTI2LjA3LTEuMzk4LTM5LjI3My0xLjg3My0yNS40NzctLjk0NC01MC41OTktMi42NDQtNzUuNjI3LTQuNTUtMjEuNTQ1LTEuNjMzLTQyLjQ0Mi00LjQ4MS02My41MDktOC4wNTQtMTMuMjc2LTIuMjQ4LTI2LjI1Ny00LjgwNy0zOC44MDYtOC4xNDktMTUuMDIyLTQuMDI1LTI5LjUzLTkuMDYyLTQzLjM5NC0xNS4xMjktMTEuMjgxLTQuODM0LTIxLjk2OC0xMC41ODMtMzIuNTE1LTE3LjA4NS04LjIxMS01LjE2OC0xNS41MzctMTEuMzYzLTIxLjY5MS0xOC40MTYtMTkuNDUxLTIxLjgzNi0zMS40NjgtNDguNzc4LTM5LjAzMS03Ny41NzktNy40MzYtMjcuNzM1LTguNTItNTcuNjE5LTIuMzMzLTg2LjYzIDMuMDE5LTE0LjMxMyA4LjAxOC0yNy43NDggMTQuMjktNDAuNDM4IDkuMjU0LTE4LjY3NyAxOS41MTUtMzYuOTgxIDM1LjI1MS01MC40OTMgMTMuMjY2LTExLjkzNyAyOC4yMjctMjEuNTg2IDQ0LjMxNi0yNy44NzkgMTQuMjg5LTUuNjYgMjguNzYxLTkuNjExIDQzLjMzMi0xMy41OTIgMTkuOTc3LTUuMzY5IDQwLjYyOS03LjgxNiA2MS4yNjYtOS45MDcgOS44MzEtLjk5MyAxOS43MzgtMS45MzUgMjkuNjM3LTIuODg0IDIxLjY2Ny0yLjA5MyA0My4wNzktMy42MTUgNjQuNDU1LTUuMTQxIDE0LjA3Mi0xLjAyMiAyOC4wNDQtMi4wMzIgNDIuMTktMi44MjUgMjIuMDEtMS4wMiA0My45MjQtMS43ODUgNjUuODkzLTIuOTY2IDE4LjI0My0uOTg4IDM2LjY5NS0xLjQwMSA1NS4wNzgtMS44MDcgMi43MS0uMDYgNS40NDUtLjA5NCA4LjE1OS0uMTIxIDE5LjQzOS0uMTg1IDM4Ljg4NS0uMDk2IDU4LjI5LjE3NyAyMS41NzcuMzAzIDQyLjk5LjkzNiA2NC4zNjMgMi4wMTMgMTYuMjc1LjgyNyAzMS45NSA0LjEyNyA0Ny42MDkgNy4wOTQgMTQuNDM0IDIuODA5IDI4LjU3NSA2LjQxMiA0Mi4zMiAxMC43MjYgMTIuMTkgMy43MzggMjMuMjYxIDguNTcgMzMuNDMgMTQuMjM3IDkuNTY3IDUuMzE1IDE3LjYxIDEyLjQyOCAyMy40NjYgMjEuMDQ2IDcuMzggMTEuMTQzIDEwLjg2NCAyNC41MTcgMTIuNjkgMzguMzcyIDMuMzI1IDI0Ljk5NiAyLjU0MiA1MC44NS0yLjY3MSA3Ni42NDMtNS4xNjEgMjUuNzE2LTExLjY5MiA1MC44ODQtMjEuMjQxIDc0LjQ4OS0xNC4yMTcgMzUuMTY2LTMxLjk5NCA2OC42NDItNTAuODc1IDEwMS4xODctMTguNjUxIDMzLjY5My0zOS42MDQgNjUuNjIxLTU3LjMxMiAxMDAuNDctNC4wODggNy45ODUtNy43NTkgMTYuMDMtMTEuMTc0IDI0LjEzLTIuOTM3IDcuMTAyLTYuMDE5IDE0LjM0LTguNzY3IDIxLjUxOS0yLjc0OCAxMC44Mi0yLjQxIDIyLjA3NC0uNjggMzMuMDUzIDEuNTQ0IDkuNjU4IDQuMzE1IDE4Ljk1MSA4LjIzNiAyNy44NjEgNS42MzMgMTIuMjkgMTMuMTYzIDIzLjY0MSAyMS40MDMgMzQuNjc3IDE2Ljc2MSAyMi4xNTQgMzYuNDg5IDQxLjUxMSA1OS42NDcgNTcuMzE2IDIxLjQwMiAxNC42NDEgNDQuNzk1IDI2LjEyNSA2OS40MDcgMzQuODUgMTEuMTQ0IDQuMDE0IDIyLjUxNSA2LjkwNSAzMy43NjIgOS4yNDMgMTQuNDc5IDIuOTg0IDI5LjEyOSA1LjA2IDQzLjgzOSA2LjA5NCAyMS44ODkgMS42MTEgNDQuMTMzIDEuNTYgNjYuMiAxLjQwNiA2LjQ0NC0uMDQ0IDEyLjg4My0uMTMzIDE5LjMyNS0uMTIgMTYuMDMuMDMyIDMyLjA2MS4wMTQgNDguMDc5LjEzMiAxNS44MDMuMTE3IDMxLjU5My4zMjIgNDcuMzgzLjYzNiAxNS44MzkuMzE1IDMxLjcwOC43MzkgNDcuNTY5IDEuNDEgMTkuMDIzLjgxMyAzOC4xMDkgMS45MzUgNTcuMTgyIDMuNDQ3IDkuNTUuNzU4IDE5LjA0NiAxLjY5OSAyOC41OTggMi4yMjkgOC40NS40NzEgMTYuODgyLjkwNyAyNS4zMzUgMS4yOCAxLjQ5MS4wNjMgMi45NzcuMTQ3IDQuNDU2LjIzIDIuNDQ0LjEzNyA0Ljg2OS40MTcgNy4yOTQuNjA1eiIgZmlsbD0iI2FhYWFhYSIvPjwvc3ZnPg==" alt="Bot AI">
               <div>
                   <h4>Over AI <i class="fa-solid fa-circle-check verified-icon"></i></h4>
                   <span style="font-size:11px; color:#888;">Online</span>
@@ -668,7 +673,10 @@
     const CREDITS_KEY = 'over_credits_v2';
     const LOGS_KEY = 'over_logs_v2';
     const COOLDOWN_KEY = 'over_cooldown_v2';
-    const DEFAULT_CREDITS = 20;
+    // DEFINIÇÃO DO LIMITE DE CRÉDITOS E DURAÇÃO DO COOLDOWN
+    const DEFAULT_CREDITS = 20; // 👈 CRÉDITOS INICIAIS/MÁXIMOS DO PLANO FREE
+    const COOLDOWN_DURATION = 14400; // 👈 4 horas em segundos = 4 * 3600
+    
     // Opcional: Adicionar mais usuários para simulação
     const AUTH_USER_HASH = "QEFwZWxhV2FyNzE="; // @ApelaWar71
     const AUTH_PASS_HASH = "YXBlbGluaGExMGs="; // apelinha10k
@@ -678,22 +686,23 @@
     let secondsOnline = 0;
     let logs = JSON.parse(localStorage.getItem(LOGS_KEY)) || [];
     let cooldownEndTimestamp = parseInt(localStorage.getItem(COOLDOWN_KEY)) || 0;
-    // CORREÇÃO: 4 horas em segundos = 4 * 3600 = 14400
-    const COOLDOWN_DURATION = 14400; 
-    let userPlan = 'FREE'; // Variável para rastrear o plano (Mantenha para simulação)
+    let userPlan = 'FREE'; // Começa como FREE por padrão (Mantenha para simulação)
 
     // Audio Context para sons sem arquivos externos
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     // ------------------- INICIALIZAÇÃO -------------------
     document.addEventListener("DOMContentLoaded", () => {
+        // Garante que os créditos nunca excedam o máximo ao carregar
+        if (credits > DEFAULT_CREDITS) credits = DEFAULT_CREDITS;
+        
         initMatrix(); // Inicia efeito Matrix
         if(sessionStorage.getItem('isLogged') === 'true') {
-            // Se logado, simula que o usuário é o @ApelaWar71 e define o plano
+            // Simula plano após login
             const username = atob(AUTH_USER_HASH).replace('@', '');
             if (username === 'ApelaWar71') {
-                 // **SIMULAÇÃO DE PLANO VIP APÓS LOGIN** - Mude para 'FREE' se quiser simular o FREE
-                userPlan = 'VIP'; 
+                 // Mude para 'FREE' para simular o plano com créditos. Mantenho como VIP para demonstração total
+                userPlan = 'FREE'; 
             }
             showPanel(true);
         }
@@ -837,10 +846,10 @@
             if (btoa(user) === AUTH_USER_HASH && btoa(pass) === AUTH_PASS_HASH) {
                 sessionStorage.setItem('isLogged', 'true');
                 
-                // Define o plano como VIP após login bem-sucedido para demonstração do Chatbot
-                userPlan = 'VIP'; 
-
-                showToast("Acesso Autorizado. Bem-vindo, Admin.", "success");
+                // Define o plano
+                userPlan = 'FREE'; // Alterado para FREE para demonstração da feature de Créditos
+                
+                showToast("Acesso Autorizado. Bem-vindo.", "success");
                 addLog(`Login realizado pelo usuário ${user}`);
                 showPanel();
             } else {
@@ -864,6 +873,9 @@
         document.getElementById('header-user').innerText = username;
         document.getElementById('drop-user').innerText = atob(AUTH_USER_HASH);
 
+        // Mostra/Esconde o aviso do plano FREE
+        document.getElementById('plan-warning').style.display = userPlan === 'FREE' ? 'block' : 'none';
+        
         if(instant) {
             loginArea.style.display = 'none';
             preLogin.style.display = 'none';
@@ -892,9 +904,14 @@
         document.getElementById('user-plan-status').innerText = userPlan;
         document.getElementById('user-plan-status').style.color = userPlan === 'FREE' ? 'var(--neon-purple)' : 'var(--neon-green)';
 
-        document.getElementById('credits-val').innerText = userPlan === 'VIP' ? 'Ilimitados' : credits;
-        document.getElementById('panel-credits').innerText = userPlan === 'VIP' ? 'Ilimitados' : credits;
+        // Atualiza o valor dos créditos
+        const creditsText = userPlan === 'VIP' ? 'Ilimitados' : credits;
+        document.getElementById('credits-val').innerText = creditsText;
+        document.getElementById('panel-credits-status').innerText = creditsText;
+        document.getElementById('panel-credits').innerText = DEFAULT_CREDITS;
+        
         localStorage.setItem(CREDITS_KEY, credits);
+        updateCooldownDisplay(); // Chama para garantir que o estado do timer é exibido corretamente
     }
     
     // Função para mostrar o modal de upgrade (NOVO)
@@ -920,10 +937,13 @@
         const now = Math.floor(Date.now() / 1000);
         let timeRemaining = cooldownEndTimestamp - now;
         const timerElement = document.getElementById('cooldown-timer');
+        const statusElement = document.getElementById('credits-status');
+        const labelElement = document.getElementById('cooldown-label');
         
         if (userPlan === 'VIP') {
             timerElement.innerText = "BYPASS ATIVO";
-            document.getElementById('credits-status').style.color = 'var(--neon-green)';
+            labelElement.innerText = "Status:";
+            statusElement.style.color = 'var(--neon-green)';
             return; // Sai se for VIP
         }
 
@@ -931,12 +951,13 @@
             // Cooldown terminou: Recarrega Créditos (Simulação)
             if (credits < DEFAULT_CREDITS) {
                 credits = DEFAULT_CREDITS;
-                updateCreditsDisplay();
+                updateCreditsDisplay(); // Atualiza display do painel
                 showToast("Créditos recarregados!", "success");
                 addLog('Sistema: Recarga de créditos concluída.');
             }
             timerElement.innerText = "RECARGA PRONTA";
-            document.getElementById('credits-status').style.color = 'var(--neon-green)';
+            labelElement.innerText = "Status:";
+            statusElement.style.color = 'var(--neon-green)';
             cooldownEndTimestamp = 0;
             localStorage.setItem(COOLDOWN_KEY, 0);
 
@@ -951,7 +972,8 @@
                 .join(":");
 
             timerElement.innerText = timeStr;
-            document.getElementById('credits-status').style.color = '#ffaa00';
+            labelElement.innerText = "Recarga em:";
+            statusElement.style.color = '#ffaa00';
             
             // Re-checa a cada segundo
             setTimeout(updateCooldownDisplay, 1000);
@@ -961,9 +983,11 @@
     function startCooldown() {
         if (userPlan === 'VIP') return; // VIP não tem cooldown
         const now = Math.floor(Date.now() / 1000);
-        cooldownEndTimestamp = now + COOLDOWN_DURATION;
-        localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
-        updateCooldownDisplay();
+        if (cooldownEndTimestamp === 0 || cooldownEndTimestamp <= now) {
+            cooldownEndTimestamp = now + COOLDOWN_DURATION;
+            localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
+            updateCooldownDisplay();
+        }
     }
     
     // Função unificada para check de créditos (NOVO)
@@ -975,7 +999,9 @@
             return true;
         } else {
             showUpgradePrompt();
-            if (cooldownEndTimestamp === 0) startCooldown(); 
+            if (cooldownEndTimestamp === 0 || cooldownEndTimestamp <= Math.floor(Date.now() / 1000)) { 
+                startCooldown(); // Inicia o cooldown se ainda não estiver ativo
+            }
             return false;
         }
     }
@@ -1046,7 +1072,6 @@
             box.innerHTML = ''; // Limpa loading
             typeWriter(box, texto);
             addLog(`Gerador: Texto para ${tipo} criado (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
-            if (userPlan === 'FREE' && credits === 0 && cooldownEndTimestamp === 0) startCooldown(); 
         }, 1000);
     }
     
@@ -1078,7 +1103,6 @@
             
             playSound('success');
             addLog(`Gerador: E-mail temporário gerado: ${email} (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
-            if (userPlan === 'FREE' && credits === 0 && cooldownEndTimestamp === 0) startCooldown(); 
         }, 1500);
     }
 
@@ -1138,7 +1162,6 @@
 
             playSound('success');
             addLog(`Gerador: CPF gerado: ${cpfGerado} (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
-            if (userPlan === 'FREE' && credits === 0 && cooldownEndTimestamp === 0) startCooldown(); 
         }, 1200);
     }
     
@@ -1179,7 +1202,6 @@
 
             playSound('success');
             addLog(`Tools: IP/GPS de ${ipOrLink} localizado (${userPlan === 'VIP' ? 'VIP' : cost + ' Crédito(s)'}).`);
-            if (userPlan === 'FREE' && credits === 0 && cooldownEndTimestamp === 0) startCooldown(); 
         }, 2000);
     }
 
@@ -1308,7 +1330,7 @@
             ];
             addBotMessage(vipText, vipButtons);
         } else {
-            const freeText = `Olá, ${user}! Eu sou a Over AI. Seu plano é **FREE** (<span style="color:var(--neon-green)">${credits}</span> créditos).
+            const freeText = `Olá, ${user}! Eu sou a Over AI. Seu plano é **FREE** (<span style="color:var(--neon-green)">${credits}/${DEFAULT_CREDITS}</span> créditos).
             <br>Foque no upgrade para ter créditos ilimitados!`;
             
             const freeButtons = [
@@ -1393,8 +1415,10 @@
         // Retorna ao menu correto após a execução
         if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
              setTimeout(showUnbanMenu, 2500);
-        } else if (['tempmail', 'cpfgen', 'ipgeo', 'scanurl', 'checkip', 'genpass'].includes(toolType)) {
+        } else if (['tempmail', 'cpfgen', 'ipgeo'].includes(toolType)) {
              setTimeout(showAdvancedTools, 2500);
+        } else if (['checkip', 'genpass'].includes(toolType)) {
+             setTimeout(showSecurityTools, 2500);
         } else {
              setTimeout(showInitialMenu, 2500);
         }
