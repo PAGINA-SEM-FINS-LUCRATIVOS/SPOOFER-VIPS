@@ -6,7 +6,7 @@
   <meta name="description" content="Painel Over VIP - Acesso exclusivo a geradores, ferramentas de segurança e recuperação de contas.">
   <title>Painel Over VIP | System 2.0</title>
 
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAu0lEQVQ4ja2SQQ6DMAxFj8G54f9/J4XG8A89kX64jYtqKzYQv6J47C5sKkPImK7cO0zYd2o5Dq/H+0k/YAAh/8nQkG70YnAYnAA/lB8gA4Y8h2i3m90r2K4o8m7C464Tq2Q1k9dYy3l7G6X6bK+k9hR3r5pGv5341h3l7g0n3B0fO6wN+bY2x8/42x3l7m8v39w1O3r/kY4P+v3F6vJgAAAAAASUVORK5CYII=">
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAu0lEQVQ4ja2SQQ6DMAxFj8G54f9/J4XG8A89kX64jYtqKzYQv6J47C5sKkPImK7cO0zYd2o5Dq/H+0k/YAAh/8nQkG70YnAYnAA/lB8gA4Y8h2i3m90r2K4o8m7C464Tq2Q1k9dYy3l7G6X6bK+k9hR3r5pGv5341h3l7g0n3B0fO6wN+bY2x8/42x3l7m8v39w1O3r/k4r871/kY4P+v3F6vJgAAAAAASUVORK5CYII=">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,7 +102,7 @@
         cursor: pointer; transition: 0.3s;
     }
     #chatbot-button:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(0,0,0,0.7), 0 0 25px var(--neon-purple); }
-    
+
     #chatbot-container {
         position: fixed; bottom: 90px; right: 20px; z-index: 2000;
         width: 350px; height: 450px;
@@ -114,7 +114,7 @@
         flex-direction: column;
         animation: fadeIn 0.3s ease;
     }
-    
+
     .chatbot-header {
         background: var(--color-black); 
         color: #fff; padding: 10px 15px; border-radius: 12px 12px 0 0;
@@ -140,7 +140,7 @@
     }
     .chat-bot { background: #2a3942; color: #fff; align-self: flex-start; }
     .chat-user { background: #005c4b; color: #fff; align-self: flex-end; }
-    
+
     .chatbot-interactive {
         display: flex; flex-direction: column; gap: 5px; margin-top: 5px;
     }
@@ -286,7 +286,7 @@
     .profile-info h4 { margin: 0; color: var(--neon-green); font-family: var(--font-tech); font-size: 20px; text-shadow: 0 0 5px rgba(0, 255, 157, 0.5); }
     .stats-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
     .stats-val { color: #fff; font-weight: 600; }
-    
+
     .btn-recharge {
         background: var(--color-medium-gray); 
         color: var(--neon-green); 
@@ -329,7 +329,7 @@
     .login-icon { font-size: 50px; color: var(--neon-green); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0,255,157,0.5)); }
     .input-wrapper { position: relative; margin-bottom: 20px; }
     .input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--color-light-gray); transition: 0.3s; }
-    
+
     .custom-input {
         width: 100%; padding: 15px 15px 15px 45px; background: rgba(0,0,0,0.6); border: 1px solid var(--color-medium-gray); border-radius: 8px; color: #fff; font-family: var(--font-body); transition: 0.3s;
     }
@@ -395,7 +395,7 @@
     .result-box {
         margin-top: 15px; background: var(--color-black); border: 1px dashed var(--color-medium-gray); padding: 10px; border-radius: 6px; font-size: 13px; color: #ccc; display: none; word-wrap: break-word; text-align: left; min-height: 60px;
     }
-    
+
     /* Efeito Typewriter Cursor */
     .typing-cursor::after {
         content: '|';
@@ -420,7 +420,7 @@
     }
     .close-btn { color: var(--color-text-off); float: right; font-size: 28px; font-weight: bold; transition: 0.3s; cursor: pointer; }
     .close-btn:hover { color: var(--neon-purple); }
-    
+
     .log-container { max-height: 200px; overflow-y: auto; background: var(--color-black); border: 1px solid var(--color-dark-gray); padding: 10px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 12px; color: var(--neon-green); }
     .log-item { border-bottom: 1px solid #111; padding: 3px 0; }
 
@@ -491,13 +491,13 @@
   <canvas id="matrixCanvas"></canvas>
 
   <div id="toast-container"></div>
-  
+
   <div id="noCreditsModal" class="modal" data-translate-group="noCreditsModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('noCreditsModal')">&times;</span>
       <h2 style="color:#ff5555;" data-translate="noCreditsTitle"><i class="fa-solid fa-triangle-exclamation"></i> CRÉDITOS ESGOTADOS!</h2>
       <p id="cooldown-message"></p>
-      
+
       <h4 style="color:var(--neon-purple);" data-translate="noCreditsSubtitle">Desbloqueie agora o VIP Supremo para:</h4>
       <ul style="color:#ccc;">
         <li data-translate="noCreditsFeature1"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> **Créditos Ilimitados** (Sem Cooldown!)</li>
@@ -545,7 +545,7 @@
             <span data-translate="session"><i class="fa-regular fa-clock"></i> Sessão:</span>
             <span class="stats-val" id="session-time">00:00</span>
         </div>
-        
+
         <button id="recharge-btn-dropdown" class="btn-dropdown btn-recharge" style="display:none;" onclick="playSound('click'); resetCredits(true)" data-translate="rechargeCreditsButton">
             <i class="fa-solid fa-arrows-rotate"></i> RECARREGAR CRÉDITOS
         </button>
@@ -611,11 +611,11 @@
         <p style="font-size:12px; color:var(--color-text-off);" id="credits-status">
             <span id="cooldown-label" data-translate="rechargeInLabel">Recarga em:</span> <b><span id="cooldown-timer">--:--:--</span></b>
         </p>
-        
+
         <button id="recharge-btn-panel" class="btn-dropdown btn-recharge" style="display:none; width: 50%; max-width: 300px; margin: 10px auto 0;" onclick="playSound('click'); resetCredits(true)" data-translate="rechargeNowButton">
              <i class="fa-solid fa-arrows-rotate"></i> RECARREGAR AGORA
         </button>
-        
+
         <p style="font-size:12px; color:var(--color-light-gray);"><span data-translate="access">Acesso:</span> <b>@ApelaWar71</b> | <span data-translate="password">Pass:</span> <b>******</b></p>
     </div>
 
@@ -644,7 +644,7 @@
             <button class="action-btn" onclick="gerarTexto('game')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-game"></div>
         </div>
-        
+
         <div class="card ccgen">
             <div class="card-icon"><i class="fa-solid fa-credit-card"></i></div>
             <h3 data-translate="ccGeneratorTitle">Gerador CC/BIN</h3>
@@ -734,7 +734,7 @@
         <li data-translate="vipFeature2"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Ferramentas Exclusivas VIP</li>
         <li data-translate="vipFeature3"><i class="fa-solid fa-check" style="color:var(--neon-green);"></i> Suporte Prioritário 24/7</li>
       </ul>
-      
+
       <h4 style="color:var(--neon-blue); margin-top:25px;" data-translate="choosePlan">Escolha seu Plano:</h4>
       <div class="vip-plan-grid">
           <div class="vip-plan-card" onclick="buyVIP('VIP_MONTHLY')" data-translate-plan="monthly">
@@ -748,7 +748,7 @@
               <small>Acesso Permanente</small>
           </div>
       </div>
-      
+
       <button class="btn-dropdown btn-upgrade" style="margin-top:20px;" onclick="window.open('https://t.me/ApelaWar71')" data-translate="contactSellerButton">
         <i class="fa-brands fa-telegram"></i> Falar com Vendedor (Melhor Preço!)
       </button>
@@ -779,7 +779,7 @@
   <div id="chatbot-container" data-translate-group="chatbot">
       <div class="chatbot-header">
           <div class="chatbot-profile">
-              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMzLjMyMi02LjM2OC0zLjE1OS00Ni4xNjYgMy4xNTktNjkuMzE4IDQuMTk1LTE2LjM3MS43MzctMzIuODUzIDEuMjE0LTQ5LjI5MyAxLjU0LTUuNzMzLjExMS0xMS40OC4xNzMtMTcuMjM0LjIwNS0yMi45NDguMTI4LTQ1LjgyNi4wNzMtNjguNzY5LS4wMTgtMjEuMTkyLS4wODQtNDIuNDAyLS4xOTItNjMuNjQtLjE0N3oiIGZpbGw9IiNhYWFhYWEiLz48L3N2Zz4=" alt="Bot AI">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIzLjkzMiAxLjk4OCA3LjAzMyAxLjkyNiAxNC4wNDUtLjQ4MiAyMS4wMDktMS43NjYgNS4wOTItMy40NjggMTAuMjQtNS45MzIgMTUuMDQ5LTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1LjczLTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQx IDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMCuMjkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjI5MiAzNy43NTItMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMyuNzI2IDM0LjE3Ni0xLjczLTM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1LjczLTIuMzgyIDQuNjM4LTUuNzgxIDkuMDQ0LTguMTY2IDE0LjEyMy0xLjM2OSA3LjY4Ni0zLjQ4OCAxNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLSyMjM0IDE1Ljc4OS0uNjIgMjMuNTgtMS4zNTcgMjUuMzEtMi4zOTYgNDguNjctNy45OSAwLjA4OS04LjAzNCAyLjkwMi0wLjA0IDUuODA0LS4wNjIgOC43LTc4LjA4NCAxMy42OTgtLjEwNCAyNy40LS4zMzggNDEuMTA0LS40NiAyMi40LS4xOTQgNDQuODc1LS4zNDMgNjcuMzQ3LS41NTQgMTguMDA4LS4xNzIgMzUuOTgyLS4zNyA1NC4zNTgtLjQ3MiA2LjUyMy0uMDY5IDEzLjA1Ni0uMTIzIDE5LjUzLS4wODQgOC43NDMuMDIyIDE3LjQ4NS4wNDEgMjYuMjExLjA5NiAzLjE1OC4wMTYgNi4zMDguMDQ1IDkuNDUzLjA4NyAyNC45ODEuMzQyIDQ4LjQ1OSAxMCuMjkgNjkuMTY0IDI0LjA4NSAxMC45MTMgNy4xNDkgMjEuMzUyIDE0LjY4OCAzMS41NjkgMjIuNTM0IDMuODk1IDYuNzA1IDExLjI5MiAzNy43NTItMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMzLjMyMi02LjM2OC0zLjE1OS00Ni4xNjYgMy4xNTktNjkuMzE4IDQuMTk1LTE2LjM3MS43MzctMzIuODUzIDEuMjE0LTQ5LjI5MyAxLjU0LTUuNzMzLjExMS0xMS40OC4xNzMtMTcuMjM0LjIwNS0yMi45NDguMTI4LTQ1LjgyNi4wNzMtNjguNzY5LS4wMTgtMjEuMTkyLS4wODQtNDIuNDAyLS4xOTItNjMuNjQtLjE0N3oiIGZpbGw9IiNhYWFhYWEiLz48L3N2Zz4=" alt="Bot AI">
               <div>
                   <h4 data-translate="aiBotName">Over AI <i class="fa-solid fa-circle-check verified-icon"></i></h4>
                   <span style="font-size:11px; color:var(--color-text-dim);" data-translate="onlineStatus">Online</span>
@@ -819,11 +819,11 @@
     const COOLDOWN_KEY = 'over_cooldown_v2';
     const LANG_KEY = 'over_lang_v2'; 
     const USER_PLAN_KEY = 'over_user_plan_v2';
-    const IS_LOGGED_KEY = 'isLogged'; 
+    const IS_LOGGED_KEY = 'isLogged'; // Chave para estado de login de sessão
 
     // DEFINIÇÃO DO LIMITE DE CRÉDITOS E DURAÇÃO DO COOLDOWN
     const DEFAULT_CREDITS = 20; 
-    const COOLDOWN_DURATION = 14400; // 4 horas em segundos = 4 * 3600
+    const COOLDOWN_DURATION = 14400; // 4 horas em segundos
 
     const AUTH_USER_HASH = "QEFwZWxhV2FyNzE="; // @ApelaWar71
     const AUTH_PASS_HASH = "YXBlbGluaGExMGs="; // apelinha10k
@@ -834,7 +834,7 @@
     let cooldownEndTimestamp = parseInt(localStorage.getItem(COOLDOWN_KEY)) || 0;
     let userPlan = localStorage.getItem(USER_PLAN_KEY) || 'FREE'; 
     let currentLang = localStorage.getItem(LANG_KEY) || 'pt'; 
-    
+
     // Variáveis não-persistentes
     let secondsOnline = 0;
     let currentTranslations = {}; 
@@ -845,32 +845,6 @@
     // =========================================================================
     // TRADUÇÕES (Mantidas do estado anterior)
     // =========================================================================
-    const appealTexts = {
-        'pt': {
-            whatsapp: [
-                "Suporte WhatsApp, solicito a revisão do banimento do meu número. Utilizo-o para fins profissionais e não violei os termos de serviço conscientemente. Acredito que fui alvo de denúncias em massa injustas.",
-                "Prezados, meu número foi suspenso por erro. Não utilizo automação ou spam. Por favor, verifiquem meu histórico de uso. Dependo deste contato para minha família e trabalho.",
-                "Olá, fui banido injustamente. Sou um usuário real e sigo as diretrizes. Peço o desbloqueio imediato pois estou sendo prejudicado por um falso positivo do sistema."
-            ],
-            tiktok: [
-                "Equipe TikTok, minha conta foi suspensa permanentemente por engano. Meu conteúdo é original e não viola diretrizes. Peço análise humana urgente.",
-                "Olá, apelo contra o banimento da minha conta. Acredito que denúncias falsas ativaram o sistema automático. Nunca postei conteúdo proibido.",
-                "Solicito revisão do meu banimento. Sou criador de conteúdo sério e respeito a comunidade. A suspensão foi injusta."
-            ],
-            game: [
-                "Prezada Equipe, solicito revisão do banimento da minha conta. Não utilizei cheats ou softwares não autorizados. Fui penalizado injustamente. Por favor, reexaminem meu caso. ID: [SEU ID DO JOGO]",
-                "Apelo contra o banimento. Sou jogador há anos e jamais comprometeria a experiência. O sistema de detecção errou. Peço o unban.",
-                "Estou banido por engano. Minha conta foi comprometida e o banimento ocorreu após isso. Peço que restaurem minha conta após investigação."
-            ]
-        },
-        'en': {
-             whatsapp: [ /* ... */ ], tiktok: [ /* ... */ ], game: [ /* ... */ ],
-        },
-        'es': {
-             whatsapp: [ /* ... */ ], tiktok: [ /* ... */ ], game: [ /* ... */ ],
-        }
-    };
-    
     const allTranslations = {
         'pt': {
             // Meta e Títulos
@@ -883,7 +857,7 @@
             // VIP Modal Planos
             monthly: "MENSAL",
             lifetime: "LIFETIME",
-            
+
             // Dropdown
             plan: "Plano:",
             credits: "Créditos:",
@@ -892,7 +866,7 @@
             supportFAQButton: "Suporte/FAQ",
             becomeVIPButton: "Virar VIP Supremo",
             disconnectButton: "Desconectar",
-            
+
             // Login/Pré-Login
             username: "Usuário",
             password: "Senha",
@@ -900,7 +874,7 @@
             accessStoreLink: "Acessar Loja >",
             iptvTitle: "IPTV Premium",
             watchNowLink: "Assistir Agora >",
-            
+
             // Painel Principal
             welcomeTitle: "BEM-VINDO AO SYSTEM 2.0",
             freePlanWarning: "Seu plano é **FREE**! Limite:",
@@ -920,7 +894,7 @@
             ccGeneratorTitle: "Gerador CC/BIN",
             ccGeneratorDesc: "Gere números de cartão válidos (algoritmo Luhn) para testes de sistemas. (3 Créditos)",
             generateCCButton: "Gerar CC Válido",
-            
+
             tempEmailTitle: "E-mail Temp",
             tempEmailDesc: "Gere e-mails descartáveis para cadastros rápidos e anônimos. (2 Créditos)",
             generateEmailButton: "Gerar E-mail",
@@ -950,22 +924,22 @@
             noCreditsFeature2: "Ferramentas Exclusivas",
             noCreditsFeature3: "Suporte 24/7",
             noCreditsButton: "QUERO UPGRADE VIP",
-            
+
             vipUnlockMessage: "Desbloqueie o poder total do Sistema 2.0! Seu diferencial é:",
             upgradeVipTitle: "UPGRADE VIP SUPREMO",
             vipFeature1: "**Créditos Ilimitados** (Sem Cooldown!)",
             vipFeature2: "Ferramentas Exclusivas VIP",
             vipFeature3: "Suporte Prioritário 24/7",
             contactSellerButton: "Falar com Vendedor (Melhor Preço!)",
-            
+
             systemLogsTitle: "LOGS DO SISTEMA",
             clearLogsButton: "Limpar Logs",
-            
+
             supportTitle: "SUPORTE",
             faqTitle: "Faq:",
             faqMessage: "Os textos são modelos de apelação baseados em engenharia social. O sucesso não é garantido.",
             officialTelegramButton: "Telegram Oficial",
-            
+
             // Footer
             footerCopyright: "OVER PAINEL © 2025 | System Safe & Encrypted",
             developer: "Dev: ApelaWar71",
@@ -1005,7 +979,7 @@
             chatbotCCGenerated: "CC gerado (Simulação). Lembre-se, apenas para testes de validação.", 
             chatbotIPGeoInfo: "Para rastrear, acesse o painel principal, insira o **IP/Link** no card **IP/GPS Locator** e clique em Rastrear.<br>Essa função exige um IP ou Link digitado!",
             chatbotTextGenerated: (tool) => `Texto de apelação para **${tool}** gerado!<br>Verifique o resultado no painel principal e copie o texto.`,
-            
+
             // Cooldown Messages (Injetadas em JS)
             cooldownMessageFree: (time) => `Você atingiu o limite de uso diário do plano **FREE**. Recarga automática em <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
             cooldownMessageReady: `Você atingiu o limite de uso diário do plano **FREE**. Clique em recarregar para continuar!`,
@@ -1023,7 +997,7 @@
             toastErrorCopy: "Erro ao copiar. Tente selecionar o texto.",
             toastErrorNoURL: "Insira uma URL!",
             toastSuccessVip: "Upgrade para VIP Supremo ativado! Bem-vindo.", 
-            
+
         },
         'en': {
             // Meta e Títulos
@@ -1036,7 +1010,7 @@
             // VIP Modal Planos
             monthly: "MONTHLY",
             lifetime: "LIFETIME",
-            
+
             // Dropdown
             plan: "Plan:",
             credits: "Credits:",
@@ -1053,7 +1027,7 @@
             accessStoreLink: "Access Store >",
             iptvTitle: "Premium IPTV",
             watchNowLink: "Watch Now >",
-            
+
             // Painel Principal
             welcomeTitle: "WELCOME TO SYSTEM 2.0",
             freePlanWarning: "Your plan is **FREE**! Limit:",
@@ -1073,7 +1047,7 @@
             ccGeneratorTitle: "CC/BIN Generator",
             ccGeneratorDesc: "Generate valid card numbers (Luhn algorithm) for system testing. (3 Credits)",
             generateCCButton: "Generate Valid CC",
-            
+
             tempEmailTitle: "Temp Email",
             tempEmailDesc: "Generate disposable emails for quick and anonymous registrations. (2 Credits)",
             generateEmailButton: "Generate Email",
@@ -1162,7 +1136,7 @@
             // Cooldown Messages (Injetadas em JS)
             cooldownMessageFree: (time) => `You have reached the daily usage limit for the **FREE** plan. Automatic recharge in <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
             cooldownMessageReady: `You have reached the daily usage limit for the **FREE** plan. Click recharge to continue!`,
-            
+
             // Toast Messages
             toastSuccessLogin: "Access Authorized. Welcome.",
             toastErrorLogin: "Access Denied!",
@@ -1188,7 +1162,7 @@
              // VIP Modal Planos
             monthly: "MENSUAL",
             lifetime: "DE POR VIDA",
-            
+
             // Dropdown
             plan: "Plan:",
             credits: "Créditos:",
@@ -1205,7 +1179,7 @@
             accessStoreLink: "Acceder a Tienda >",
             iptvTitle: "IPTV Premium",
             watchNowLink: "Ver Ahora >",
-            
+
             // Painel Principal
             welcomeTitle: "BIENVENIDO AL SYSTEM 2.0",
             freePlanWarning: "¡Su plan es **GRATIS**! Límite:",
@@ -1225,7 +1199,7 @@
             ccGeneratorTitle: "Generador CC/BIN",
             ccGeneratorDesc: "Genere números de tarjeta válidos (algoritmo Luhn) para pruebas de sistemas. (3 Créditos)",
             generateCCButton: "Generar CC Válido",
-            
+
             tempEmailTitle: "Correo Temp",
             tempEmailDesc: "Genere correos electrónicos desechables para registros rápidos y anónimos. (2 Créditos)",
             generateEmailButton: "Generar Correo",
@@ -1274,7 +1248,7 @@
             // Footer
             footerCopyright: "OVER PAINEL © 2025 | System Safe & Encrypted",
             developer: "Desarrollador: ApelaWar71",
-            
+
             // Chatbot (Textos principais)
             aiBotName: "Over AI",
             onlineStatus: "En Línea",
@@ -1300,7 +1274,7 @@
             chatbotSecurityFree: "Herramientas de análisis de red (Gratis):",
             chatbotCheckMyIP: "Comprobar mi IP",
             chatbotGenerateStrongPass: "Generar Contraseña Fuerte",
-            chatbotBackToTools: "⬅️ Voltar al Menú de Herramientas",
+            chatbotBackToTools: "⬅️ Volver al Menú de Herramientas",
             chatbotBenefits: `¡Claro! Con el **VIP Supremo** te aseguras:<br>✅ **Créditos Ilimitados** (¡Sin Cooldown!)<br>✅ **Todas las Herramientas** (incluidas las futuras)<br>✅ **Suporte Prioritário 24/7**<br>¡Es el fin de las limitaciones para ti!`,
             chatbotBuyVip: "COMPRAR VIP",
             chatbotToolChecked: "¡IP comprobada! Mire el cuadro de herramientas en el panel principal. ¿Algo más?",
@@ -1314,7 +1288,7 @@
             // Cooldown Messages (Injetadas em JS)
             cooldownMessageFree: (time) => `Ha alcanzado el límite de uso diario del plan **GRATIS**. Recarga automática en <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
             cooldownMessageReady: `Ha alcanzado el límite de uso diario del plan **GRATIS**. ¡Haga clic en recargar para continuar!`,
-            
+
             // Toast Messages
             toastSuccessLogin: "Acceso Autorizado. Bienvenido.",
             toastErrorLogin: "¡Acceso Denegado!",
@@ -1331,7 +1305,7 @@
         }
     };
 
-    
+
     // =========================================================================
     // LÓGICA DE TRADUÇÃO (CORRIGIDA)
     // =========================================================================
@@ -1354,7 +1328,7 @@
                 element.placeholder = currentTranslations[key];
             }
         });
-        
+
         // 3. Traduzir Títulos (Tooltips)
         document.querySelectorAll('[data-translate-title]').forEach(element => {
             const key = element.getAttribute('data-translate-title');
@@ -1362,13 +1336,14 @@
                 element.title = currentTranslations[key];
             }
         });
-        
+
         // 4. Força a atualização do estado visual e do timer, que depende do idioma
+        // Esta é a principal correção para o bug de idioma (chamar updateCreditsDisplay e cooldown)
         if (sessionStorage.getItem(IS_LOGGED_KEY) === 'true' || document.getElementById('painelArea').style.display === 'block') {
             updateCreditsDisplay();
             if(credits === 0) updateCooldownDisplay();
         }
-        
+
         // 5. Atualizar o estado do Chatbot se estiver aberto para carregar o menu no idioma correto
         if (document.getElementById('chatbot-container').style.display === 'flex') {
             const chatBody = document.getElementById('chatbot-messages');
@@ -1376,7 +1351,7 @@
             showInitialMenu(); 
         }
     }
-    
+
     function changeLanguage(selectElement) {
         const lang = selectElement.value;
         currentLang = lang;
@@ -1391,16 +1366,15 @@
         if (langSelect) {
             langSelect.value = currentLang;
         }
-        
-        // CORREÇÃO: Garante que os créditos nunca excedam o máximo ao carregar
+
         if (credits > DEFAULT_CREDITS) credits = DEFAULT_CREDITS;
-        
+
         initMatrix(); 
-        
+
         if(sessionStorage.getItem(IS_LOGGED_KEY) === 'true') {
             showPanel(true);
         }
-        
+
         updateContent(currentLang);
         startServerStatusUpdater();
         renderLogs();
@@ -1411,7 +1385,7 @@
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const osc = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
-        
+
         osc.connect(gainNode);
         gainNode.connect(audioCtx.destination);
 
@@ -1454,9 +1428,9 @@
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
-        
+
         let icon = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-circle-xmark' : 'fa-triangle-exclamation');
-        
+
         toast.innerHTML = `<i class="fa-solid ${icon}" style="color:${type === 'error' ? '#ff5555' : 'var(--neon-green)'}"></i> <span>${msg}</span>`;
         container.appendChild(toast);
 
@@ -1468,7 +1442,7 @@
             setTimeout(() => toast.remove(), 500);
         }, 3500);
     }
-    
+
     function initMatrix() {
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -1528,14 +1502,14 @@
         const pass = document.getElementById('passInput').value;
         const loading = document.getElementById('loadingMsg');
         const msg = document.getElementById('loginMsg');
-        
+
         msg.style.display = 'none';
         loading.style.display = 'block';
 
         setTimeout(() => {
             if (btoa(user) === AUTH_USER_HASH && btoa(pass) === AUTH_PASS_HASH) {
                 sessionStorage.setItem(IS_LOGGED_KEY, 'true');
-                
+
                 showToast(currentTranslations.toastSuccessLogin, "success");
                 addLog(`Login realizado pelo usuário ${user}`);
                 showPanel();
@@ -1549,12 +1523,12 @@
             }
         }, 1500);
     }
-    
+
     function buyVIP(plan) {
         playSound('success');
         localStorage.setItem(USER_PLAN_KEY, plan);
         userPlan = plan;
-        
+
         credits = DEFAULT_CREDITS; 
         cooldownEndTimestamp = 0;
         localStorage.setItem(COOLDOWN_KEY, 0); 
@@ -1562,7 +1536,7 @@
 
         showToast(currentTranslations.toastSuccessVip, "success");
         addLog(`Upgrade: Plano ${plan} ativado. Créditos Ilimitados!`);
-        
+
         showPanel(true);
         closeModal('vipModal');
     }
@@ -1572,7 +1546,7 @@
         const loginArea = document.getElementById('loginArea');
         const preLogin = document.getElementById('preLoginCards');
         const panelArea = document.getElementById('painelArea');
-        
+
         const username = atob(AUTH_USER_HASH).replace('@', '');
         document.getElementById('header-user').innerText = username;
         document.getElementById('drop-user').innerText = atob(AUTH_USER_HASH);
@@ -1612,31 +1586,31 @@
 
         userPlanStatus.innerText = userPlan.replace('VIP_', ''); 
         userPlanStatus.style.color = userPlan === 'FREE' ? 'var(--neon-purple)' : 'var(--neon-green)';
-        
+
         let creditsText = credits;
         if (userPlan.includes('VIP')) {
             creditsText = currentTranslations.noCreditsFeature1.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\(.*\)/g, '').trim() || 'Ilimitado'; 
         }
-        
+
         creditsVal.innerText = creditsText;
 
         if (panelCreditsStatus) panelCreditsStatus.innerText = creditsText;
         if (panelCredits) panelCredits.innerText = DEFAULT_CREDITS;
         if (planWarning) planWarning.style.display = userPlan === 'FREE' ? 'block' : 'none';
-        
+
         localStorage.setItem(CREDITS_KEY, credits); 
-        
+
         updateCooldownDisplay(); 
     }
-    
+
     function showUpgradePrompt() {
         if (userPlan.includes('VIP')) return;
-        
+
         const now = Math.floor(Date.now() / 1000);
         const timeRemaining = cooldownEndTimestamp - now;
         const messageElement = document.getElementById('cooldown-message');
         const rechargeBtn = document.getElementById('no-credits-recharge-btn');
-        
+
         rechargeBtn.style.display = 'none';
 
         if (timeRemaining > 0) {
@@ -1646,7 +1620,7 @@
             const timeStr = [hours, minutes, seconds]
                 .map(v => v < 10 ? "0" + v : v)
                 .join(":");
-            
+
             messageElement.innerHTML = currentTranslations.cooldownMessageFree(timeStr);
         } else {
             messageElement.innerHTML = currentTranslations.cooldownMessageReady;
@@ -1656,66 +1630,57 @@
         document.getElementById('noCreditsModal').style.display = 'block';
         playSound('error');
     }
-    
+
     function resetCredits(isManual = false) {
         if (userPlan.includes('VIP')) return; 
-        
+
         const now = Math.floor(Date.now() / 1000);
-        
-        // 1. Impede a recarga se os créditos já estão cheios.
+
+        // CORREÇÃO: Impede a recarga se os créditos já estão cheios, ou se o cooldown não expirou.
         if (credits === DEFAULT_CREDITS) {
             showToast(currentTranslations.toastWarningCreditsFull, "warning");
             closeModal('noCreditsModal'); 
             return;
         }
 
-        // 2. Verifica se o cooldown expirou para conceder o BÔNUS ÚNICO
         if (cooldownEndTimestamp <= now) {
             // Recarga concedida (boost bônus)
             credits = DEFAULT_CREDITS;
-            
-            // O cooldown *não* é zerado para o futuro, mas sim para o valor de uma recarga
-            // que acabou de ser usada (ou seja, não pode recarregar de novo)
-            cooldownEndTimestamp = now + COOLDOWN_DURATION; 
-            localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
+
+            // CORREÇÃO: A chave COOLDOWN_KEY deve ser zerada para que o botão não reapareça
+            // até que o usuário use os créditos e o cooldown seja iniciado novamente.
+            cooldownEndTimestamp = 0; 
+            localStorage.setItem(COOLDOWN_KEY, 0);
             localStorage.setItem(CREDITS_KEY, DEFAULT_CREDITS); 
-            
+
             updateCreditsDisplay(); 
             showToast(currentTranslations.toastSuccessCreditsRecharged, "success");
-            addLog('Sistema: Recarga de créditos concluída ' + (isManual ? 'manualmente (BÔNUS).' : 'automaticamente.'));
+            addLog('Sistema: Recarga de créditos concluída ' + (isManual ? 'manualmente.' : 'automaticamente.'));
             closeModal('noCreditsModal'); 
         } else {
-            // Se o botão for clicado antes do tempo (o que é improvável se estiver escondido, mas por segurança)
-            showToast(currentTranslations.cooldownMessageFree(formatTime(cooldownEndTimestamp - now)), "warning");
+            // Essa lógica não deve ser chamada se o botão estiver escondido, mas serve como fallback
+            showToast(currentTranslations.toastWarningCreditsFull, "warning");
         }
     }
-    
-    function formatTime(seconds) {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-        return [hours, minutes, secs]
-            .map(v => v < 10 ? "0" + v : v)
-            .join(":");
-    }
+
 
     function updateCooldownDisplay() {
         const now = Math.floor(Date.now() / 1000);
         let timeRemaining = cooldownEndTimestamp - now;
-        
+
         const timerElement = document.getElementById('cooldown-timer');
         const statusElement = document.getElementById('credits-status');
         const labelElement = document.getElementById('cooldown-label');
         const rechargeBtnDropdown = document.getElementById('recharge-btn-dropdown');
         const rechargeBtnPanel = document.getElementById('recharge-btn-panel');
-        
+
         if (!timerElement || !statusElement) return; 
 
         if (cooldownInterval) clearInterval(cooldownInterval); 
-        
+
         rechargeBtnDropdown.style.display = 'none';
         rechargeBtnPanel.style.display = 'none';
-        
+
         if (userPlan.includes('VIP')) {
             timerElement.innerText = "BYPASS ATIVO";
             if (labelElement) labelElement.innerText = "Status:";
@@ -1723,28 +1688,32 @@
             return; 
         }
 
+        // Lógica para recarregar automaticamente se o cooldown expirou e o painel foi carregado
+        if (credits === 0 && cooldownEndTimestamp <= now && cooldownEndTimestamp !== 0) {
+            resetCredits(false); 
+            return;
+        }
+
         if (credits > 0) {
             timerElement.innerText = "CHEIO";
             if (labelElement) labelElement.innerText = "Status:";
             statusElement.style.color = 'var(--neon-green)';
-            
-            // CORREÇÃO: Se os créditos estão cheios, o cooldown deve ser considerado expirado
-            // para que a próxima queda de crédito inicie um novo ciclo de 4h.
             if (cooldownEndTimestamp !== 0 && cooldownEndTimestamp > now) {
-                 cooldownEndTimestamp = 0;
-                 localStorage.setItem(COOLDOWN_KEY, 0);
+                // Isso deve ser prevenido pelo uso do resetCredits (cooldown deve ser 0 quando creditos > 0)
+                cooldownEndTimestamp = 0;
+                localStorage.setItem(COOLDOWN_KEY, 0);
             }
         }
-        
+
         if (credits === 0) {
             if (timeRemaining <= 0) {
-                 // **Estado 1: Recarga Pronta (Botão visível - Bônus disponível)**
+                 // **Estado 1: Recarga Pronta (Botão visível)**
                 timerElement.innerText = currentTranslations.rechargeNowButton.replace('<i class="fa-solid fa-arrows-rotate"></i> ', ''); 
                 if (labelElement) labelElement.innerText = "Status:";
                 statusElement.style.color = 'var(--neon-green)';
                 rechargeBtnDropdown.style.display = 'block'; 
                 rechargeBtnPanel.style.display = 'block'; 
-                
+
             } else {
                 // **Estado 2: Cooldown Ativo**
                 const updateTimer = () => {
@@ -1754,23 +1723,29 @@
                         updateCooldownDisplay(); 
                         return;
                     }
-                    const timeStr = formatTime(currentRemaining);
+                    const hours = Math.floor(currentRemaining / 3600);
+                    const minutes = Math.floor((currentRemaining % 3600) / 60);
+                    const seconds = currentRemaining % 60;
+
+                    const timeStr = [hours, minutes, seconds]
+                        .map(v => v < 10 ? "0" + v : v)
+                        .join(":");
 
                     timerElement.innerText = timeStr;
                     if (labelElement) labelElement.innerText = currentTranslations.rechargeInLabel;
                     statusElement.style.color = '#ffaa00';
                 };
-                
+
                 updateTimer(); 
                 cooldownInterval = setInterval(updateTimer, 1000); 
             }
         }
     }
-    
+
     function startCooldown() {
         if (userPlan.includes('VIP')) return; 
         const now = Math.floor(Date.now() / 1000);
-        // O cooldown só inicia se o tempo de espera não estiver ATIVO (maior que now)
+        // Só inicia o cooldown se ele não estiver ativo (para garantir que a contagem seja de 4h)
         if (cooldownEndTimestamp <= now) { 
             cooldownEndTimestamp = now + COOLDOWN_DURATION;
             localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
@@ -1778,21 +1753,20 @@
             addLog('Sistema: Cooldown de recarga iniciado (4h).');
         }
     }
-    
+
     function checkCredits(cost) {
         if (userPlan.includes('VIP')) return true;
-        
+
         const now = Math.floor(Date.now() / 1000);
-        
+
         if (credits === 0 && cooldownEndTimestamp <= now) {
-            // Se o cooldown expirou e o usuário tentou usar um crédito, reinicia (auto-reset)
             resetCredits(false); 
         }
-        
+
         if (credits >= cost) {
             credits -= cost;
             updateCreditsDisplay(); 
-            
+
             if (credits < cost && credits > 0) {
                 showToast(currentTranslations.creditsAvailablePrefix + ` ${credits} ` + currentTranslations.creditsAvailableSuffix, "warning");
             }
@@ -1838,7 +1812,7 @@
         }
         type();
     }
-    
+
     const appealTexts = {
         'pt': {
             whatsapp: [
@@ -1884,11 +1858,11 @@
 
         setTimeout(() => {
             let lista = appealTexts[currentLang] && appealTexts[currentLang][tipo];
-            
+
             if (!lista || lista.length === 0) {
                 lista = appealTexts['pt'][tipo];
             }
-            
+
             if (!lista || lista.length === 0) {
                 box.innerHTML = `<span style="color:#ff5555">${currentTranslations['errorTextNotFound'] || 'Error: Appeal texts not found.'}</span>`;
                 addLog(`Erro: Textos para ${tipo} ausentes.`);
@@ -1897,13 +1871,13 @@
             }
 
             const texto = lista[Math.floor(Math.random() * lista.length)];
-            
+
             box.innerHTML = ''; 
             typeWriter(box, texto);
             addLog(`Gerador: Texto para ${tipo} criado (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1000);
     }
-    
+
     function gerarEmailTemporario() {
         playSound('click');
         const box = document.getElementById('res-tempmail');
@@ -1912,7 +1886,7 @@
         if (!checkCredits(cost)) {
             return;
         }
-        
+
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Criando endereço anônimo...',
@@ -1925,7 +1899,7 @@
             const domains = ['anonmail.net', 'temp-inbox.xyz', 'safe.org'];
             const randomString = Math.random().toString(36).substring(2, 10);
             const email = `${randomString}@${domains[Math.floor(Math.random() * domains.length)]}`;
-            
+
             const warningText = {
                 'pt': 'E-mail ativo por 10 minutos.', 
                 'en': 'Email active for 10 minutes.', 
@@ -1939,13 +1913,13 @@
 
             box.innerHTML = `<span style="color:var(--card-tempmail); font-weight:bold;">${email}</span>
                             <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:var(--color-text-dim);">${warningText}</span>`;
-            
+
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
             btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
             btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${email}')"> ${copyButtonText}</i>`;
             box.appendChild(btnDiv);
-            
+
             playSound('success');
             addLog(`Gerador: E-mail temporário gerado: ${email.substring(0, 4)}...@${email.split('@')[1]} (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1500);
@@ -1959,7 +1933,7 @@
         if (!checkCredits(cost)) {
             return;
         }
-        
+
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Gerando documento...',
@@ -1972,7 +1946,7 @@
             function generateCpf() {
                 const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
                 const mod = (dividendo) => 11 - (dividendo % 11);
-                
+
                 let cpf = Array(9).fill(0).map(() => rand(0, 9)).join('');
 
                 const calcDigit = (slice, factor = 10) => {
@@ -1992,9 +1966,9 @@
 
                 return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
             }
-            
+
             const cpfGerado = generateCpf();
-            
+
             const warningText = {
                 'pt': 'Uso apenas para testes de validação.', 
                 'en': 'Use only for validation tests.', 
@@ -2008,7 +1982,7 @@
 
             box.innerHTML = `<span style="color:var(--card-doc); font-weight:bold;">${cpfGerado}</span>
                             <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:var(--color-text-dim);">${warningText}</span>`;
-            
+
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
             btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
@@ -2019,7 +1993,7 @@
             addLog(`Gerador: CPF gerado: ${cpfGerado.substring(0, 3)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1200);
     }
-    
+
     function gerarCC() {
         playSound('click');
         const box = document.getElementById('res-ccgen');
@@ -2028,7 +2002,7 @@
         if (!checkCredits(cost)) {
             return;
         }
-        
+
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Gerando Cartão...',
@@ -2052,15 +2026,15 @@
                     }
                     return sum + d;
                 }, 0) % 10)) % 10;
-                
+
                 cc = cc.substring(0, 15) + lastDigit;
                 return cc.replace(/(\d{4})/g, '$1 ').trim();
             }
-            
+
             const ccGerado = generateLuhnCC();
             const venc = `0${Math.floor(Math.random() * 9) + 1}/${Math.floor(Math.random() * 5) + 26}`;
             const cvv = Math.floor(100 + Math.random() * 900);
-            
+
             const warningText = {
                 'pt': 'Uso apenas para testes de validação de campo.', 
                 'en': 'Use only for field validation tests.', 
@@ -2076,7 +2050,7 @@
             box.innerHTML = `<span style="color:var(--card-cc); font-weight:bold;">${ccGerado}</span>
                             <br>Vencimento: ${venc} | CVV: ${cvv}
                             <br><i class="fa-solid fa-triangle-exclamation" style="color:#ffaa00; font-size:10px;"></i> <span style="font-size:11px; color:var(--color-text-dim);">${warningText}</span>`;
-            
+
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
             btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
@@ -2087,7 +2061,7 @@
             addLog(`Gerador: CC gerado: ${ccGerado.substring(0, 4)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1500);
     }
-    
+
     function localizarIP() {
         playSound('click');
         const ipOrLink = document.getElementById('ipInput').value;
@@ -2117,27 +2091,27 @@
             const provider = ['AWS', 'CloudFlare', 'VIVO', 'NET', 'Starlink'][Math.floor(Math.random() * 5)];
             const lat = (Math.random() * 90).toFixed(4);
             const long = (Math.random() * 180).toFixed(4);
-            
+
             const langMap = {
                 'pt': { result: 'RESULTADO RASTREIO', location: 'Local', provider: 'Provedor', coords: 'Coords' },
                 'en': { result: 'TRACKING RESULT', location: 'Location', provider: 'Provider', coords: 'Coords' },
                 'es': { result: 'RESULTADO RASTREO', location: 'Ubicación', provider: 'Proveedor', coords: 'Coordenadas' }
             }[currentLang];
-            
+
             const resultText = `<span style="color:var(--card-geo); font-weight:bold;">[${langMap.result}]</span><br>
                                 IP/Host: ${ipOrLink}<br>
                                 ${langMap.location}: ${city} (${currentLang.toUpperCase()})<br>
                                 ${langMap.provider}: ${provider}<br>
                                 ${langMap.coords}: Lat ${lat}, Long -${long}`;
-            
+
             box.innerHTML = resultText;
-            
+
             const copyButtonText = {
                 'pt': 'Copiar Dados Chave', 
                 'en': 'Copy Key Data', 
                 'es': 'Copiar Datos Clave'
             }[currentLang];
-            
+
             const btnDiv = document.createElement('div');
             btnDiv.style.marginTop = '5px';
             btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
@@ -2204,15 +2178,15 @@
         const chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789!@#$%&*";
         let pass = "";
         for(let i=0; i<16; i++) pass += chars.charAt(Math.floor(Math.random()*chars.length));
-        
+
         box.innerHTML = `<span style="color:var(--neon-green)">${pass}</span>`;
-        
+
         const copyButtonText = {
             'pt': 'Copiar', 
             'en': 'Copy', 
             'es': 'Copiar'
         }[currentLang];
-        
+
         const btnDiv = document.createElement('div');
         btnDiv.style.marginTop = '5px';
         btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
@@ -2228,9 +2202,9 @@
         const url = document.getElementById('urlInput').value;
         const box = document.getElementById('res-scanner');
         box.style.display = 'block';
-        
+
         if(!url) { showToast(currentTranslations.toastErrorNoURL, "error"); box.innerHTML = ''; return; }
-        
+
         const loadingText = {
             'pt': 'Analisando headers...',
             'en': 'Analyzing headers...',
@@ -2239,10 +2213,10 @@
         box.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText} `;
         setTimeout(() => {
             const isSuspicious = Math.random() > 0.7; 
-            
+
             let resultText;
             let logMessage;
-            
+
             if (isSuspicious) {
                 const dangerText = { 'pt': 'PERIGO: Link Suspeito!', 'en': 'DANGER: Suspicious Link!', 'es': 'PELIGRO: ¡Enlace Sospechoso!' }[currentLang];
                 resultText = `<span style="color:#ff5555"><i class="fa-solid fa-triangle-exclamation"></i> ${dangerText}</span>`; 
@@ -2254,14 +2228,14 @@
                 logMessage = `Scanner: URL verificada como segura: ${url}`;
                 playSound('success');
             }
-            
+
             box.innerHTML = resultText;
             addLog(logMessage);
         }, 1500);
     }
 
     // ------------------- CHATBOT LÓGICA (Mantido) -------------------
-    
+
     function addBotMessage(text, buttons = null) {
         const chatBody = document.getElementById('chatbot-messages');
         const messageDiv = document.createElement('div');
@@ -2299,7 +2273,7 @@
 
     function showInitialMenu() {
         const user = document.getElementById('drop-user').innerText;
-        
+
         if (userPlan.includes('VIP')) {
             const vipText = currentTranslations.chatbotInitialGreetingVIP(user);
             const vipButtons = [
@@ -2310,7 +2284,7 @@
             addBotMessage(vipText, vipButtons);
         } else {
             const freeText = currentTranslations.chatbotInitialGreetingFree(user, credits, DEFAULT_CREDITS);
-            
+
             const freeButtons = [
                 { text: currentTranslations.chatbotUpgradeNowButton, action: "openVIP" },
                 { text: currentTranslations.chatbotWhatIsVipButton, action: "showBenefits" },
@@ -2319,7 +2293,7 @@
             addBotMessage(freeText, freeButtons);
         }
     }
-    
+
     function showUnbanMenu() {
         const toolButtons = [
             { text: currentTranslations.chatbotUnbanZapButton, action: "useTool:whatsapp" },
@@ -2341,7 +2315,7 @@
         ];
         addBotMessage(currentTranslations.chatbotExploreTools, secButtons);
     }
-    
+
     function showSecurityTools() {
         const secButtons = [
             { text: currentTranslations.chatbotCheckMyIP, action: "useTool:checkip" },
@@ -2350,10 +2324,10 @@
         ];
         addBotMessage(currentTranslations.chatbotSecurityFree, secButtons);
     }
-    
+
     function showBenefitsMessage() {
         const benefits = currentTranslations.chatbotBenefits;
-        
+
         const buttons = [
             { text: currentTranslations.chatbotBuyVip, action: "openVIP" },
             { text: currentTranslations.chatbotBackToMainMenu, action: "initialMenu" }
@@ -2395,7 +2369,7 @@
                 addBotMessage(currentTranslations.chatbotTextGenerated(toolType));
             }
         }
-        
+
         if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
              setTimeout(showUnbanMenu, 2500);
         } else if (['tempmail', 'cpfgen', 'ccgen', 'ipgeo'].includes(toolType)) {
@@ -2442,7 +2416,7 @@
         playSound('click');
         const chatbot = document.getElementById('chatbot-container');
         chatbot.style.display = 'flex';
-        
+
         const chatBody = document.getElementById('chatbot-messages');
         chatBody.innerHTML = ''; 
         showInitialMenu(); 
@@ -2472,7 +2446,7 @@
     function openLogsModal() { document.getElementById('logsModal').style.display = 'block'; }
     function openSupportModal() { document.getElementById('supportModal').style.display = 'block'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; } 
-    
+
     function startSessionTimer() {
         setInterval(() => {
             secondsOnline++;
@@ -2491,3 +2465,4 @@
   </script>
 </body>
 </html>
+
