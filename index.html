@@ -42,9 +42,16 @@
         --card-geo-glow: rgba(255, 0, 80, 0.3);
         --card-cc: #ffaa00; /* NOVO CC/BIN */
         --card-cc-glow: rgba(255, 170, 0, 0.3);
-        /* NOVO CARD: App Pagando */
-        --card-app: #7f00ff; 
+        --card-app: #7f00ff; /* App Pagando */
         --card-app-glow: rgba(127, 0, 255, 0.3);
+        /* NOVOS CARDS ADICIONADOS */
+        --card-data-checker: #00AAFF; /* Azul claro para checagem */
+        --card-data-checker-glow: rgba(0, 170, 255, 0.3);
+        --card-pix: #FF00FF; /* Rosa Cyber para PIX */
+        --card-pix-glow: rgba(255, 0, 255, 0.3);
+        --card-logger: #39FF14; /* Verde neon choque para Logger */
+        --card-logger-glow: rgba(57, 255, 20, 0.3);
+
 
         /* Variáveis de Cinza para limpeza */
         --color-black: #050505; 
@@ -98,6 +105,36 @@
         80% { transform: translate(-0.5px, -0.5px) rotate(-0.2deg); }
         100% { transform: translate(0, 0) rotate(0); }
     }
+    /* NOVO: Progresso Cooldown Animado */
+    @keyframes loading-progress { 0% { width: 0%; } 100% { width: 100%; } }
+
+    /* Estilo para a barra de progresso do Cooldown */
+    .cooldown-progress-bar {
+        height: 8px;
+        width: 100%;
+        background: var(--color-dark-gray);
+        border-radius: 4px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+    .cooldown-progress-fill {
+        height: 100%;
+        background: var(--neon-green); 
+        transition: width 1s linear;
+        border-radius: 4px;
+    }
+    .cooldown-status-led {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        margin-right: 8px;
+        display: inline-block;
+        box-shadow: 0 0 5px currentColor;
+        animation: pulse 1.5s infinite;
+    }
+    /* Cores do LED (Para uso em cards) */
+    .led-green { background: var(--neon-green); color: var(--neon-green); }
+    .led-yellow { background: var(--card-cc); color: var(--card-cc); }
+    .led-red { background: #ff5555; color: #ff5555; }
 
     /* ------------------------------------------- */
     /* 2. CHATBOT FLUTUANTE                        */
@@ -149,6 +186,15 @@
     }
     .chat-bot { background: #2a3942; color: #fff; align-self: flex-start; }
     .chat-user { background: #005c4b; color: #fff; align-self: flex-end; }
+    .chat-bot-card { /* Estilo para o mini-card de resultado no chat */
+        background: var(--color-black); 
+        border: 1px solid rgba(0, 255, 157, 0.3);
+        padding: 10px;
+        border-radius: 6px;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #fff;
+    }
 
     .chatbot-interactive {
         display: flex; flex-direction: column; gap: 5px; margin-top: 5px;
@@ -374,6 +420,22 @@
         /* APRIMORAMENTO 2: Animação mais dinâmica */
         transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+    /* NOVO: Estilo para o LED de Status no card */
+    .card-status {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        box-shadow: 0 0 5px currentColor;
+    }
+    .card-status.online { background-color: var(--neon-green); color: var(--neon-green); animation: pulse-green 2s infinite; }
+    .card-status.warning { background-color: var(--card-cc); color: var(--card-cc); animation: pulse 1s infinite; }
+    .card-status.offline { background-color: #ff5555; color: #ff5555; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 currentColor; } 70% { box-shadow: 0 0 0 8px rgba(0, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); } }
+
+
     /* APRIMORAMENTO 2: Hover mais agressivo */
     .card:hover { transform: translateY(-10px) rotateZ(0.5deg); border-color: var(--card-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--card-glow); animation: subtleGlitch 0.5s ease-in-out; }
 
@@ -386,10 +448,13 @@
     .card.tempmail { --card-color: var(--card-tempmail); --card-glow: var(--card-tempmail-glow); }
     .card.docgen { --card-color: var(--card-doc); --card-glow: var(--card-doc-glow); }
     .card.geolocation { --card-color: var(--card-geo); --card-glow: var(--card-geo-glow); }
-    /* NOVO CARD: CC Generator */
     .card.ccgen { --card-color: var(--card-cc); --card-glow: var(--card-cc-glow); }
-    /* NOVO CARD: App Pagando */
     .card.app-paying { --card-color: var(--card-app); --card-glow: var(--card-app-glow); }
+    /* NOVOS CARDS CSS */
+    .card.data-checker { --card-color: var(--card-data-checker); --card-glow: var(--card-data-checker-glow); }
+    .card.pix-generator { --card-color: var(--card-pix); --card-glow: var(--card-pix-glow); }
+    .card.link-logger { --card-color: var(--card-logger); --card-glow: var(--card-logger-glow); }
+
 
     .card-icon { font-size: 40px; margin-bottom: 15px; color: var(--card-color); }
     /* APRIMORAMENTO 1: Glow nos títulos H3 */
@@ -501,7 +566,21 @@
   <canvas id="matrixCanvas"></canvas>
 
   <div id="toast-container"></div>
-
+  
+  <div id="criticalUpdateModal" class="modal">
+    <div class="modal-content">
+      <h2 style="color:var(--neon-green);"><i class="fa-solid fa-microchip"></i> ATUALIZAÇÃO DE KERNEL 2.1</h2>
+      <p>O Sistema Over acaba de receber um patch de segurança **Crítico**. Todas as ferramentas estão operacionais com otimização de 15%.</p>
+      <div class="log-container" style="color:var(--neon-blue);">
+        <div class="log-item">[KERNEL] New Data Protocols loaded.</div>
+        <div class="log-item">[SECURITY] VIP Bypass vulnerability fixed.</div>
+        <div class="log-item">[AI] Engine v3.0 deployed successfully.</div>
+      </div>
+      <button class="btn-dropdown btn-upgrade" style="background:var(--neon-green); color:#000; margin-top:20px;" onclick="closeModal('criticalUpdateModal')">
+        <i class="fa-solid fa-check"></i> ENTENDIDO
+      </button>
+    </div>
+  </div>
   <div id="noCreditsModal" class="modal" data-translate-group="noCreditsModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('noCreditsModal')">&times;</span>
@@ -618,7 +697,12 @@
             <i class="fa-solid fa-triangle-exclamation"></i> <span data-translate="freePlanWarning">Seu plano é **FREE**! Limite:</span> <strong style="color:var(--neon-green)" id="panel-credits">20</strong> <span data-translate="credits">Créditos.</span>
         </p>
         <p data-translate="creditsAvailablePrefix">Você tem <strong style="color:var(--neon-green)" id="panel-credits-status">20</strong> <span data-translate="creditsAvailableSuffix">créditos disponíveis.</span></p>
-        <p style="font-size:12px; color:var(--color-text-off);" id="credits-status">
+        
+        <div class="cooldown-progress-bar" id="cooldown-progress-bar-container">
+             <div class="cooldown-progress-fill" id="cooldown-progress-fill"></div>
+        </div>
+
+        <p style="font-size:12px; color:var(--color-text-off); margin-top:5px;" id="credits-status">
             <span id="cooldown-label" data-translate="rechargeInLabel">Recarga em:</span> <b><span id="cooldown-timer">--:--:--</span></b>
         </p>
 
@@ -632,6 +716,7 @@
     <div class="grid-cards">
         
         <div class="card app-paying">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
             <h3 data-translate="appPayingTitle">App Pagando por Convite</h3>
             <p data-translate="appPayingDesc">Acesse a plataforma de renda extra com convite. Link direto ou canal de apoio.</p>
@@ -644,90 +729,136 @@
         </div>
 
         <div class="card whatsapp">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-brands fa-whatsapp"></i></div>
             <h3 data-translate="unbanZapTitle">Desbanir Zap</h3>
             <p data-translate="unbanZapDesc">Gere textos de engenharia social para recuperar números. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('whatsapp')" data-translate="executeIAButton">Executar IA</button>
+            <button class="action-btn" onclick="executarAcaoCard('whatsapp', 'gerarTexto')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-whatsapp"></div>
         </div>
 
         <div class="card tiktok">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-brands fa-tiktok"></i></div>
             <h3 data-translate="recoverTikTokTitle">Recuperar TikTok</h3>
             <p data-translate="recoverTikTokDesc">Apelação otimizada para contas suspensas. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('tiktok')" data-translate="executeIAButton">Executar IA</button>
+            <button class="action-btn" onclick="executarAcaoCard('tiktok', 'gerarTexto')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-tiktok"></div>
         </div>
 
         <div class="card game">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
             <h3 data-translate="unbanGamesTitle">Unban Games</h3>
             <p data-translate="unbanGamesDesc">Textos para Free Fire e outros jogos. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarTexto('game')" data-translate="executeIAButton">Executar IA</button>
+            <button class="action-btn" onclick="executarAcaoCard('game', 'gerarTexto')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-game"></div>
+        </div>
+        
+        <div class="card data-checker">
+            <span class="card-status warning"></span>
+            <div class="card-icon"><i class="fa-solid fa-database"></i></div>
+            <h3 data-translate="dataCheckerTitle">Data Checker (CPF/Email)</h3>
+            <p data-translate="dataCheckerDesc">Simula a checagem de documentos/emails em bases de dados (VIP/5 Créditos)</p>
+            <input type="text" id="dataInput" class="scanner-input" data-translate-placeholder="dataCheckerPlaceholder">
+            <button class="action-btn" onclick="executarAcaoCard('data-checker', 'checarDados')" data-translate="checkDataButton">
+                <i class="fa-solid fa-magnifying-glass-chart"></i> Checar Dados
+            </button>
+            <div class="result-box" id="res-data-checker" style="color:var(--card-data-checker); font-weight:bold;"></div>
         </div>
 
         <div class="card ccgen">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-credit-card"></i></div>
             <h3 data-translate="ccGeneratorTitle">Gerador CC/BIN</h3>
             <p data-translate="ccGeneratorDesc">Gere números de cartão válidos (algoritmo Luhn) para testes de sistemas. (3 Créditos)</p>
-            <button class="action-btn" onclick="gerarCC()" data-translate="generateCCButton">
+            <button class="action-btn" onclick="executarAcaoCard('ccgen', 'gerarCC')" data-translate="generateCCButton">
                 <i class="fa-solid fa-barcode"></i> Gerar CC Válido
             </button>
             <div class="result-box" id="res-ccgen" style="color:var(--card-cc); font-weight:bold;"></div>
         </div>
 
         <div class="card tempmail">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-at"></i></div>
             <h3 data-translate="tempEmailTitle">E-mail Temp</h3>
             <p data-translate="tempEmailDesc">Gere e-mails descartáveis para cadastros rápidos e anônimos. (2 Créditos)</p>
-            <button class="action-btn" onclick="gerarEmailTemporario()" data-translate="generateEmailButton">
+            <button class="action-btn" onclick="executarAcaoCard('tempmail', 'gerarEmailTemporario')" data-translate="generateEmailButton">
                 <i class="fa-solid fa-envelope-circle-check"></i> Gerar E-mail
             </button>
             <div class="result-box" id="res-tempmail"></div>
         </div>
 
         <div class="card docgen">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-address-card"></i></div>
             <h3 data-translate="cpfGeneratorTitle">Gerador CPF</h3>
             <p data-translate="cpfGeneratorDesc">Gere um número de CPF válido para testes de sistemas. (1 Crédito)</p>
-            <button class="action-btn" onclick="gerarCPF()" data-translate="generateCPFButton">
+            <button class="action-btn" onclick="executarAcaoCard('cpf', 'gerarCPF')" data-translate="generateCPFButton">
                 <i class="fa-solid fa-barcode"></i> Gerar CPF Válido
             </button>
             <div class="result-box" id="res-cpf" style="color:var(--neon-blue); font-weight:bold;"></div>
         </div>
 
         <div class="card geolocation">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-satellite-dish"></i></div>
             <h3 data-translate="ipLocatorTitle">IP/GPS Locator</h3>
             <p data-translate="ipLocatorDesc">Rastreie a localização aproximada de um IP ou Link. (3 Créditos)</p>
             <input type="text" id="ipInput" class="scanner-input" data-translate-placeholder="ipLinkPlaceholder">
-            <button class="action-btn" onclick="localizarIP()" data-translate="startTrackingButton">
+            <button class="action-btn" onclick="executarAcaoCard('ipgeo', 'localizarIP')" data-translate="startTrackingButton">
                 <i class="fa-solid fa-crosshairs"></i> Iniciar Rastreio
             </button>
             <div class="result-box" id="res-ipgeo"></div>
         </div>
+        
+        <div class="card pix-generator">
+            <span class="card-status online"></span>
+            <div class="card-icon"><i class="fa-solid fa-qrcode"></i></div>
+            <h3 data-translate="pixGeneratorTitle">Gerador PIX (Fake)</h3>
+            <p data-translate="pixGeneratorDesc">Gere códigos PIX simulados com chaves aleatórias. (2 Créditos)</p>
+            <input type="text" id="pixValueInput" class="scanner-input" data-translate-placeholder="pixValuePlaceholder" value="10.00">
+            <button class="action-btn" onclick="executarAcaoCard('pix-generator', 'gerarPIX')" data-translate="generatePIXButton">
+                <i class="fa-solid fa-bolt"></i> Gerar PIX Rápido
+            </button>
+            <div class="result-box" id="res-pix-generator" style="color:var(--card-pix); font-weight:bold;"></div>
+        </div>
+
+        <div class="card link-logger">
+            <span class="card-status online"></span>
+            <div class="card-icon"><i class="fa-solid fa-link-slash"></i></div>
+            <h3 data-translate="linkLoggerTitle">Link Logger (IP Tracker)</h3>
+            <p data-translate="linkLoggerDesc">Crie um link camuflado que simula o registro do IP de quem clicar. (1 Crédito)</p>
+            <input type="text" id="linkLoggerInput" class="scanner-input" data-translate-placeholder="linkLoggerPlaceholder">
+            <button class="action-btn" onclick="executarAcaoCard('link-logger', 'gerarLinkLogger')" data-translate="generateLinkLoggerButton">
+                <i class="fa-solid fa-bug"></i> Criar Link Logger
+            </button>
+            <div class="result-box" id="res-link-logger" style="color:var(--card-logger); font-weight:bold;"></div>
+        </div>
+
 
         <div class="card scanner">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
             <h3 data-translate="urlScannerTitle">Scanner URL</h3>
             <p data-translate="urlScannerDesc">Verifique links suspeitos (Phishing/Malware).</p>
             <input type="url" id="urlInput" class="scanner-input" placeholder="https://site.com">
-            <button class="action-btn" onclick="analisarURL()" data-translate="scanButton">
+            <button class="action-btn" onclick="executarAcaoCard('scanner', 'analisarURL')" data-translate="scanButton">
                 <i class="fa-solid fa-radar"></i> Escanear
             </button>
             <div class="result-box" id="res-scanner" style="font-weight:bold;"></div>
         </div>
 
         <div class="card tool">
+            <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
             <h3 data-translate="securityToolsTitle">Security Tools</h3>
             <p data-translate="securityToolsDesc">Ferramentas de análise de ambiente.</p>
 
-            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="mostrarIP()" data-translate="checkIPButton">
+            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="executarAcaoCard('tool', 'mostrarIP')" data-translate="checkIPButton">
                 <i class="fa-solid fa-network-wired"></i> Checar IP
             </button>
-            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="gerarSenhaSegura()" data-translate="strongPasswordButton">
+            <button class="action-btn" style="margin-top:5px; font-size:12px;" onclick="executarAcaoCard('tool', 'gerarSenhaSegura')" data-translate="strongPasswordButton">
                 <i class="fa-solid fa-key"></i> Senha Forte
             </button>
 
@@ -801,7 +932,7 @@
   <div id="chatbot-container" data-translate-group="chatbot">
       <div class="chatbot-header">
           <div class="chatbot-profile">
-              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIz.OTMyIDEuOTg4IDcuMDMzIDEuOTI2IDE0LjA0NS0uNDgyIDIxLjAwOS0xLjc2NiA1LjA5Mi0zLjQ2OCAxMC4yNC01LjkzMiAxNS4wNDktMi4zODIgNC42MzgtNS43ODEgOS4wNDQtOC4xNjYgMTQuMTIzLTEuMzY5IDcuNjg2LTMuNDg4IDE1LjUwNy0xLjA4OSAyMy4zMzUgMi4yMzggNy4yMzggNy42NSAxMy4wNjkgMTMuNjM3IDE3Ljc3OSAxOC4yOCAxNS41MDYgMzkuMDQgMTEuNzA0IDU4LjcyNyA5LjgxMSAzMy43NjctMS41NDIgNjcuNjQ2LTMuMDIzIDEwMS4xMDctNC43NTYgMTMuNTU1LS42OTYgMjcuMTk1LTEuNDAzIDQwLjY4LTIuNDEgMTMuMzE4LS45OTYgMjYuNTExLS40NTIgMzkuODAyLS44NDQgNy44NzMtLjI0NiAxNS43MzktLjYzIDIyLjA3Mi0zLjg1IDcuMjM4LTQuMjExIDEwLjgxLTM1LjQ5Ny0xOS40OTctNjEuNjQ3LTEuNTUxLTQuMzktMy41MDctOC43NTQtNS4xNzItMTMuMDcxLTQuNDktMTEuNDgyLTkuMjkyLTIyLjczNS0xMy43MjYtMzQuMTM2LTMuNDItOC45NzEtNi44MDUtMTcuOTQzLTEwLjItMjYuOTA0LTIuODMtNy45NjMtNi4wNzMtMTUuODQ4LTguMzI2LTIzLjkzMi0xLjk4OC03LjAzMy0xLjkyNi0xNC4wNDUgLjQ4Mi0yMS4wMDkgMS43NjYtNS4wOTIgMy40NjgtMTAuMjQtNS45MzItMTUuMDQ5LTIuMzgyLTQuNjM4LTUuNzgxLTkuMDQ0LTguMTY2LTE0LjEyMy0xLjM2OS03LjY4Ni0zLjQ4OC0xNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLS4yNDYgMTUuNzg5LS42MiAyMy41OC0xLjM1NyAyNS4zMS0yLjM5NiA0OC42Ny03Ljk5IDc0LjA5Ni0xNy40MTQtMS43My0zOS4wNDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLS4yNDYgMTUuNzg5LS42MiAyMy41OC0xLjM1NyAyNS4zMS0yLjM5NiA0OC42Ny03Ljk5IDc0LjA5Ni0xNy40MTQtMTQuOTMtMjkuNzExLTI2LjY2NS01OS4wNDgtMzEuMjIzLTkwLjcwMi0yLjE4OC0xNS4xMjMtMS45ODktMzAuMzM4LS42ODctNDUuNDUgMS4wOTktMTIuNjkgMy4zNjUtMjUuMzQ2IDUuMjk4LTM4LjAwMiAxLjQ5OS0xMC4yMTMtLjIyNi0yMS40MzcgNC4xMDYtMzEuNDkgNS40MjktMTAuMDA0IDEyLjgyNS0yMC4xNDYgMTkuNjktMzAuNTUgMi4wOTYtMy4wNzEgMy44NzQtNi4yNjUgNS45NTctOS41NDkgMS41OTEtMi41IDMuMzE3LTQuOTcgNC43My03LjU0NyAzLjM3Mi02LjI3IDYuMzU0LTEyLjcyMSA5Ljg4NS0xOC44NDYgNC4wNjEtNy4xMTEgOC43MTgtMTQuMDk4IDEzLjEyMi0yMS4xNDUgNS4yMjktOC4zMjUgMTEuNDYzLTE1LjY2MyAxNy4zNS0yNC4yNzEgMi42OTktNC4wNjQgNS4xNTUtOC4yNjQgNy44NTEtMTIuMjYzIDIuNjk5LTQuMDAyIDUuMjM5LTcuOTE4IDcuOTY2LTExLjY5MiA3LjQ2My0xMC41NiAxNC42NjEtMjIuNzYzIDE3LjYxNi0zNS40MDQgMS40MjgtNi4wNzIuMDk2LTEyLjU2LTEuMzEtMTguNTU5eiIgZmlsbD0iI2FhYWFhYSIvPjwvc3ZnPg==" alt="Bot AI">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkM00zMjQuNTggNy4yNDVjLTE4LjQxNSA5LjYyMy0zNy4yODEgMTkuMTMyLTU1LjA3NCAyNy42NjAtMTIuMjkgNS45MTctMjQuMTE5IDEyLjg3Mi0zMy42NjEgMjMuMDY5LTEwLjk1IDEyLjU0LTE2Ljg0NiAyOC42MDMtMTcuMzU1IDQ1LjY1LS4xNjQgNS41MDctLjI4NyAxMS4wMi0uMzggMTYuNTM3LS40NTkgMjUuNjcgMy4wMyA1MS45NzIgMTAuNDgyIDc2LjIzNyA3LjAxNCAyMi41NjUgMTYuMTg0IDQ0LjA5MSAyNS45MTQgNjUuNjIyIDEwLjA5MiAyMi4yODcgMTguMDcgNDUuODI5IDI0LjM1NSA2OS4wMTcgNS41NjQgMjAuNTIgMTIuNDg5IDQxLjM1MiAxOS40OTcgNjEuNjQ3IDEuNTUxIDQuMzkgMy41MDcgOC43NTQgNS4xNzIgMTMuMDcxIDQuNDkgMTEuNDgyIDkuMjkyIDIyLjczNSAxMy43MjYgMzQuMTM2IDMuNDIgOC45NzEgNi44MDUgMTcuOTQzIDEwLjIgMjYuOTA0IDIuODMgNy45NjMgNi4wNzMgMTUuODQ4IDguMzI2IDIz.OTMyIDEuOTg4IDcuMDMzIDEuOTI2IDE0LjA0NS0uNDgyIDIxLjAwOS0xLjc2NiA1LjA5Mi0zLjQ2OCAxMC4yNC01LjkzMiAxNS4wNDktMi4zODIgNC42MzgtNS43ODEgOS4wNDQtOC4xNjYgMTQuMTIzLTEuMzY5IDcuNjg2LTMuNDg4IDE1LjUwNy0xLjA4OSAyMy4zMzUgMi4yMzggNy4yMzggNy42NSAxMy4wNjkgMTMuNjM3IDE3Ljc3OSAxOC4yOCAxNS41MDYgMzkuMDQgMTEuNzA0IDU4LjcyNyA5LjgxMSAzMy43NjctMS41NDIgNjcuNjQ2LTMuMDIzIDEwMS4xMDctNC43NTYgMTMuNTU1LS42OTYgMjcuMTk1LTEuNDAzIDQwLjY4LTIuNDEgMTMuMzE4LS45OTYgMjYuNTExLS40NTIgMzkuODAyLS44NDQgNy44NzMtLjI0NiAxNS43MzktLjYzIDIyLjA3Mi0zLjg1IDcuMjM4LTQuMjExIDEwLjgxLTM1LjQ5Ny0xOS40OTctNjEuNjQ3LTEuNTUxLTQuMzktMy41MDctOC43NTQtNS4xNzItMTMuMDcxLTQuNDktMTEuNDgyLTkuMjkyLTIyLjczNS0xMy43MjYtMzQuMTM2LTMuNDItOC45NzEtNi44MDUtMTcuOTQzLTEwLjItMjYuOTA0LTIuODMtNy45NjMtNi4wNzMtMTUuODQ4LTguMzI2LTIzLjkzMi0xLjk4OC03LjAzMy0xLjkyNi0xNC4wNDUgLjQ4Mi0yMS4wMDkgMS43NjYtNS4wOTIgMy40NjgtMTAuMjQtNS45MzItMTUuMDQ5LTIuMzgyLTQuNjM4LTUuNzgxLTkuMDQ0LTguMTY2LTE0LjEyMy0xLjM2OS03LjY4Ni0zLjQ4OC0xNS41MDctMS4wODkgMjMuMzM1IDIuMjM4IDcuMjM4IDcuNjUgMTMuMDY5IDEzLjYzNyAxNy43MTkgMTguMjggMTUuNTA2IDM5LjA0IDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLS4yNDYgMTUuNzg5LS42MiAyMy41OC0xLjM1NyAyNS4zMS0yLjM5NiA0OC42Ny03Ljk5IDc0LjA5Ni0xNy40MTQtMS43My0zOS4wNDExLjcwNCA1OC43MjcgOS44MTEgMzMuNzY3LTEuNTQyIDY3LjY0Ni0zLjAyMyAxMDEuMTA3LTQuNzU2IDEzLjU1NS0uNjk2IDI3LjE5NS0xLjQwMyA0MC42OC0yLjQxIDEzLjMxOC0uOTk2IDI2LjUxMS0uNDUyIDM5LjgwMi0uODQ0IDcuODczLS4yNDYgMTUuNzg5LS42MiAyMy41OC0xLjM1NyAyNS4zMS0yLjM5NiA0OC42Ny03Ljk5IDc0LjA5Ni0xNy40MTQtMTQuOTMtMjkuNzExLTI2LjY2NS01OS4wNDgtMzEuMjIzLTkwLjcwMi0yLjE4OC0xNS4xMjMtMS45ODktMzAuMzM4LS42ODctNDUuNDUgMS4wOTktMTIuNjkgMy4zNjUtMjUuMzQ2IDUuMjk4LTM4LjAwMiAxLjQ5OS0xMC4yMTMtLjIyNi0yMS40MzcgNC4xMDYtMzEuNDkgNS40MjktMTAuMDA0IDEyLjgyNS0yMC4xNDYgMTkuNjktMzAuNTUgMi4wOTYtMy4wNzEgMy44NzQtNi4yNjUgNS45NTctOS41NDkgMS41OTEtMi41IDMuMzE3LTQuOTcgNC43My03LjU0NyAzLjM3Mi02LjI3IDYuMzU0LTEyLjcyMSA5Ljg4NS0xOC44NDYgNC4wNjEtNy4xMTEgOC43MTgtMTQuMDk4IDEzLjEyMi0yMS4xNDUgNS4yMjktOC4zMjUgMTEuNDYzLTE1LjY2MyAxNy4zNS0yNC4yNzEgMi42OTktNC4wNjQgNS4xNTUtOC4yNjQgNy44NTEtMTIuMjYzMi42OTktNC4wMDIgNS4yMzktNy45MTggNy45NjYtMTEuNjkyIDcuNDYzLTEwLjU2IDE0LjY2MS0yMi43NjMgMTcuNjE2LTM1LjQwNCAxLjQyOC02LjA3Mi4wOTYtMTIuNTYtMS4zMS0xOC41NTl6IiBmaWxsPSIjYWFhYWFhIi8+PC9zdmc+" alt="Bot AI">
               <div>
                   <h4 data-translate="aiBotName">Over AI <i class="fa-solid fa-circle-check verified-icon"></i></h4>
                   <span style="font-size:11px; color:var(--color-text-dim);" data-translate="onlineStatus">Online</span>
@@ -810,8 +941,8 @@
           <i class="fa-solid fa-xmark close-chat" onclick="closeChatbot()"></i>
       </div>
       <div class="chatbot-body" id="chatbot-messages">
-          </div>
-  </div>
+      </div>
+      </div>
   <div id="chatbot-button" onclick="openChatbot()">
       <i class="fa-solid fa-robot"></i>
   </div>
@@ -861,11 +992,12 @@
     let secondsOnline = 0;
     let currentTranslations = {}; 
     let cooldownInterval = null;
+    let updateModalCounter = 0; // Contador para o novo modal de update
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     // =========================================================================
-    // TRADUÇÕES (NOVA CHAVE ADICIONADA: appPaying)
+    // TRADUÇÕES (CHAVES ADICIONADAS PARA NOVOS CARDS E CHATBOT)
     // =========================================================================
     const allTranslations = {
         'pt': {
@@ -912,7 +1044,6 @@
             recoverTikTokDesc: "Apelação otimizada para contas suspensas. (1 Crédito)",
             unbanGamesTitle: "Unban Games",
             unbanGamesDesc: "Textos para Free Fire e outros jogos. (1 Crédito)",
-            // NOVO CARD: App Pagando
             appPayingTitle: "App Pagando por Convite",
             appPayingDesc: "Acesse a plataforma de renda extra com convite. Link direto ou canal de apoio.",
             accessAppLink: "Acessar Link Direto",
@@ -943,6 +1074,20 @@
             vipSupremeDesc: "🔥 Desbloqueie **Créditos Ilimitados** e todas as ferramentas exclusivas.",
             upgradeNowButton: "UPGRADE JÁ!",
             executeIAButton: "Executar IA",
+
+            // NOVAS CHAVES DE CARDS
+            dataCheckerTitle: "Data Checker (CPF/Email)",
+            dataCheckerDesc: "Simula a checagem de documentos/emails em bases de dados (VIP/5 Créditos)",
+            dataCheckerPlaceholder: "CPF ou E-mail para checagem",
+            checkDataButton: "Checar Dados",
+            pixGeneratorTitle: "Gerador PIX (Fake)",
+            pixGeneratorDesc: "Gere códigos PIX simulados com chaves aleatórias. (2 Créditos)",
+            pixValuePlaceholder: "Valor PIX (ex: 10.00)",
+            generatePIXButton: "Gerar PIX Rápido",
+            linkLoggerTitle: "Link Logger (IP Tracker)",
+            linkLoggerDesc: "Crie um link camuflado que simula o registro do IP de quem clicar. (1 Crédito)",
+            linkLoggerPlaceholder: "Link de destino (ex: site.com)",
+            generateLinkLoggerButton: "Criar Link Logger",
 
             // Modais
             noCreditsTitle: "CRÉDITOS ESGOTADOS!",
@@ -992,6 +1137,9 @@
             chatbotCPFGenButton: "Gerar CPF Válido (1 Crédito)",
             chatbotCCGenButton: "Gerador CC/BIN (3 Créditos)", 
             chatbotIPGeoButton: "Localizador IP/GPS (3 Créditos)",
+            chatbotDataCheckerButton: "Checagem de Dados (5 Créditos)",
+            chatbotPIXGenButton: "Gerador PIX Fake (2 Créditos)",
+            chatbotLinkLoggerButton: "Link Logger (1 Crédito)",
             chatbotSecurityTools: "Scanner URL & Checar IP (Free)",
             chatbotSecurityFree: "Ferramentas de análise de rede (Grátis):",
             chatbotCheckMyIP: "Checar meu IP",
@@ -1001,11 +1149,15 @@
             chatbotBuyVip: "COMPRAR VIP",
             chatbotToolChecked: "IP Checado! Olhe o box de ferramentas no painel principal. O que mais?",
             chatbotPassGenerated: "Senha gerada e exibida no box de ferramentas. Use o botão 'Copiar'.",
-            chatbotEmailGenerated: "E-mail temporário gerado e exibido no card. Copie e use-o!",
-            chatbotCPFGenerated: "CPF gerado (Simulação). Lembre-se, apenas para testes de validação.",
-            chatbotCCGenerated: "CC gerado (Simulação). Lembre-se, apenas para testes de validação.", 
-            chatbotIPGeoInfo: "Para rastrear, acesse o painel principal, insira o **IP/Link** no card **IP/GPS Locator** e clique em Rastrear.<br>Essa função exige um IP ou Link digitado!",
             chatbotTextGenerated: (tool) => `Texto de apelação para **${tool}** gerado!<br>Verifique o resultado no painel principal e copie o texto.`,
+
+            // Mensagens de Sucesso no Chatbot (Novos módulos)
+            chatbotEmailGenerated: (email) => `E-mail temporário gerado: **${email}**`,
+            chatbotCPFGenerated: (cpf) => `CPF gerado: **${cpf}**`,
+            chatbotCCGenerated: (cc) => `CC gerado: **${cc}**`,
+            chatbotPIXGenerated: (pix) => `PIX gerado! Chave: **${pix}**`,
+            chatbotLinkLoggerGenerated: (link) => `Link Logger criado! URL: **${link}**`,
+            chatbotDataCheckerResult: (data, status) => `Checagem de dados para **${data}**:<br>Status: **${status}**`,
 
             // Cooldown Messages (Injetadas em JS)
             cooldownMessageFree: (time) => `Você atingiu o limite de uso diário do plano **FREE**. Recarga automática em <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
@@ -1024,321 +1176,18 @@
             toastErrorCopy: "Erro ao copiar. Tente selecionar o texto.",
             toastErrorNoURL: "Insira uma URL!",
             toastSuccessVip: "Upgrade para VIP Supremo ativado! Bem-vindo.", 
+            toastErrorDataInput: "Insira um CPF ou E-mail válido.",
+            toastErrorPixInput: "Insira um valor válido para o PIX.",
+            toastErrorLinkLoggerInput: "Insira um link de destino válido.",
 
         },
         'en': {
-            // Meta e Títulos
-            secureConnection: "Secure Connection",
-            restrictedAccessTitle: "RESTRICTED ACCESS",
-            restrictedAccessSubtitle: "Insert your credentials to access the system.",
-            authenticateButton: "Authenticate",
-            loadingMsg: "Decrypting access...",
-            choosePlan: "Choose your Plan:",
-            // VIP Modal Planos
-            monthly: "MONTHLY",
-            lifetime: "LIFETIME",
-
-            // Dropdown
-            plan: "Plan:",
-            credits: "Credits:",
-            session: "Session:",
-            rechargeCreditsButton: "RECHARGE CREDITS",
-            supportFAQButton: "Support/FAQ",
-            becomeVIPButton: "Become Supreme VIP",
-            disconnectButton: "Disconnect",
-
-            // Login/Pré-Login
-            username: "Username",
-            password: "Password",
-            vipDataTitle: "VIP Data",
-            accessStoreLink: "Access Store >",
-            iptvTitle: "Premium IPTV",
-            watchNowLink: "Watch Now >",
-
-            // Painel Principal
-            welcomeTitle: "WELCOME TO SYSTEM 2.0",
-            freePlanWarning: "Your plan is **FREE**! Limit:",
-            creditsAvailablePrefix: "You have",
-            creditsAvailableSuffix: "credits available.",
-            rechargeInLabel: "Recharge in:",
-            rechargeNowButton: "RECHARGE NOW",
-            access: "Access:",
-            // Cards
-            unbanZapTitle: "Unban WhatsApp",
-            unbanZapDesc: "Generate social engineering texts to recover numbers. (1 Credit)",
-            recoverTikTokTitle: "Recover TikTok",
-            recoverTikTokDesc: "Optimized appeal for suspended accounts. (1 Credit)",
-            unbanGamesTitle: "Unban Games",
-            unbanGamesDesc: "Texts for Free Fire and other games. (1 Credit)",
-             // NOVO CARD: App Pagando
-            appPayingTitle: "Paying App by Invite",
-            appPayingDesc: "Access the extra income platform with an invitation. Direct link or support channel.",
-            accessAppLink: "Access Direct Link",
-            accessChannelButton: "Support Channel (WhatsApp)",
-
-            ccGeneratorTitle: "CC/BIN Generator",
-            ccGeneratorDesc: "Generate valid card numbers (Luhn algorithm) for system testing. (3 Credits)",
-            generateCCButton: "Generate Valid CC",
-
-            tempEmailTitle: "Temp Email",
-            tempEmailDesc: "Generate disposable emails for quick and anonymous registrations. (2 Credits)",
-            generateEmailButton: "Generate Email",
-            cpfGeneratorTitle: "CPF Generator",
-            cpfGeneratorDesc: "Generate a valid CPF number for system testing. (1 Credit)",
-            generateCPFButton: "Generate Valid CPF",
-            ipLocatorTitle: "IP/GPS Locator",
-            ipLocatorDesc: "Track the approximate location of an IP or Link. (3 Credits)",
-            ipLinkPlaceholder: "IP or Link (e.g., 8.8.8.8)",
-            startTrackingButton: "Start Tracking",
-            urlScannerTitle: "URL Scanner",
-            urlScannerDesc: "Check suspicious links (Phishing/Malware).",
-            scanButton: "Scan",
-            securityToolsTitle: "Security Tools",
-            securityToolsDesc: "Environment analysis tools.",
-            checkIPButton: "Check IP",
-            strongPasswordButton: "Strong Password",
-            vipSupremeTitle: "SUPREME VIP",
-            vipSupremeDesc: "🔥 Unlock **Unlimited Credits** and all exclusive tools.",
-            upgradeNowButton: "UPGRADE NOW!",
-            executeIAButton: "Execute AI",
-
-            // Modais
-            noCreditsTitle: "CREDITS EXHAUSTED!",
-            noCreditsSubtitle: "Unlock Supreme VIP now for:",
-            noCreditsFeature1: "**Unlimited Credits** (No Cooldown!)",
-            noCreditsFeature2: "Exclusive Tools",
-            noCreditsFeature3: "24/7 Support",
-            noCreditsButton: "I WANT VIP UPGRADE",
-
-            vipUnlockMessage: "Unlock the full power of System 2.0! Your difference is:",
-            upgradeVipTitle: "SUPREME VIP UPGRADE",
-            vipFeature1: "**Unlimited Credits** (No Cooldown!)",
-            vipFeature2: "Exclusive VIP Tools",
-            vipFeature3: "Priority 24/7 Support",
-            contactSellerButton: "Talk to Seller (Best Price!)",
-
-            systemLogsTitle: "SYSTEM LOGS",
-            clearLogsButton: "Clear Logs",
-
-            supportTitle: "SUPPORT",
-            faqTitle: "Faq:",
-            faqMessage: "The texts are appeal models based on social engineering. Success is not guaranteed.",
-            officialTelegramButton: "Official Telegram",
-
-            // Footer
-            footerCopyright: "OVER PAINEL © 2025 | System Safe & Encrypted",
-            developer: "Dev: ApelaWar71",
-
-            // Chatbot (Textos principais)
-            aiBotName: "Over AI",
-            onlineStatus: "Online",
-            chatbotInitialGreetingFree: (user, credits, maxCredits) => `Hello, ${user}! I am Over AI. Your plan is **FREE** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> credits).<br>Focus on upgrading for unlimited credits!`,
-            chatbotInitialGreetingVIP: (user) => `Welcome, **${user}**! Your **Supreme VIP** access is active. Which tool do you need to use today?`,
-            chatbotUpgradeNowButton: "🚀 UPGRADE Supreme VIP NOW",
-            chatbotWhatIsVipButton: "🤷‍♂️ What do I get with VIP?",
-            chatbotAvailableToolsButton: "🛠️ See Available Tools",
-            chatbotUnbanMenu: "⚡ Text Generators (Unban)",
-            chatbotAdvancedTools: "🛠️ Advanced Tools",
-            chatbotSupportPriority: "❓ Priority Support/FAQ",
-            chatbotBackToMainMenu: "⬅️ Back to Main Menu",
-            chatbotChooseUnbanGenerator: "Choose the appeal generator you want to use:",
-            chatbotUnbanZapButton: "Unban WhatsApp (1 Credit)",
-            chatbotRecoverTikTokButton: "Recover TikTok (1 Credit)",
-            chatbotUnbanGamesButton: "Unban Games (1 Credit)",
-            chatbotExploreTools: "Explore the panel's advanced tools:",
-            chatbotTempEmailButton: "Generate Temp Email (2 Credits)",
-            chatbotCPFGenButton: "Generate Valid CPF (1 Credit)",
-            chatbotCCGenButton: "CC/BIN Generator (3 Credits)", 
-            chatbotIPGeoButton: "IP/GPS Locator (3 Credits)",
-            chatbotSecurityTools: "URL Scanner & Check IP (Free)",
-            chatbotSecurityFree: "Network analysis tools (Free):",
-            chatbotCheckMyIP: "Check my IP",
-            chatbotGenerateStrongPass: "Generate Strong Password",
-            chatbotBackToTools: "⬅️ Back to Tools Menu",
-            chatbotBenefits: `Sure! With **Supreme VIP** you get:<br>✅ **Unlimited Credits** (No Cooldown!)<br>✅ **All Tools** (including future ones)<br>✅ **Priority 24/7 Support**<br>It's the end of limitations for you!`,
-            chatbotBuyVip: "BUY VIP",
-            chatbotToolChecked: "IP Checked! Look at the tools box on the main panel. What else?",
-            chatbotPassGenerated: "Password generated and shown in the tools box. Use the 'Copy' button.",
-            chatbotEmailGenerated: "Temporary email generated and shown on the card. Copy and use it!",
-            chatbotCPFGenerated: "CPF generated (Simulation). Remember, only for validation tests.",
-            chatbotCCGenerated: "CC generated (Simulation). Remember, only for validation tests.", 
-            chatbotIPGeoInfo: "To track, access the main panel, enter the **IP/Link** on the **IP/GPS Locator** card and click Track.<br>This function requires a typed IP or Link!",
-            chatbotTextGenerated: (tool) => `Appeal text for **${tool}** generated!<br>Check the result on the main panel and copy the text.`,
-
-            // Cooldown Messages (Injetadas em JS)
-            cooldownMessageFree: (time) => `You have reached the daily usage limit for the **FREE** plan. Automatic recharge in <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
-            cooldownMessageReady: `You have reached the daily usage limit for the **FREE** plan. Click recharge to continue!`,
-
-            // Toast Messages
-            toastSuccessLogin: "Access Authorized. Welcome.",
-            toastErrorLogin: "Access Denied!",
-            toastErrorInvalidCredentials: "⛔ Invalid Credentials.",
-            toastSuccessLogsCleared: "Logs successfully cleared.",
-            toastSuccessCreditsRecharged: "Credits successfully recharged!",
-            toastWarningCreditsFull: "Credits are already full.",
-            toastWarningCreditsExhausted: "Credits exhausted! Recharge started (4h).",
-            toastErrorNoLink: "Insert an IP or Link!",
-            toastSuccessCopied: "Text copied to clipboard!",
-            toastErrorCopy: "Error copying. Try selecting the text.",
-            toastErrorNoURL: "Insert a URL!",
-            toastSuccessVip: "Supreme VIP Upgrade activated! Welcome.", 
+            // ... (traduções em inglês - não incluídas aqui por brevidade, mas devem seguir o modelo PT)
+            secureConnection: "Secure Connection", restrictedAccessTitle: "RESTRICTED ACCESS", restrictedAccessSubtitle: "Insert your credentials to access the system.", authenticateButton: "Authenticate", loadingMsg: "Decrypting access...", choosePlan: "Choose your Plan:", monthly: "MONTHLY", lifetime: "LIFETIME", plan: "Plan:", credits: "Credits:", session: "Session:", rechargeCreditsButton: "RECHARGE CREDITS", supportFAQButton: "Support/FAQ", becomeVIPButton: "Become Supreme VIP", disconnectButton: "Disconnect", username: "Username", password: "Password", vipDataTitle: "VIP Data", accessStoreLink: "Access Store >", iptvTitle: "Premium IPTV", watchNowLink: "Watch Now >", welcomeTitle: "WELCOME TO SYSTEM 2.0", freePlanWarning: "Your plan is **FREE**! Limit:", creditsAvailablePrefix: "You have", creditsAvailableSuffix: "credits available.", rechargeInLabel: "Recharge in:", rechargeNowButton: "RECHARGE NOW", access: "Access:", unbanZapTitle: "Unban WhatsApp", unbanZapDesc: "Generate social engineering texts to recover numbers. (1 Credit)", recoverTikTokTitle: "Recover TikTok", recoverTikTokDesc: "Optimized appeal for suspended accounts. (1 Credit)", unbanGamesTitle: "Unban Games", unbanGamesDesc: "Texts for Free Fire and other games. (1 Credit)", appPayingTitle: "Paying App by Invite", appPayingDesc: "Access the extra income platform with an invitation. Direct link or support channel.", accessAppLink: "Access Direct Link", accessChannelButton: "Support Channel (WhatsApp)", ccGeneratorTitle: "CC/BIN Generator", ccGeneratorDesc: "Generate valid card numbers (Luhn algorithm) for system testing. (3 Credits)", generateCCButton: "Generate Valid CC", tempEmailTitle: "Temp Email", tempEmailDesc: "Generate disposable emails for quick and anonymous registrations. (2 Credits)", generateEmailButton: "Generate Email", cpfGeneratorTitle: "CPF Generator", cpfGeneratorDesc: "Generate a valid CPF number for system testing. (1 Credit)", generateCPFButton: "Generate Valid CPF", ipLocatorTitle: "IP/GPS Locator", ipLocatorDesc: "Track the approximate location of an IP or Link. (3 Credits)", ipLinkPlaceholder: "IP or Link (e.g., 8.8.8.8)", startTrackingButton: "Start Tracking", urlScannerTitle: "URL Scanner", urlScannerDesc: "Check suspicious links (Phishing/Malware).", scanButton: "Scan", securityToolsTitle: "Security Tools", securityToolsDesc: "Environment analysis tools.", checkIPButton: "Check IP", strongPasswordButton: "Strong Password", vipSupremeTitle: "SUPREME VIP", vipSupremeDesc: "🔥 Unlock **Unlimited Credits** and all exclusive tools.", upgradeNowButton: "UPGRADE NOW!", executeIAButton: "Execute AI", dataCheckerTitle: "Data Checker (CPF/Email)", dataCheckerDesc: "Simulates checking documents/emails in databases (VIP/5 Credits)", dataCheckerPlaceholder: "CPF or Email for checking", checkDataButton: "Check Data", pixGeneratorTitle: "Fake PIX Generator", pixGeneratorDesc: "Generate simulated PIX codes with random keys. (2 Credits)", pixValuePlaceholder: "PIX Value (e.g., 10.00)", generatePIXButton: "Generate Quick PIX", linkLoggerTitle: "Link Logger (IP Tracker)", linkLoggerDesc: "Create a camouflaged link that simulates logging the IP of whoever clicks. (1 Credit)", linkLoggerPlaceholder: "Destination Link (e.g., site.com)", generateLinkLoggerButton: "Create Link Logger", noCreditsTitle: "CREDITS EXHAUSTED!", noCreditsSubtitle: "Unlock Supreme VIP now for:", noCreditsFeature1: "**Unlimited Credits** (No Cooldown!)", noCreditsFeature2: "Exclusive Tools", noCreditsFeature3: "24/7 Support", noCreditsButton: "I WANT VIP UPGRADE", vipUnlockMessage: "Unlock the full power of System 2.0! Your difference is:", upgradeVipTitle: "SUPREME VIP UPGRADE", vipFeature1: "**Unlimited Credits** (No Cooldown!)", vipFeature2: "Exclusive VIP Tools", vipFeature3: "Priority 24/7 Support", contactSellerButton: "Talk to Seller (Best Price!)", systemLogsTitle: "SYSTEM LOGS", clearLogsButton: "Clear Logs", supportTitle: "SUPPORT", faqTitle: "Faq:", faqMessage: "The texts are appeal models based on social engineering. Success is not guaranteed.", officialTelegramButton: "Official Telegram", aiBotName: "Over AI", onlineStatus: "Online", chatbotInitialGreetingFree: (user, credits, maxCredits) => `Hello, ${user}! I am Over AI. Your plan is **FREE** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> credits).<br>Focus on upgrading for unlimited credits!`, chatbotInitialGreetingVIP: (user) => `Welcome, **${user}**! Your **Supreme VIP** access is active. Which tool do you need to use today?`, chatbotUpgradeNowButton: "🚀 UPGRADE Supreme VIP NOW", chatbotWhatIsVipButton: "🤷‍♂️ What do I get with VIP?", chatbotAvailableToolsButton: "🛠️ See Available Tools", chatbotUnbanMenu: "⚡ Text Generators (Unban)", chatbotAdvancedTools: "🛠️ Advanced Tools", chatbotSupportPriority: "❓ Priority Support/FAQ", chatbotBackToMainMenu: "⬅️ Back to Main Menu", chatbotChooseUnbanGenerator: "Choose the appeal generator you want to use:", chatbotUnbanZapButton: "Unban WhatsApp (1 Credit)", chatbotRecoverTikTokButton: "Recover TikTok (1 Credit)", chatbotUnbanGamesButton: "Unban Games (1 Credit)", chatbotExploreTools: "Explore the panel's advanced tools:", chatbotTempEmailButton: "Generate Temp Email (2 Credits)", chatbotCPFGenButton: "Generate Valid CPF (1 Credit)", chatbotCCGenButton: "CC/BIN Generator (3 Credits)", chatbotIPGeoButton: "IP/GPS Locator (3 Credits)", chatbotDataCheckerButton: "Data Checking (5 Credits)", chatbotPIXGenButton: "Fake PIX Generator (2 Credits)", chatbotLinkLoggerButton: "Link Logger (1 Credit)", chatbotSecurityTools: "URL Scanner & Check IP (Free)", chatbotSecurityFree: "Network analysis tools (Free):", chatbotCheckMyIP: "Check my IP", chatbotGenerateStrongPass: "Generate Strong Password", chatbotBackToTools: "⬅️ Back to Tools Menu", chatbotBenefits: `Sure! With **Supreme VIP** you get:<br>✅ **Unlimited Credits** (No Cooldown!)<br>✅ **All Tools** (including future ones)<br>✅ **Priority 24/7 Support**<br>It's the end of limitations for you!`, chatbotBuyVip: "BUY VIP", chatbotToolChecked: "IP Checked! Look at the tools box on the main panel. What else?", chatbotPassGenerated: "Password generated and shown in the tools box. Use the 'Copy' button.", chatbotTextGenerated: (tool) => `Appeal text for **${tool}** generated!<br>Check the result on the main panel and copy the text.`, chatbotEmailGenerated: (email) => `Temporary email generated: **${email}**`, chatbotCPFGenerated: (cpf) => `CPF generated: **${cpf}**`, chatbotCCGenerated: (cc) => `CC generated: **${cc}**`, chatbotPIXGenerated: (pix) => `PIX generated! Key: **${pix}**`, chatbotLinkLoggerGenerated: (link) => `Link Logger created! URL: **${link}**`, chatbotDataCheckerResult: (data, status) => `Data check for **${data}**:<br>Status: **${status}**`, cooldownMessageFree: (time) => `You have reached the daily usage limit for the **FREE** plan. Automatic recharge in <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`, cooldownMessageReady: `You have reached the daily usage limit for the **FREE** plan. Click recharge to continue!`, toastSuccessLogin: "Access Authorized. Welcome.", toastErrorLogin: "Access Denied!", toastErrorInvalidCredentials: "⛔ Invalid Credentials.", toastSuccessLogsCleared: "Logs successfully cleared.", toastSuccessCreditsRecharged: "Credits successfully recharged!", toastWarningCreditsFull: "Credits are already full.", toastWarningCreditsExhausted: "Credits exhausted! Recharge started (4h).", toastErrorNoLink: "Insert an IP or Link!", toastSuccessCopied: "Text copied to clipboard!", toastErrorCopy: "Error copying. Try selecting the text.", toastErrorNoURL: "Insert a URL!", toastSuccessVip: "Supreme VIP Upgrade activated! Welcome.", toastErrorDataInput: "Enter a valid CPF or Email.", toastErrorPixInput: "Enter a valid value for PIX.", toastErrorLinkLoggerInput: "Enter a valid destination link.",
         },
         'es': {
-            // Meta e Títulos
-            secureConnection: "Conexión Segura",
-            restrictedAccessTitle: "ACCESO RESTRINGIDO",
-            restrictedAccessSubtitle: "Inserte sus credenciales para acceder al sistema.",
-            authenticateButton: "Autenticar",
-            loadingMsg: "Descifrando acceso...",
-            choosePlan: "Elija su Plan:",
-             // VIP Modal Planos
-            monthly: "MENSUAL",
-            lifetime: "DE POR VIDA",
-
-            // Dropdown
-            plan: "Plan:",
-            credits: "Créditos:",
-            session: "Sesión:",
-            rechargeCreditsButton: "RECARGAR CRÉDITOS",
-            supportFAQButton: "Soporte/FAQ",
-            becomeVIPButton: "Convertirse en VIP Supremo",
-            disconnectButton: "Desconectar",
-
-            // Login/Pré-Login
-            username: "Usuario",
-            password: "Contraseña",
-            vipDataTitle: "Datos VIP",
-            accessStoreLink: "Acceder a Tienda >",
-            iptvTitle: "IPTV Premium",
-            watchNowLink: "Ver Ahora >",
-
-            // Painel Principal
-            welcomeTitle: "BIENVENIDO AL SYSTEM 2.0",
-            freePlanWarning: "¡Su plan es **GRATIS**! Límite:",
-            creditsAvailablePrefix: "Usted tiene",
-            creditsAvailableSuffix: "créditos disponibles.",
-            rechargeInLabel: "Recarga en:",
-            rechargeNowButton: "RECARGAR AHORA",
-            access: "Acesso:",
-            // Cards
-            unbanZapTitle: "Desbloquear WhatsApp",
-            unbanZapDesc: "Genere textos de ingeniería social para recuperar números. (1 Crédito)",
-            recoverTikTokTitle: "Recuperar TikTok",
-            recoverTikTokDesc: "Apelación optimizada para cuentas suspendidas. (1 Crédito)",
-            unbanGamesTitle: "Desbloquear Juegos",
-            unbanGamesDesc: "Textos para Free Fire e outros jogos. (1 Crédito)",
-            // NOVO CARD: App Pagando
-            appPayingTitle: "App Pagando por Invitación",
-            appPayingDesc: "Accede a la plataforma de ingresos extra con una invitación. Enlace directo o canal de soporte.",
-            accessAppLink: "Acceder Enlace Directo",
-            accessChannelButton: "Canal de Soporte (WhatsApp)",
-
-            ccGeneratorTitle: "Generador CC/BIN",
-            ccGeneratorDesc: "Genere números de tarjeta válidos (algoritmo Luhn) para pruebas de sistemas. (3 Créditos)",
-            generateCCButton: "Generar CC Válido",
-
-            tempEmailTitle: "Correo Temp",
-            tempEmailDesc: "Genere correos electrónicos desechables para registros rápidos y anónimos. (2 Créditos)",
-            generateEmailButton: "Generar Correo",
-            cpfGeneratorTitle: "Generador CPF",
-            cpfGeneratorDesc: "Genere un número de CPF válido para pruebas de sistemas. (1 Crédito)",
-            generateCPFButton: "Generar CPF Válido",
-            ipLocatorTitle: "Localizador IP/GPS",
-            ipLocatorDesc: "Rastree a localização aproximada de una IP o Enlace. (3 Créditos)",
-            ipLinkPlaceholder: "IP o Enlace (ej: 8.8.8.8)",
-            startTrackingButton: "Iniciar Rastreo",
-            urlScannerTitle: "Escáner URL",
-            urlScannerDesc: "Verifique enlaces sospechosos (Phishing/Malware).",
-            scanButton: "Escanear",
-            securityToolsTitle: "Herramientas de Seguridad",
-            securityToolsDesc: "Herramientas de análisis de entorno.",
-            checkIPButton: "Comprobar IP",
-            strongPasswordButton: "Contraseña Fuerte",
-            vipSupremeTitle: "VIP SUPREMO",
-            vipSupremeDesc: "🔥 Desbloquee **Créditos Ilimitados** e todas as ferramentas exclusivas.",
-            upgradeNowButton: "¡ACTUALIZAR AHORA!",
-            executeIAButton: "Ejecutar IA",
-
-            // Modais
-            noCreditsTitle: "¡CRÉDITOS AGOTADOS!",
-            noCreditsSubtitle: "Desbloquea VIP Supremo ahora para:",
-            noCreditsFeature1: "**Créditos Ilimitados** (¡Sin Cooldown!)",
-            noCreditsFeature2: "Herramientas Exclusivas",
-            noCreditsFeature3: "Soporte 24/7",
-            noCreditsButton: "QUIERO ACTUALIZAR VIP",
-
-            vipUnlockMessage: "¡Desbloquea todo el poder del Sistema 2.0! Tu diferencial es:",
-            upgradeVipTitle: "ACTUALIZACIÓN VIP SUPREMO",
-            vipFeature1: "**Créditos Ilimitados** (¡Sin Cooldown!)",
-            vipFeature2: "Herramientas VIP Exclusivas",
-            vipFeature3: "Soporte Prioritario 24/7",
-            contactSellerButton: "Hablar con el Vendedor (¡Mejor Precio!)",
-
-            systemLogsTitle: "REGISTROS DEL SISTEMA",
-            clearLogsButton: "Limpiar Registros",
-
-            supportTitle: "SOPORTE",
-            faqTitle: "Preguntas Frecuentes:",
-            faqMessage: "Los textos son modelos de apelación basados en ingeniería social. El éxito no está garantizado.",
-            officialTelegramButton: "Telegram Oficial",
-
-            // Footer
-            footerCopyright: "OVER PAINEL © 2025 | System Safe & Encrypted",
-            developer: "Desarrollador: ApelaWar71",
-
-            // Chatbot (Textos principais)
-            aiBotName: "Over AI",
-            onlineStatus: "En Línea",
-            chatbotInitialGreetingFree: (user, credits, maxCredits) => `¡Hola, ${user}! Soy Over AI. Tu plan es **GRATIS** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> créditos).<br>¡Enfócate en actualizar para tener créditos ilimitados!`,
-            chatbotInitialGreetingVIP: (user) => `Bienvenido, **${user}**! Tu acceso **VIP Supremo** está activo. ¿Qué herramienta necesitas usar hoy?`,
-            chatbotUpgradeNowButton: "🚀 ACTUALIZAR VIP Supremo AHORA",
-            chatbotWhatIsVipButton: "🤷‍♂️ ¿Qué gano con el VIP?",
-            chatbotAvailableToolsButton: "🛠️ Ver Herramientas Disponibles",
-            chatbotUnbanMenu: "⚡ Generadores de Texto (Desbloqueo)",
-            chatbotAdvancedTools: "🛠️ Herramientas Avanzadas",
-            chatbotSupportPriority: "❓ Soporte/FAQ Prioritario",
-            chatbotBackToMainMenu: "⬅️ Volver al Menú Principal",
-            chatbotChooseUnbanGenerator: "Elija el generador de apelación que desea usar:",
-            chatbotUnbanZapButton: "Desbloquear WhatsApp (1 Crédito)",
-            chatbotRecoverTikTokButton: "Recuperar TikTok (1 Crédito)",
-            chatbotUnbanGamesButton: "Desbloquear Juegos (1 Crédito)",
-            chatbotExploreTools: "Explore las herramientas avanzadas del panel:",
-            chatbotTempEmailButton: "Generar Correo Temp (2 Créditos)",
-            chatbotCPFGenButton: "Generar CPF Válido (1 Crédito)",
-            chatbotCCGenButton: "Generador CC/BIN (3 Créditos)", 
-            chatbotIPGeoButton: "Localizador IP/GPS (3 Créditos)",
-            chatbotSecurityTools: "Escáner URL y Comprobar IP (Gratis)",
-            chatbotSecurityFree: "Herramientas de análisis de red (Gratis):",
-            chatbotCheckMyIP: "Comprobar mi IP",
-            chatbotGenerateStrongPass: "Generar Contraseña Fuerte",
-            chatbotBackToTools: "⬅️ Volver al Menú de Herramientas",
-            chatbotBenefits: `¡Claro! Con el **VIP Supremo** te aseguras:<br>✅ **Créditos Ilimitados** (¡Sin Cooldown!)<br>✅ **Todas las Herramientas** (incluidas las futuras)<br>✅ **Suporte Prioritário 24/7**<br>¡Es el fin de las limitaciones para ti!`,
-            chatbotBuyVip: "COMPRAR VIP",
-            chatbotToolChecked: "¡IP comprobada! Mire el cuadro de herramientas en el panel principal. ¿Algo más?",
-            chatbotPassGenerated: "Contraseña generada y mostrada en el cuadro de herramientas. Use el botón 'Copiar'.",
-            chatbotEmailGenerated: "Correo temporal generado y mostrado en la tarjeta. ¡Cópielo y úselo!",
-            chatbotCPFGenerated: "CPF generado (Simulación). Recuerde, solo para pruebas de validación.",
-            chatbotCCGenerated: "CC generado (Simulación). Recuerde, solo para pruebas de validación.", 
-            chatbotIPGeoInfo: "Para rastrear, acceda al panel principal, inserte la **IP/Enlace** en la tarjeta **Localizador IP/GPS** y haga clic en Rastreo.<br>¡Esta función requiere una IP o Enlace escrito!",
-            chatbotTextGenerated: (tool) => `¡Texto de apelación para **${tool}** generado!<br>Verifique el resultado en el panel principal y copie el texto.`,
-
-            // Cooldown Messages (Injetadas em JS)
-            cooldownMessageFree: (time) => `Ha alcanzado el límite de uso diario del plan **GRATIS**. Recarga automática en <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`,
-            cooldownMessageReady: `Ha alcanzado el límite de uso diario del plan **GRATIS**. ¡Haga clic en recargar para continuar!`,
-
-            // Toast Messages
-            toastSuccessLogin: "Acceso Autorizado. Bienvenido.",
-            toastErrorLogin: "¡Acceso Denegado!",
-            toastErrorInvalidCredentials: "⛔ Credenciales Inválidas.",
-            toastSuccessLogsCleared: "Registros limpiados con éxito.",
-            toastSuccessCreditsRecharged: "¡Créditos recargados con éxito!",
-            toastWarningCreditsFull: "Los créditos ya están llenos.",
-            toastWarningCreditsExhausted: "¡Créditos agotados! Recarga iniciada (4h).",
-            toastErrorNoLink: "¡Inserte una IP o Enlace!",
-            toastSuccessCopied: "¡Texto copiado al portapapeles!",
-            toastErrorCopy: "Error al copiar. Tente seleccionar el texto.",
-            toastErrorNoURL: "¡Inserte una URL!",
-            toastSuccessVip: "¡Actualización a VIP Supremo activada! Bienvenido.", 
+             // ... (traduções em espanhol - não incluídas aqui por brevidade, mas devem seguir o modelo PT)
+             secureConnection: "Conexión Segura", restrictedAccessTitle: "ACCESO RESTRINGIDO", restrictedAccessSubtitle: "Inserte sus credenciales para acceder al sistema.", authenticateButton: "Autenticar", loadingMsg: "Descifrando acceso...", choosePlan: "Elija su Plan:", monthly: "MENSUAL", lifetime: "DE POR VIDA", plan: "Plan:", credits: "Créditos:", session: "Sesión:", rechargeCreditsButton: "RECARGAR CRÉDITOS", supportFAQButton: "Soporte/FAQ", becomeVIPButton: "Convertirse en VIP Supremo", disconnectButton: "Desconectar", username: "Usuario", password: "Contraseña", vipDataTitle: "Datos VIP", accessStoreLink: "Acceder a Tienda >", iptvTitle: "IPTV Premium", watchNowLink: "Ver Ahora >", welcomeTitle: "BIENVENIDO AL SYSTEM 2.0", freePlanWarning: "¡Su plan es **GRATIS**! Límite:", creditsAvailablePrefix: "Usted tiene", creditsAvailableSuffix: "créditos disponibles.", rechargeInLabel: "Recarga en:", rechargeNowButton: "RECARGAR AHORA", access: "Acesso:", unbanZapTitle: "Desbloquear WhatsApp", unbanZapDesc: "Genere textos de ingeniería social para recuperar números. (1 Crédito)", recoverTikTokTitle: "Recuperar TikTok", recoverTikTokDesc: "Apelación optimizada para cuentas suspendidas. (1 Crédito)", unbanGamesTitle: "Desbloquear Juegos", unbanGamesDesc: "Textos para Free Fire e outros jogos. (1 Crédito)", appPayingTitle: "App Pagando por Invitación", appPayingDesc: "Accede a la plataforma de ingresos extra con una invitación. Enlace directo o canal de soporte.", accessAppLink: "Acceder Enlace Directo", accessChannelButton: "Canal de Soporte (WhatsApp)", ccGeneratorTitle: "Generador CC/BIN", ccGeneratorDesc: "Genere números de tarjeta válidos (algoritmo Luhn) para pruebas de sistemas. (3 Créditos)", generateCCButton: "Generar CC Válido", tempEmailTitle: "Correo Temp", tempEmailDesc: "Genere correos electrónicos desechables para registros rápidos y anónimos. (2 Créditos)", generateEmailButton: "Generar Correo", cpfGeneratorTitle: "Generador CPF", cpfGeneratorDesc: "Genere un número de CPF válido para pruebas de sistemas. (1 Crédito)", generateCPFButton: "Generar CPF Válido", ipLocatorTitle: "Localizador IP/GPS", ipLocatorDesc: "Rastree a localização aproximada de una IP o Enlace. (3 Créditos)", ipLinkPlaceholder: "IP o Enlace (ej: 8.8.8.8)", startTrackingButton: "Iniciar Rastreo", urlScannerTitle: "Escáner URL", urlScannerDesc: "Verifique enlaces sospechosos (Phishing/Malware).", scanButton: "Escanear", securityToolsTitle: "Herramientas de Seguridad", securityToolsDesc: "Herramientas de análisis de entorno.", checkIPButton: "Comprobar IP", strongPasswordButton: "Contraseña Fuerte", vipSupremeTitle: "VIP SUPREMO", vipSupremeDesc: "🔥 Desbloquee **Créditos Ilimitados** e todas as ferramentas exclusivas.", upgradeNowButton: "¡ACTUALIZAR AHORA!", executeIAButton: "Ejecutar IA", dataCheckerTitle: "Verificador de Datos (CPF/Correo)", dataCheckerDesc: "Simula la verificación de documentos/correos electrónicos en bases de datos (VIP/5 Créditos)", dataCheckerPlaceholder: "CPF o Correo electrónico para verificar", checkDataButton: "Verificar Datos", pixGeneratorTitle: "Generador PIX (Falso)", pixGeneratorDesc: "Genere códigos PIX simulados con claves aleatorias. (2 Créditos)", pixValuePlaceholder: "Valor PIX (ej: 10.00)", generatePIXButton: "Generar PIX Rápido", linkLoggerTitle: "Link Logger (Rastreador IP)", linkLoggerDesc: "Cree un enlace camuflado que simula el registro del IP de quien haga clic. (1 Crédito)", linkLoggerPlaceholder: "Enlace de destino (ej: sitio.com)", generateLinkLoggerButton: "Crear Link Logger", noCreditsTitle: "¡CRÉDITOS AGOTADOS!", noCreditsSubtitle: "Desbloquea VIP Supremo ahora para:", noCreditsFeature1: "**Créditos Ilimitados** (¡Sin Cooldown!)", noCreditsFeature2: "Herramientas Exclusivas", noCreditsFeature3: "Soporte 24/7", noCreditsButton: "QUIERO ACTUALIZAR VIP", vipUnlockMessage: "¡Desbloquea todo el poder del Sistema 2.0! Tu diferencial es:", upgradeVipTitle: "ACTUALIZACIÓN VIP SUPREMO", vipFeature1: "**Créditos Ilimitados** (¡Sin Cooldown!)", vipFeature2: "Herramientas VIP Exclusivas", vipFeature3: "Soporte Prioritario 24/7", contactSellerButton: "Hablar con el Vendedor (¡Mejor Precio!)", systemLogsTitle: "REGISTROS DEL SISTEMA", clearLogsButton: "Limpiar Registros", supportTitle: "SOPORTE", faqTitle: "Preguntas Frecuentes:", faqMessage: "Los textos son modelos de apelación basados en ingeniería social. El éxito no está garantizado.", officialTelegramButton: "Telegram Oficial", aiBotName: "Over AI", onlineStatus: "En Línea", chatbotInitialGreetingFree: (user, credits, maxCredits) => `¡Hola, ${user}! Soy Over AI. Tu plan es **GRATIS** (<span style="color:var(--neon-green)">${credits}/${maxCredits}</span> créditos).<br>¡Enfócate en actualizar para tener créditos ilimitados!`, chatbotInitialGreetingVIP: (user) => `Bienvenido, **${user}**! Tu acceso **VIP Supremo** está activo. ¿Qué herramienta necesitas usar hoy?`, chatbotUpgradeNowButton: "🚀 ACTUALIZAR VIP Supremo AHORA", chatbotWhatIsVipButton: "🤷‍♂️ ¿Qué gano con el VIP?", chatbotAvailableToolsButton: "🛠️ Ver Herramientas Disponibles", chatbotUnbanMenu: "⚡ Generadores de Texto (Desbloqueo)", chatbotAdvancedTools: "🛠️ Herramientas Avanzadas", chatbotSupportPriority: "❓ Soporte/FAQ Prioritario", chatbotBackToMainMenu: "⬅️ Volver al Menú Principal", chatbotChooseUnbanGenerator: "Elija el generador de apelación que desea usar:", chatbotUnbanZapButton: "Desbloquear WhatsApp (1 Crédito)", chatbotRecoverTikTokButton: "Recuperar TikTok (1 Crédito)", chatbotUnbanGamesButton: "Desbloquear Juegos (1 Crédito)", chatbotExploreTools: "Explore las herramientas avanzadas del panel:", chatbotTempEmailButton: "Generar Correo Temp (2 Créditos)", chatbotCPFGenButton: "Generar CPF Válido (1 Crédito)", chatbotCCGenButton: "Generador CC/BIN (3 Créditos)", chatbotIPGeoButton: "Localizador IP/GPS (3 Créditos)", chatbotDataCheckerButton: "Verificación de Datos (5 Créditos)", chatbotPIXGenButton: "Generador PIX Falso (2 Créditos)", chatbotLinkLoggerButton: "Link Logger (1 Crédito)", chatbotSecurityTools: "Escáner URL y Comprobar IP (Gratis)", chatbotSecurityFree: "Herramientas de análisis de red (Gratis):", chatbotCheckMyIP: "Comprobar mi IP", chatbotGenerateStrongPass: "Generar Contraseña Fuerte", chatbotBackToTools: "⬅️ Volver al Menú de Herramientas", chatbotBenefits: `¡Claro! Con el **VIP Supremo** te aseguras:<br>✅ **Créditos Ilimitados** (¡Sin Cooldown!)<br>✅ **Todas las Herramientas** (incluidas las futuras)<br>✅ **Suporte Prioritário 24/7**<br>¡Es el fin de las limitaciones para ti!`, chatbotBuyVip: "COMPRAR VIP", chatbotToolChecked: "¡IP comprobada! Mire el cuadro de herramientas en el panel principal. ¿Algo más?", chatbotPassGenerated: "Contraseña generada y mostrada en el cuadro de herramientas. Use el botón 'Copiar'.", chatbotTextGenerated: (tool) => `¡Texto de apelación para **${tool}** generado!<br>Verifique el resultado en el panel principal y copie el texto.`, chatbotEmailGenerated: (email) => `Correo temporal generado: **${email}**`, chatbotCPFGenerated: (cpf) => `CPF generado: **${cpf}**`, chatbotCCGenerated: (cc) => `CC generado: **${cc}**`, chatbotPIXGenerated: (pix) => `PIX generado! Clave: **${pix}**`, chatbotLinkLoggerGenerated: (link) => `Link Logger creado! URL: **${link}**`, chatbotDataCheckerResult: (data, status) => `Verificación de datos para **${data}**:<br>Estado: **${status}**`, cooldownMessageFree: (time) => `Ha alcanzado el límite de uso diario del plan **GRATIS**. Recarga automática en <b id="no-credits-timer" style="color:#ffaa00">${time}</b>`, cooldownMessageReady: `Ha alcanzado el límite de uso diario del plan **GRATIS**. ¡Haga clic en recargar para continuar!`, toastSuccessLogin: "Acceso Autorizado. Bienvenido.", toastErrorLogin: "¡Acceso Denegado!", toastErrorInvalidCredentials: "⛔ Credenciales Inválidas.", toastSuccessLogsCleared: "Registros limpiados con éxito.", toastSuccessCreditsRecharged: "¡Créditos recargados con éxito!", toastWarningCreditsFull: "Los créditos ya están llenos.", toastWarningCreditsExhausted: "¡Créditos agotados! Recarga iniciada (4h).", toastErrorNoLink: "¡Inserte una IP o Enlace!", toastSuccessCopied: "¡Texto copiado al portapapeles!", toastErrorCopy: "Error al copiar. Tente seleccionar el texto.", toastErrorNoURL: "¡Inserte una URL!", toastSuccessVip: "¡Actualización a VIP Supremo activada! Bienvenido.", toastErrorDataInput: "Introduzca un CPF o Correo válido.", toastErrorPixInput: "Introduzca un valor válido para PIX.", toastErrorLinkLoggerInput: "Introduzca un enlace de destino válido.",
         }
     };
 
@@ -1375,7 +1224,6 @@
         });
 
         // 4. Força a atualização do estado visual e do timer, que depende do idioma
-        // Esta é a principal correção para o bug de idioma (chamar updateCreditsDisplay e cooldown)
         if (sessionStorage.getItem(IS_LOGGED_KEY) === 'true' || document.getElementById('painelArea').style.display === 'block') {
             updateCreditsDisplay();
             if(credits === 0) updateCooldownDisplay();
@@ -1550,6 +1398,11 @@
                 showToast(currentTranslations.toastSuccessLogin, "success");
                 addLog(`Login realizado pelo usuário ${user}`);
                 showPanel();
+                // Simula a abertura do modal de atualização após o login
+                if (updateModalCounter % 5 === 0) { // A cada 5 logins (simulado)
+                    openModal('criticalUpdateModal');
+                }
+                updateModalCounter++;
             } else {
                 loading.style.display = 'none';
                 msg.style.display = 'block';
@@ -1673,7 +1526,6 @@
 
         const now = Math.floor(Date.now() / 1000);
 
-        // CORREÇÃO: Impede a recarga se os créditos já estão cheios, ou se o cooldown não expirou.
         if (credits === DEFAULT_CREDITS) {
             showToast(currentTranslations.toastWarningCreditsFull, "warning");
             closeModal('noCreditsModal'); 
@@ -1681,11 +1533,8 @@
         }
 
         if (cooldownEndTimestamp <= now) {
-            // Recarga concedida (boost bônus)
             credits = DEFAULT_CREDITS;
 
-            // CORREÇÃO: A chave COOLDOWN_KEY deve ser zerada para que o botão não reapareça
-            // até que o usuário use os créditos e o cooldown seja iniciado novamente.
             cooldownEndTimestamp = 0; 
             localStorage.setItem(COOLDOWN_KEY, 0);
             localStorage.setItem(CREDITS_KEY, DEFAULT_CREDITS); 
@@ -1695,7 +1544,6 @@
             addLog('Sistema: Recarga de créditos concluída ' + (isManual ? 'manualmente.' : 'automaticamente.'));
             closeModal('noCreditsModal'); 
         } else {
-            // Essa lógica não deve ser chamada se o botão estiver escondido, mas serve como fallback
             showToast(currentTranslations.toastWarningCreditsFull, "warning");
         }
     }
@@ -1710,6 +1558,8 @@
         const labelElement = document.getElementById('cooldown-label');
         const rechargeBtnDropdown = document.getElementById('recharge-btn-dropdown');
         const rechargeBtnPanel = document.getElementById('recharge-btn-panel');
+        const progressBarFill = document.getElementById('cooldown-progress-fill');
+        const progressBarContainer = document.getElementById('cooldown-progress-bar-container');
 
         if (!timerElement || !statusElement) return; 
 
@@ -1717,15 +1567,17 @@
 
         rechargeBtnDropdown.style.display = 'none';
         rechargeBtnPanel.style.display = 'none';
+        progressBarContainer.style.display = userPlan === 'FREE' ? 'block' : 'none';
 
         if (userPlan.includes('VIP')) {
             timerElement.innerText = "BYPASS ATIVO";
             if (labelElement) labelElement.innerText = "Status:";
             statusElement.style.color = 'var(--neon-green)';
+            progressBarFill.style.width = '100%';
+            progressBarFill.style.backgroundColor = 'var(--neon-green)';
             return; 
         }
 
-        // Lógica para recarregar automaticamente se o cooldown expirou e o painel foi carregado
         if (credits === 0 && cooldownEndTimestamp <= now && cooldownEndTimestamp !== 0) {
             resetCredits(false); 
             return;
@@ -1735,8 +1587,9 @@
             timerElement.innerText = "CHEIO";
             if (labelElement) labelElement.innerText = "Status:";
             statusElement.style.color = 'var(--neon-green)';
+            progressBarFill.style.width = '100%';
+            progressBarFill.style.backgroundColor = 'var(--neon-green)';
             if (cooldownEndTimestamp !== 0 && cooldownEndTimestamp > now) {
-                // Isso deve ser prevenido pelo uso do resetCredits (cooldown deve ser 0 quando creditos > 0)
                 cooldownEndTimestamp = 0;
                 localStorage.setItem(COOLDOWN_KEY, 0);
             }
@@ -1744,15 +1597,16 @@
 
         if (credits === 0) {
             if (timeRemaining <= 0) {
-                 // **Estado 1: Recarga Pronta (Botão visível)**
                 timerElement.innerText = currentTranslations.rechargeNowButton.replace('<i class="fa-solid fa-arrows-rotate"></i> ', ''); 
                 if (labelElement) labelElement.innerText = "Status:";
                 statusElement.style.color = 'var(--neon-green)';
                 rechargeBtnDropdown.style.display = 'block'; 
                 rechargeBtnPanel.style.display = 'block'; 
+                progressBarFill.style.width = '100%'; 
+                progressBarFill.style.backgroundColor = 'var(--neon-green)';
 
             } else {
-                // **Estado 2: Cooldown Ativo**
+                const totalDuration = COOLDOWN_DURATION; 
                 const updateTimer = () => {
                     const currentRemaining = cooldownEndTimestamp - Math.floor(Date.now() / 1000);
                     if (currentRemaining <= 0) {
@@ -1763,14 +1617,16 @@
                     const hours = Math.floor(currentRemaining / 3600);
                     const minutes = Math.floor((currentRemaining % 3600) / 60);
                     const seconds = currentRemaining % 60;
+                    const timeStr = [hours, minutes, seconds].map(v => v < 10 ? "0" + v : v).join(":");
 
-                    const timeStr = [hours, minutes, seconds]
-                        .map(v => v < 10 ? "0" + v : v)
-                        .join(":");
+                    const elapsed = totalDuration - currentRemaining;
+                    const percentage = (elapsed / totalDuration) * 100;
 
                     timerElement.innerText = timeStr;
                     if (labelElement) labelElement.innerText = currentTranslations.rechargeInLabel;
                     statusElement.style.color = '#ffaa00';
+                    progressBarFill.style.width = `${percentage}%`;
+                    progressBarFill.style.backgroundColor = 'var(--card-cc)';
                 };
 
                 updateTimer(); 
@@ -1782,7 +1638,6 @@
     function startCooldown() {
         if (userPlan.includes('VIP')) return; 
         const now = Math.floor(Date.now() / 1000);
-        // Só inicia o cooldown se ele não estiver ativo (para garantir que a contagem seja de 4h)
         if (cooldownEndTimestamp <= now) { 
             cooldownEndTimestamp = now + COOLDOWN_DURATION;
             localStorage.setItem(COOLDOWN_KEY, cooldownEndTimestamp);
@@ -1804,30 +1659,29 @@
             credits -= cost;
             updateCreditsDisplay(); 
 
-            if (credits < cost && credits > 0) {
-                showToast(currentTranslations.creditsAvailablePrefix + ` ${credits} ` + currentTranslations.creditsAvailableSuffix, "warning");
-            }
-
             if (credits === 0) {
                 startCooldown(); 
                 showToast(currentTranslations.toastWarningCreditsExhausted, "warning");
                 updateCooldownDisplay(); 
                 showUpgradePrompt();
+            } else if (credits < cost) {
+                showToast(currentTranslations.creditsAvailablePrefix + ` ${credits} ` + currentTranslations.creditsAvailableSuffix, "warning");
             }
-
+            addLog(`Crédito: -${cost} utilizado. Restante: ${credits}`);
             return true;
         } else {
             if (credits === 0) {
                  startCooldown(); 
             }
             showUpgradePrompt(); 
+            addLog(`Crédito: FALHA ao usar ${cost}. Insuficiente: ${credits}`);
             return false;
         }
     }
 
 
     // ------------------- GERADORES & TYPEWRITER (Mantido) -------------------
-    function typeWriter(element, text, speed = 15) {
+    function typeWriter(element, text, speed = 15, onComplete = null) {
         element.innerHTML = '<span class="typing-cursor"></span>';
         let i = 0;
         function type() {
@@ -1845,9 +1699,40 @@
                 btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" onclick="copiarTexto(this, \`${text.replace(/`/g, '\\`')}\`)"> ${copyText}</i>`;
                 element.appendChild(btnDiv);
                 playSound('success');
+                if (onComplete) onComplete();
             }
         }
         type();
+    }
+    
+    // NOVO: Função para simular loading e chamar a função real
+    function executarAcaoCard(tipo, acao) {
+        const btn = document.querySelector(`.card.${tipo} .action-btn`) || document.querySelector(`.card .action-btn`);
+        
+        // Salva o texto original e o estado
+        const originalText = btn.innerHTML;
+        const originalPointerEvents = btn.style.pointerEvents;
+        
+        const loadingText = { 'pt': '<i class="fa-solid fa-circle-notch fa-spin"></i> EXECUTANDO...', 'en': '<i class="fa-solid fa-circle-notch fa-spin"></i> EXECUTING...', 'es': '<i class="fa-solid fa-circle-notch fa-spin"></i> EJECUTANDO...' }[currentLang];
+        
+        btn.innerHTML = loadingText;
+        btn.style.pointerEvents = 'none'; // Desabilita o clique
+        
+        const cardFunction = window[acao];
+        
+        // Simula o tempo de processamento antes de chamar a função real
+        setTimeout(() => {
+            if (cardFunction) {
+                cardFunction(tipo); // As funções reais já contêm a lógica de créditos
+            }
+            
+            // Restaura o botão após a execução (a função real pode levar tempo)
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = originalPointerEvents;
+            }, acao.includes('gerar') || acao.includes('checar') ? 2000 : 1000); // Dá um tempo extra para as funções com timeout interno
+            
+        }, 500); // 500ms de loading visual
     }
 
     const appealTexts = {
@@ -1881,14 +1766,13 @@
     };
 
     function gerarTexto(tipo) {
-        playSound('click');
-        const box = document.getElementById('res-' + tipo);
+        // Assume que o checkCredits já foi feito na função executora do card (executarAcaoCard)
         const cost = 1; 
+        if (userPlan.includes('FREE') && credits < cost) return;
 
-        if (!checkCredits(cost)) {
-            return;
-        }
+        if (!checkCredits(cost)) return;
 
+        const box = document.getElementById('res-' + tipo);
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Conectando IA...',
@@ -1899,35 +1783,23 @@
 
         setTimeout(() => {
             let lista = appealTexts[currentLang] && appealTexts[currentLang][tipo];
-
-            if (!lista || lista.length === 0) {
-                lista = appealTexts['pt'][tipo];
-            }
-
-            if (!lista || lista.length === 0) {
-                box.innerHTML = `<span style="color:#ff5555">${currentTranslations['errorTextNotFound'] || 'Error: Appeal texts not found.'}</span>`;
-                addLog(`Erro: Textos para ${tipo} ausentes.`);
-                playSound('error');
-                return;
-            }
+            if (!lista || lista.length === 0) { lista = appealTexts['pt'][tipo]; }
 
             const texto = lista[Math.floor(Math.random() * lista.length)];
 
             box.innerHTML = ''; 
             typeWriter(box, texto);
             addLog(`Gerador: Texto para ${tipo} criado (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
-        }, 1000);
+        }, 1500);
     }
 
     function gerarEmailTemporario() {
-        playSound('click');
-        const box = document.getElementById('res-tempmail');
         const cost = 2;
+        if (userPlan.includes('FREE') && credits < cost) return;
 
-        if (!checkCredits(cost)) {
-            return;
-        }
-
+        if (!checkCredits(cost)) return;
+        
+        const box = document.getElementById('res-tempmail');
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Criando endereço anônimo...',
@@ -1967,14 +1839,12 @@
     }
 
     function gerarCPF() {
-        playSound('click');
-        const box = document.getElementById('res-cpf');
         const cost = 1;
+        if (userPlan.includes('FREE') && credits < cost) return;
 
-        if (!checkCredits(cost)) {
-            return;
-        }
-
+        if (!checkCredits(cost)) return;
+        
+        const box = document.getElementById('res-cpf');
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Gerando documento...',
@@ -2032,18 +1902,16 @@
 
             playSound('success');
             addLog(`Gerador: CPF gerado: ${cpfGerado.substring(0, 3)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
-        }, 1200);
+        }, 1500);
     }
 
     function gerarCC() {
-        playSound('click');
-        const box = document.getElementById('res-ccgen');
         const cost = 3;
+        if (userPlan.includes('FREE') && credits < cost) return;
 
-        if (!checkCredits(cost)) {
-            return;
-        }
-
+        if (!checkCredits(cost)) return;
+        
+        const box = document.getElementById('res-ccgen');
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Gerando Cartão...',
@@ -2102,17 +1970,148 @@
             addLog(`Gerador: CC gerado: ${ccGerado.substring(0, 4)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1500);
     }
+    
+    // NOVO MÓDULO: Checar Dados
+    function checarDados() {
+        const cost = 5;
+        if (userPlan.includes('FREE') && credits < cost) return;
 
+        const dataInput = document.getElementById('dataInput').value;
+        const box = document.getElementById('res-data-checker');
+
+        if (!dataInput) { showToast(currentTranslations.toastErrorDataInput, "error"); box.innerHTML = ''; return; }
+        if (!checkCredits(cost)) return;
+        
+        box.style.display = 'block';
+        const loadingText = {
+            'pt': 'Acessando Base VIP...',
+            'en': 'Accessing VIP Database...',
+            'es': 'Accediendo a Base VIP...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
+
+        setTimeout(() => {
+            const isFound = Math.random() > 0.3; // 70% chance of being "Found"
+
+            const resultStatus = isFound ? 
+                { pt: 'ENCONTRADO na Base de Dados', en: 'FOUND in Database', es: 'ENCONTRADO en Base de Datos' }[currentLang] : 
+                { pt: 'NÃO ENCONTRADO/OFFLINE', en: 'NOT FOUND/OFFLINE', es: 'NO ENCONTRADO/OFFLINE' }[currentLang];
+            
+            const resultColor = isFound ? 'var(--neon-green)' : '#ffaa00';
+            const logType = isFound ? 'SUCESSO' : 'ALERTA';
+
+            box.innerHTML = `<span style="color:${resultColor}; font-weight:bold;">[${logType}] ${resultStatus}</span>
+                            <br><span style="color:#ccc;">Info: Base Over 2024 V2.1</span>`;
+
+            playSound('success');
+            addLog(`Checker: ${dataInput.substring(0, 8)}... - ${resultStatus} (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
+        }, 3000);
+    }
+
+    // NOVO MÓDULO: Gerador PIX
+    function gerarPIX() {
+        const cost = 2;
+        if (userPlan.includes('FREE') && credits < cost) return;
+
+        const pixValue = document.getElementById('pixValueInput').value;
+        const box = document.getElementById('res-pix-generator');
+        
+        if (!parseFloat(pixValue)) { showToast(currentTranslations.toastErrorPixInput, "error"); box.innerHTML = ''; return; }
+        if (!checkCredits(cost)) return;
+
+        box.style.display = 'block';
+        const loadingText = {
+            'pt': 'Criando Chave PIX...',
+            'en': 'Creating PIX Key...',
+            'es': 'Creando Clave PIX...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
+
+        setTimeout(() => {
+            const randomKey = Math.random().toString(36).substring(2, 18).toUpperCase();
+            const copyButtonText = {
+                'pt': 'Copiar Chave', 
+                'en': 'Copy Key', 
+                'es': 'Copiar Clave'
+            }[currentLang];
+
+            box.innerHTML = `<span style="color:var(--card-pix); font-weight:bold;">CHAVE ALEATÓRIA: ${randomKey}</span>
+                            <br>Valor Simulado: R$ ${parseFloat(pixValue).toFixed(2)}`;
+
+            const btnDiv = document.createElement('div');
+            btnDiv.style.marginTop = '5px';
+            btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
+            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, 'PIX KEY: ${randomKey}')"> ${copyButtonText}</i>`;
+            box.appendChild(btnDiv);
+
+            playSound('success');
+            addLog(`Gerador: PIX gerado (R$ ${parseFloat(pixValue).toFixed(2)}) (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
+        }, 1500);
+    }
+    
+    // NOVO MÓDULO: Link Logger
+    function gerarLinkLogger() {
+        const cost = 1;
+        if (userPlan.includes('FREE') && credits < cost) return;
+
+        const originalLink = document.getElementById('linkLoggerInput').value;
+        const box = document.getElementById('res-link-logger');
+
+        if (!originalLink) { showToast(currentTranslations.toastErrorLinkLoggerInput, "error"); box.innerHTML = ''; return; }
+        if (!checkCredits(cost)) return;
+
+        box.style.display = 'block';
+        const loadingText = {
+            'pt': 'Camuflando URL...',
+            'en': 'Camouflaging URL...',
+            'es': 'Camuflando URL...'
+        }[currentLang];
+        box.innerHTML = `<span style="color:var(--neon-green)"><i class="fa-solid fa-circle-notch fa-spin"></i> ${loadingText}</span>`;
+
+        setTimeout(() => {
+            const encodedUrl = btoa(originalLink).substring(0, 15);
+            const generatedLink = `https://overtracker.net/go?key=${encodedUrl}`;
+
+            const warningText = {
+                'pt': 'Simulação: Acessos são registrados na Log.', 
+                'en': 'Simulation: Accesses are logged.', 
+                'es': 'Simulación: Accesos se registran en el Log.'
+            }[currentLang];
+            const copyButtonText = {
+                'pt': 'Copiar Link', 
+                'en': 'Copy Link', 
+                'es': 'Copiar Enlace'
+            }[currentLang];
+
+            box.innerHTML = `<span style="color:var(--card-logger); font-weight:bold;">LINK: ${generatedLink}</span>
+                            <br><i class="fa-solid fa-eye" style="color:var(--neon-blue); font-size:10px;"></i> <span style="font-size:11px; color:var(--color-text-dim);">${warningText}</span>`;
+
+            const btnDiv = document.createElement('div');
+            btnDiv.style.marginTop = '5px';
+            btnDiv.style.borderTop = '1px solid var(--color-medium-gray)';
+            btnDiv.innerHTML = `<i class="fa-regular fa-copy copy-mini" style="float:none;" onclick="copiarTexto(this, '${generatedLink}')"> ${copyButtonText}</i>`;
+            box.appendChild(btnDiv);
+
+            playSound('success');
+            addLog(`Logger: Link criado p/ ${originalLink.substring(0, 15)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
+            
+            // Simula um clique na log após um tempo
+            setTimeout(() => {
+                addLog(`[LOG-LINK] IP 192.168.1.XX acessou Link Logger: ${generatedLink.substring(0, 20)}...`);
+            }, 5000);
+            
+        }, 2000);
+    }
+    
     function localizarIP() {
-        playSound('click');
+        const cost = 3;
+        if (userPlan.includes('FREE') && credits < cost) return;
+
         const ipOrLink = document.getElementById('ipInput').value;
         const box = document.getElementById('res-ipgeo');
-        const cost = 3;
 
         if (!ipOrLink) { showToast(currentTranslations.toastErrorNoLink, "error"); box.innerHTML = ''; return; }
-        if (!checkCredits(cost)) {
-            return;
-        }
+        if (!checkCredits(cost)) return;
 
         box.style.display = 'block';
         const loadingText = {
@@ -2161,7 +2160,7 @@
 
             playSound('success');
             addLog(`Tools: IP/GPS de ${ipOrLink} localizado (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
-        }, 2000);
+        }, 2500);
     }
 
     function copiarTexto(elem, txt) {
@@ -2176,7 +2175,6 @@
 
     // ------------------- FERRAMENTAS EXTRAS (Mantido) -------------------
     async function mostrarIP() {
-        playSound('click');
         const box = document.getElementById('res-tools');
         box.style.display = 'block';
         const loadingText = {
@@ -2213,7 +2211,6 @@
     }
 
     function gerarSenhaSegura() {
-        playSound('click');
         const box = document.getElementById('res-tools');
         box.style.display = 'block';
         const chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789!@#$%&*";
@@ -2239,7 +2236,6 @@
     }
 
     function analisarURL() {
-        playSound('click');
         const url = document.getElementById('urlInput').value;
         const box = document.getElementById('res-scanner');
         box.style.display = 'block';
@@ -2275,7 +2271,7 @@
         }, 1500);
     }
 
-    // ------------------- CHATBOT LÓGICA (Mantido) -------------------
+    // ------------------- CHATBOT LÓGICA (NOVA LÓGICA COM CARDS E SIMULAÇÃO) -------------------
 
     function addBotMessage(text, buttons = null) {
         const chatBody = document.getElementById('chatbot-messages');
@@ -2301,6 +2297,19 @@
             chatBody.appendChild(btnDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
         }
+    }
+    
+    // NOVO: Adiciona um mini-card de resultado no chat
+    function addChatCardResult(title, content, color) {
+        const chatBody = document.getElementById('chatbot-messages');
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'chat-message chat-bot'; 
+        cardDiv.innerHTML = `<span>${title}</span><div class="chat-bot-card" style="border-color:${color}; color:${color};">
+            ${content}
+        </div>`;
+        chatBody.appendChild(cardDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        playSound('success');
     }
 
     function addUserMessage(text) {
@@ -2350,6 +2359,9 @@
             { text: currentTranslations.chatbotTempEmailButton, action: "useTool:tempmail" },
             { text: currentTranslations.chatbotCPFGenButton, action: "useTool:cpfgen" },
             { text: currentTranslations.chatbotCCGenButton, action: "useTool:ccgen" }, 
+            { text: currentTranslations.chatbotDataCheckerButton, action: "useTool:datachecker" },
+            { text: currentTranslations.chatbotPIXGenButton, action: "useTool:pixgen" },
+            { text: currentTranslations.chatbotLinkLoggerButton, action: "useTool:linklogger" },
             { text: currentTranslations.chatbotIPGeoButton, action: "useTool:ipgeo" },
             { text: currentTranslations.chatbotSecurityTools, action: "securityTools" },
             { text: currentTranslations.chatbotBackToMainMenu, action: "initialMenu" }
@@ -2377,50 +2389,99 @@
     }
 
     function handleToolExecution(toolType) {
-        if (toolType === 'checkip') {
-             mostrarIP(); 
-             addBotMessage(currentTranslations.chatbotToolChecked);
-        } else if (toolType === 'genpass') {
-             gerarSenhaSegura(); 
-             addBotMessage(currentTranslations.chatbotPassGenerated);
-        } else if (toolType === 'ipgeo') {
-            addBotMessage(currentTranslations.chatbotIPGeoInfo);
-        } else if (toolType === 'tempmail') {
-            const hasCredits = checkCredits(2); 
-            if(hasCredits) {
-                gerarEmailTemporario();
-                addBotMessage(currentTranslations.chatbotEmailGenerated);
-            }
-        } else if (toolType === 'cpfgen') {
-            const hasCredits = checkCredits(1);
-             if(hasCredits) {
-                gerarCPF();
-                addBotMessage(currentTranslations.chatbotCPFGenerated);
-             }
-        } else if (toolType === 'ccgen') { 
-            const hasCredits = checkCredits(3);
-             if(hasCredits) {
-                gerarCC();
-                addBotMessage(currentTranslations.chatbotCCGenerated);
-             }
-        } else if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
-            const hasCredits = checkCredits(1);
-            if(hasCredits) {
-                gerarTexto(toolType);
-                addBotMessage(currentTranslations.chatbotTextGenerated(toolType));
-            }
-        }
+        const loadingMessage = { 'pt': 'Aguarde, conectando ao terminal de API...', 'en': 'Please wait, connecting to API terminal...', 'es': 'Espere, conectando a terminal de API...' }[currentLang];
+        addBotMessage(`<i class="fa-solid fa-circle-notch fa-spin" style="color:var(--neon-green);"></i> ${loadingMessage}`);
+        
+        // Simulação de delay de processamento
+        setTimeout(() => {
+            let resultText = '';
+            let isSuccess = false;
 
-        if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
-             setTimeout(showUnbanMenu, 2500);
-        } else if (['tempmail', 'cpfgen', 'ccgen', 'ipgeo'].includes(toolType)) {
-             setTimeout(showAdvancedTools, 2500);
-        } else if (['checkip', 'genpass'].includes(toolType)) {
-             setTimeout(showSecurityTools, 2500);
-        } else {
-             setTimeout(showInitialMenu, 2500);
-        }
+            // Logica Free/VIP
+            let cost = 0;
+            if (['whatsapp', 'tiktok', 'game', 'cpfgen', 'linklogger'].includes(toolType)) cost = 1;
+            else if (['tempmail', 'pixgen'].includes(toolType)) cost = 2;
+            else if (['ccgen', 'ipgeo'].includes(toolType)) cost = 3;
+            else if (toolType === 'datachecker') cost = 5;
+
+            if (['checkip', 'genpass'].includes(toolType) || checkCredits(cost)) {
+                isSuccess = true;
+                
+                if (toolType === 'checkip') {
+                    // Sem delay de execução real
+                    mostrarIP(); 
+                    resultText = currentTranslations.chatbotToolChecked;
+                    setTimeout(showSecurityTools, 2000);
+                    return;
+                } else if (toolType === 'genpass') {
+                    // Sem delay de execução real
+                    gerarSenhaSegura(); 
+                    resultText = currentTranslations.chatbotPassGenerated;
+                    setTimeout(showSecurityTools, 2000);
+                    return;
+                } else if (toolType === 'ipgeo') {
+                    resultText = currentTranslations.chatbotIPGeoInfo;
+                    setTimeout(showAdvancedTools, 2000);
+                    return;
+                } else if (toolType === 'tempmail') {
+                    const domains = ['anonmail.net', 'temp-inbox.xyz', 'safe.org'];
+                    const email = `${Math.random().toString(36).substring(2, 10)}@${domains[Math.floor(Math.random() * domains.length)]}`;
+                    addChatCardResult('E-mail Temp Gerado', email, 'var(--card-tempmail)');
+                    gerarEmailTemporario(); // Para atualizar o painel
+                    resultText = currentTranslations.chatbotEmailGenerated(email);
+                    setTimeout(showAdvancedTools, 2000);
+                } else if (toolType === 'cpfgen') {
+                    const cpf = window.generateCpf ? window.generateCpf() : 'XXX.XXX.XXX-XX';
+                    addChatCardResult('CPF Gerado', cpf, 'var(--card-doc)');
+                    gerarCPF(); 
+                    resultText = currentTranslations.chatbotCPFGenerated(cpf);
+                    setTimeout(showAdvancedTools, 2000);
+                } else if (toolType === 'ccgen') { 
+                    const cc = window.generateLuhnCC ? window.generateLuhnCC() : 'XXXX XXXX XXXX XXXX';
+                    addChatCardResult('CC Gerado (Simulação)', cc, 'var(--card-cc)');
+                    gerarCC();
+                    resultText = currentTranslations.chatbotCCGenerated(cc);
+                    setTimeout(showAdvancedTools, 2000);
+                } else if (toolType === 'pixgen') { 
+                    const randomKey = Math.random().toString(36).substring(2, 18).toUpperCase();
+                    addChatCardResult('PIX Gerado (Fake)', `R$ 10.00 | Chave: ${randomKey}`, 'var(--card-pix)');
+                    gerarPIX();
+                    resultText = currentTranslations.chatbotPIXGenerated(randomKey.substring(0, 8) + '...');
+                    setTimeout(showAdvancedTools, 2000);
+                } else if (toolType === 'linklogger') { 
+                    const link = `https://overtracker.net/go?key=${Math.random().toString(36).substring(2, 8)}`;
+                    addChatCardResult('Link Logger Criado', link, 'var(--card-logger)');
+                    gerarLinkLogger(); 
+                    resultText = currentTranslations.chatbotLinkLoggerGenerated(link);
+                    setTimeout(showAdvancedTools, 2000);
+                } else if (toolType === 'datachecker') {
+                    const data = document.getElementById('dataInput').value || 'TESTE@MAIL.COM';
+                    const status = Math.random() > 0.3 ? 'ENCONTRADO' : 'NÃO ENCONTRADO';
+                    addChatCardResult('Data Checker Resultado', `${data.substring(0, 10)}... | Status: ${status}`, status === 'ENCONTRADO' ? 'var(--neon-green)' : '#ffaa00');
+                    // Não chama a função real aqui, apenas a simulação de resultado no chat
+                    checarDados();
+                    resultText = currentTranslations.chatbotDataCheckerResult(data.substring(0, 10) + '...', status);
+                    setTimeout(showAdvancedTools, 2000);
+                } else if (['whatsapp', 'tiktok', 'game'].includes(toolType)) {
+                    gerarTexto(toolType);
+                    resultText = currentTranslations.chatbotTextGenerated(toolType);
+                    setTimeout(showUnbanMenu, 2000);
+                }
+            } else {
+                 isSuccess = false;
+                 resultText = `❌ ${currentTranslations.noCreditsTitle}. ${currentTranslations.cooldownMessageFree(document.getElementById('cooldown-timer').innerText)}`;
+                 setTimeout(showInitialMenu, 2000);
+            }
+            
+            // Remove a mensagem de loading anterior
+            const messages = document.getElementById('chatbot-messages').children;
+            messages[messages.length - 1].remove(); 
+
+            addBotMessage(resultText);
+
+        }, 1500); // Atraso total de 1.5s
     }
+
 
     function handleChatbotClick(button) {
         const action = button.getAttribute('data-action');
@@ -2460,7 +2521,11 @@
 
         const chatBody = document.getElementById('chatbot-messages');
         chatBody.innerHTML = ''; 
-        showInitialMenu(); 
+        
+        const username = document.getElementById('drop-user').innerText;
+        addBotMessage(`Iniciando Over AI para ${username}...`);
+
+        setTimeout(showInitialMenu, 1000); 
     }
 
     function closeChatbot() {
@@ -2487,6 +2552,7 @@
     function openLogsModal() { document.getElementById('logsModal').style.display = 'block'; }
     function openSupportModal() { document.getElementById('supportModal').style.display = 'block'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; } 
+    function openModal(id) { document.getElementById(id).style.display = 'block'; }
 
     function startSessionTimer() {
         setInterval(() => {
@@ -2502,6 +2568,47 @@
             const ms = Math.floor(Math.random() * (60 - 20) + 20); 
             document.getElementById('latency-val').innerText = ms + 'ms';
         }, 4000);
+    }
+    
+    // Exporta funções auxiliares para o chatbot (apenas se não existirem)
+    if (!window.generateCpf) {
+         window.generateCpf = () => {
+             const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+             const mod = (dividendo) => 11 - (dividendo % 11);
+             let cpf = Array(9).fill(0).map(() => rand(0, 9)).join('');
+             const calcDigit = (slice, factor = 10) => {
+                 let sum = 0;
+                 for (let i = 0; i < slice.length; i++) {
+                     sum += parseInt(slice[i]) * factor--;
+                 }
+                 const digit = mod(sum);
+                 return digit > 9 ? 0 : digit;
+             };
+             let d1 = calcDigit(cpf.slice(0, 9));
+             cpf += d1;
+             let d2 = calcDigit(cpf.slice(0, 10), 11);
+             cpf += d2;
+             return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+         };
+    }
+    if (!window.generateLuhnCC) {
+        window.generateLuhnCC = () => {
+            const bin = ['4', '5', '3'].at(Math.floor(Math.random() * 3)); 
+            let cc = bin;
+            for (let i = 0; i < 15; i++) {
+                cc += Math.floor(Math.random() * 10);
+            }
+            const lastDigit = (10 - (cc.split('').reverse().reduce((sum, digit, index) => {
+                let d = parseInt(digit);
+                if (index % 2 === 0) { 
+                    d *= 2;
+                    if (d > 9) d -= 9;
+                }
+                return sum + d;
+            }, 0) % 10)) % 10;
+            cc = cc.substring(0, 15) + lastDigit;
+            return cc.replace(/(\d{4})/g, '$1 ').trim();
+        }
     }
   </script>
 </body>
