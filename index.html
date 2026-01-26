@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Painel Over VIP - Acesso exclusivo a geradores, ferramentas de segurança e recuperação de contas. Aumente sua segurança e utilize ferramentas avançadas.">
   <meta name="keywords" content="over, painel, vip, gerador, segurança, unban, tiktok, whatsapp, cpf, cc, locator, cyberpunk">
-  
+
   <meta property="og:title" content="Painel Over VIP | System 2.0 - Acesso Restrito">
   <meta property="og:description" content="Acesso exclusivo a geradores, ferramentas de segurança e recuperação de contas. O sistema mais avançado da internet.">
   <meta property="og:type" content="website">
@@ -566,7 +566,7 @@
   <canvas id="matrixCanvas"></canvas>
 
   <div id="toast-container"></div>
-  
+
   <div id="criticalUpdateModal" class="modal">
     <div class="modal-content">
       <h2 style="color:var(--neon-green);"><i class="fa-solid fa-microchip"></i> ATUALIZAÇÃO DE KERNEL 2.1</h2>
@@ -697,7 +697,7 @@
             <i class="fa-solid fa-triangle-exclamation"></i> <span data-translate="freePlanWarning">Seu plano é **FREE**! Limite:</span> <strong style="color:var(--neon-green)" id="panel-credits">20</strong> <span data-translate="credits">Créditos.</span>
         </p>
         <p data-translate="creditsAvailablePrefix">Você tem <strong style="color:var(--neon-green)" id="panel-credits-status">20</strong> <span data-translate="creditsAvailableSuffix">créditos disponíveis.</span></p>
-        
+
         <div class="cooldown-progress-bar" id="cooldown-progress-bar-container">
              <div class="cooldown-progress-fill" id="cooldown-progress-fill"></div>
         </div>
@@ -714,7 +714,7 @@
     </div>
 
     <div class="grid-cards">
-        
+
         <div class="card app-paying">
             <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
@@ -723,8 +723,8 @@
             <a href="https://4br.me/APP-AQUI7" target="_blank" class="action-btn" style="background: var(--card-app); color: #fff; border: 1px solid var(--card-app);" data-translate="accessAppLink">
                 <i class="fa-solid fa-hand-pointer"></i> Acessar Link Direto
             </a>
-            <a href="https://whatsapp.com/channel/0029Vb5mIA95kg6woecZbe1g" target="_blank" class="action-btn" style="margin-top:5px; background: #25D366; color: #000; border: 1px solid #25D366;" data-translate="accessChannelButton">
-                <i class="fa-brands fa-whatsapp"></i> Canal de Apoio (WhatsApp)
+            <a href="https://whatsapp.com/channel/0029VbBhPCNKmCPQaqRICj3v" target="_blank" class="action-btn" style="margin-top:5px; background: #25D366; color: #000; border: 1px solid #25D366;" data-translate="accessChannelButton">
+                <i class="fa-brands fa-whatsapp"></i> Canal (WhatsApp)
             </a>
         </div>
 
@@ -754,7 +754,7 @@
             <button class="action-btn" onclick="executarAcaoCard('game', 'gerarTexto')" data-translate="executeIAButton">Executar IA</button>
             <div class="result-box" id="res-game"></div>
         </div>
-        
+
         <div class="card data-checker">
             <span class="card-status warning"></span>
             <div class="card-icon"><i class="fa-solid fa-database"></i></div>
@@ -811,7 +811,7 @@
             </button>
             <div class="result-box" id="res-ipgeo"></div>
         </div>
-        
+
         <div class="card pix-generator">
             <span class="card-status online"></span>
             <div class="card-icon"><i class="fa-solid fa-qrcode"></i></div>
@@ -1704,34 +1704,34 @@
         }
         type();
     }
-    
+
     // NOVO: Função para simular loading e chamar a função real
     function executarAcaoCard(tipo, acao) {
         const btn = document.querySelector(`.card.${tipo} .action-btn`) || document.querySelector(`.card .action-btn`);
-        
+
         // Salva o texto original e o estado
         const originalText = btn.innerHTML;
         const originalPointerEvents = btn.style.pointerEvents;
-        
+
         const loadingText = { 'pt': '<i class="fa-solid fa-circle-notch fa-spin"></i> EXECUTANDO...', 'en': '<i class="fa-solid fa-circle-notch fa-spin"></i> EXECUTING...', 'es': '<i class="fa-solid fa-circle-notch fa-spin"></i> EJECUTANDO...' }[currentLang];
-        
+
         btn.innerHTML = loadingText;
         btn.style.pointerEvents = 'none'; // Desabilita o clique
-        
+
         const cardFunction = window[acao];
-        
+
         // Simula o tempo de processamento antes de chamar a função real
         setTimeout(() => {
             if (cardFunction) {
                 cardFunction(tipo); // As funções reais já contêm a lógica de créditos
             }
-            
+
             // Restaura o botão após a execução (a função real pode levar tempo)
             setTimeout(() => {
                 btn.innerHTML = originalText;
                 btn.style.pointerEvents = originalPointerEvents;
             }, acao.includes('gerar') || acao.includes('checar') ? 2000 : 1000); // Dá um tempo extra para as funções com timeout interno
-            
+
         }, 500); // 500ms de loading visual
     }
 
@@ -1798,7 +1798,7 @@
         if (userPlan.includes('FREE') && credits < cost) return;
 
         if (!checkCredits(cost)) return;
-        
+
         const box = document.getElementById('res-tempmail');
         box.style.display = 'block';
         const loadingText = {
@@ -1843,7 +1843,7 @@
         if (userPlan.includes('FREE') && credits < cost) return;
 
         if (!checkCredits(cost)) return;
-        
+
         const box = document.getElementById('res-cpf');
         box.style.display = 'block';
         const loadingText = {
@@ -1910,7 +1910,7 @@
         if (userPlan.includes('FREE') && credits < cost) return;
 
         if (!checkCredits(cost)) return;
-        
+
         const box = document.getElementById('res-ccgen');
         box.style.display = 'block';
         const loadingText = {
@@ -1970,7 +1970,7 @@
             addLog(`Gerador: CC gerado: ${ccGerado.substring(0, 4)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1500);
     }
-    
+
     // NOVO MÓDULO: Checar Dados
     function checarDados() {
         const cost = 5;
@@ -1981,7 +1981,7 @@
 
         if (!dataInput) { showToast(currentTranslations.toastErrorDataInput, "error"); box.innerHTML = ''; return; }
         if (!checkCredits(cost)) return;
-        
+
         box.style.display = 'block';
         const loadingText = {
             'pt': 'Acessando Base VIP...',
@@ -1996,7 +1996,7 @@
             const resultStatus = isFound ? 
                 { pt: 'ENCONTRADO na Base de Dados', en: 'FOUND in Database', es: 'ENCONTRADO en Base de Datos' }[currentLang] : 
                 { pt: 'NÃO ENCONTRADO/OFFLINE', en: 'NOT FOUND/OFFLINE', es: 'NO ENCONTRADO/OFFLINE' }[currentLang];
-            
+
             const resultColor = isFound ? 'var(--neon-green)' : '#ffaa00';
             const logType = isFound ? 'SUCESSO' : 'ALERTA';
 
@@ -2015,7 +2015,7 @@
 
         const pixValue = document.getElementById('pixValueInput').value;
         const box = document.getElementById('res-pix-generator');
-        
+
         if (!parseFloat(pixValue)) { showToast(currentTranslations.toastErrorPixInput, "error"); box.innerHTML = ''; return; }
         if (!checkCredits(cost)) return;
 
@@ -2048,7 +2048,7 @@
             addLog(`Gerador: PIX gerado (R$ ${parseFloat(pixValue).toFixed(2)}) (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
         }, 1500);
     }
-    
+
     // NOVO MÓDULO: Link Logger
     function gerarLinkLogger() {
         const cost = 1;
@@ -2094,15 +2094,15 @@
 
             playSound('success');
             addLog(`Logger: Link criado p/ ${originalLink.substring(0, 15)}... (${userPlan.includes('VIP') ? 'VIP' : cost + ' Crédito(s)'}).`);
-            
+
             // Simula um clique na log após um tempo
             setTimeout(() => {
                 addLog(`[LOG-LINK] IP 192.168.1.XX acessou Link Logger: ${generatedLink.substring(0, 20)}...`);
             }, 5000);
-            
+
         }, 2000);
     }
-    
+
     function localizarIP() {
         const cost = 3;
         if (userPlan.includes('FREE') && credits < cost) return;
@@ -2298,7 +2298,7 @@
             chatBody.scrollTop = chatBody.scrollHeight;
         }
     }
-    
+
     // NOVO: Adiciona um mini-card de resultado no chat
     function addChatCardResult(title, content, color) {
         const chatBody = document.getElementById('chatbot-messages');
@@ -2391,7 +2391,7 @@
     function handleToolExecution(toolType) {
         const loadingMessage = { 'pt': 'Aguarde, conectando ao terminal de API...', 'en': 'Please wait, connecting to API terminal...', 'es': 'Espere, conectando a terminal de API...' }[currentLang];
         addBotMessage(`<i class="fa-solid fa-circle-notch fa-spin" style="color:var(--neon-green);"></i> ${loadingMessage}`);
-        
+
         // Simulação de delay de processamento
         setTimeout(() => {
             let resultText = '';
@@ -2406,7 +2406,7 @@
 
             if (['checkip', 'genpass'].includes(toolType) || checkCredits(cost)) {
                 isSuccess = true;
-                
+
                 if (toolType === 'checkip') {
                     // Sem delay de execução real
                     mostrarIP(); 
@@ -2472,7 +2472,7 @@
                  resultText = `❌ ${currentTranslations.noCreditsTitle}. ${currentTranslations.cooldownMessageFree(document.getElementById('cooldown-timer').innerText)}`;
                  setTimeout(showInitialMenu, 2000);
             }
-            
+
             // Remove a mensagem de loading anterior
             const messages = document.getElementById('chatbot-messages').children;
             messages[messages.length - 1].remove(); 
@@ -2521,7 +2521,7 @@
 
         const chatBody = document.getElementById('chatbot-messages');
         chatBody.innerHTML = ''; 
-        
+
         const username = document.getElementById('drop-user').innerText;
         addBotMessage(`Iniciando Over AI para ${username}...`);
 
@@ -2569,7 +2569,7 @@
             document.getElementById('latency-val').innerText = ms + 'ms';
         }, 4000);
     }
-    
+
     // Exporta funções auxiliares para o chatbot (apenas se não existirem)
     if (!window.generateCpf) {
          window.generateCpf = () => {
